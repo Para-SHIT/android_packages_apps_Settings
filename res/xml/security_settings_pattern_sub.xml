@@ -67,4 +67,19 @@
             android:title="@string/lockscreen_blur_enabled_title"
             cm:requiresConfig="@*android:bool/config_uiBlurEnabled" />
 
+        <in.parashit.preference.SystemSettingSwitchPreference
+            android:key="hide_lockscreen_clock"
+            android:title="@string/lockscreen_clock_title"
+            android:defaultValue="true" />
+
+        <in.parashit.preference.SystemSettingSwitchPreference
+            android:key="hide_lockscreen_date"
+            android:title="@string/lockscreen_date_title"
+            android:defaultValue="true" />
+
+        <in.parashit.preference.SystemSettingSwitchPreference
+            android:key="hide_lockscreen_alarm"
+            android:title="@string/lockscreen_alarm_title"
+            android:defaultValue="true" />
+
 </PreferenceScreen>

@@ -50,4 +50,9 @@
     <!-- Screenshot sound -->
     <string name="screenshot_sound_title">Screenshot sound</string>
 
+    <!-- Lockscreen clock, date & alarm -->
+    <string name="lockscreen_clock_title">Show clock</string>
+    <string name="lockscreen_date_title">Show date</string>
+    <string name="lockscreen_alarm_title">Show alarm</string>
+
 </resources>
