@@ -22,6 +22,9 @@ import android.app.DialogFragment;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.UserHandle;
@@ -48,7 +51,9 @@ public class Header extends SettingsPreferenceFragment implements Indexable,
 
     private static final String TAG = "MainSettings";
 
-    private static final String PREF_CUSTOM_HEADER_DEFAULT = "status_bar_custom_header_default";
+    private static final String CUSTOM_HEADER_IMAGE = "status_bar_custom_header";
+    private static final String DAYLIGHT_HEADER_PACK = "daylight_header_pack";
+    private static final String DEFAULT_HEADER_PACKAGE = "com.android.systemui";
     private static final String PREF_SHOW_WEATHER = "expanded_header_show_weather";
     private static final String PREF_SHOW_LOCATION = "expanded_header_show_weather_location";
     private static final String STATUS_BAR_POWER_MENU = "status_bar_power_menu";
@@ -56,7 +61,8 @@ public class Header extends SettingsPreferenceFragment implements Indexable,
     private static final int MENU_RESET = Menu.FIRST;
     private static final int DLG_RESET = 0;
 
-    private ListPreference mCustomHeaderDefault;
+    private SwitchPreference mCustomHeaderImage;
+    private ListPreference mDaylightHeaderPack;
     private SwitchPreference mShowWeather;
     private SwitchPreference mShowLocation;
     private ListPreference mStatusBarPowerMenu;
@@ -82,17 +88,35 @@ public class Header extends SettingsPreferenceFragment implements Indexable,
         boolean showWeather = Settings.System.getInt(mResolver,
                 Settings.System.STATUS_BAR_EXPANDED_HEADER_SHOW_WEATHER, 0) == 1;
 
-        // Status bar custom header default
-        mCustomHeaderDefault = (ListPreference) findPreference(PREF_CUSTOM_HEADER_DEFAULT);
-        mCustomHeaderDefault.setOnPreferenceChangeListener(this);
-        int customHeaderDefault = Settings.System.getInt(mResolver,
-                Settings.System.STATUS_BAR_CUSTOM_HEADER_DEFAULT, 0);
-        mCustomHeaderDefault.setValue(String.valueOf(customHeaderDefault));
-        mCustomHeaderDefault.setSummary(mCustomHeaderDefault.getEntry());
+        // header image packs
+        final boolean customHeaderImage = Settings.System.getInt(mResolver,
+                Settings.System.STATUS_BAR_CUSTOM_HEADER, 0) == 1;
+        mCustomHeaderImage = (SwitchPreference) findPreference(CUSTOM_HEADER_IMAGE);
+        mCustomHeaderImage.setChecked(customHeaderImage);
 
-        mShowWeather = (SwitchPreference) findPreference(PREF_SHOW_WEATHER);
-        mShowWeather.setChecked(showWeather);
-        mShowWeather.setOnPreferenceChangeListener(this);
+        String imageHeaderPackage = Settings.System.getString(mResolver,
+                Settings.System.STATUS_BAR_DAYLIGHT_HEADER_PACK);
+        if (imageHeaderPackage == null) {
+            imageHeaderPackage = DEFAULT_HEADER_PACKAGE;
+        }
+        mDaylightHeaderPack = (ListPreference) findPreference(DAYLIGHT_HEADER_PACK);
+        List<String> entries = new ArrayList<String>();
+        List<String> values = new ArrayList<String>();
+        getAvailableHeaderPacks(entries, values);
+        mDaylightHeaderPack.setEntries(entries.toArray(new String[entries.size()]));
+        mDaylightHeaderPack.setEntryValues(values.toArray(new String[values.size()]));
+
+        int valueIndexHeader = mDaylightHeaderPack.findIndexOfValue(imageHeaderPackage);
+        if (valueIndexHeader == -1) {
+            // no longer found
+            imageHeaderPackage = DEFAULT_HEADER_PACKAGE;
+            Settings.System.putString(mResolver,
+                    Settings.System.STATUS_BAR_DAYLIGHT_HEADER_PACK, imageHeaderPackage);
+            valueIndexHeader = mDaylightHeaderPack.findIndexOfValue(imageHeaderPackage);
+        }
+        mDaylightHeaderPack.setValueIndex(valueIndexHeader >= 0 ? valueIndexHeader : 0);
+        mDaylightHeaderPack.setSummary(mDaylightHeaderPack.getEntry());
+        mDaylightHeaderPack.setOnPreferenceChangeListener(this);
 
         // status bar power menu
         mStatusBarPowerMenu = (ListPreference) findPreference(STATUS_BAR_POWER_MENU);
@@ -101,6 +125,10 @@ public class Header extends SettingsPreferenceFragment implements Indexable,
                 STATUS_BAR_POWER_MENU, 0);
         mStatusBarPowerMenu.setValue(String.valueOf(statusBarPowerMenu));
         mStatusBarPowerMenu.setSummary(mStatusBarPowerMenu.getEntry());
+
+        mShowWeather = (SwitchPreference) findPreference(PREF_SHOW_WEATHER);
+        mShowWeather.setChecked(showWeather);
+        mShowWeather.setOnPreferenceChangeListener(this);
 
         if (showWeather) {
             mShowLocation = (SwitchPreference) findPreference(PREF_SHOW_LOCATION);
@@ -133,13 +161,12 @@ public class Header extends SettingsPreferenceFragment implements Indexable,
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mCustomHeaderDefault) {
-            int customHeaderDefault = Integer.valueOf((String) newValue);
-            int index = mCustomHeaderDefault.findIndexOfValue((String) newValue);
-            Settings.System.putInt(mResolver, 
-                Settings.System.STATUS_BAR_CUSTOM_HEADER_DEFAULT, customHeaderDefault);
-            mCustomHeaderDefault.setSummary(mCustomHeaderDefault.getEntries()[index]);
-            refreshSettings();
+        if (preference == mDaylightHeaderPack) {
+            String value = (String) newValue;
+            Settings.System.putString(mResolver,
+                Settings.System.STATUS_BAR_DAYLIGHT_HEADER_PACK, value);
+            int valueIndex = mDaylightHeaderPack.findIndexOfValue(value);
+            mDaylightHeaderPack.setSummary(mDaylightHeaderPack.getEntries()[valueIndex]);
             return true;
         } else if (preference == mShowWeather) {
             boolean value = (Boolean) newValue;
@@ -159,13 +186,55 @@ public class Header extends SettingsPreferenceFragment implements Indexable,
             int statusBarPowerMenuValue = Integer.parseInt(statusBarPowerMenu);
             Settings.System.putInt(mResolver,
                     Settings.System.STATUS_BAR_POWER_MENU, statusBarPowerMenuValue);
-            int statusBarPowerMenuIndex = mStatusBarPowerMenu
-                    .findIndexOfValue(statusBarPowerMenu);
-            mStatusBarPowerMenu
-                    .setSummary(mStatusBarPowerMenu.getEntries()[statusBarPowerMenuIndex]);
+            int statusBarPowerMenuIndex = mStatusBarPowerMenu.findIndexOfValue(statusBarPowerMenu);
+            mStatusBarPowerMenu.setSummary(mStatusBarPowerMenu.getEntries()[statusBarPowerMenuIndex]);
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        if (preference == mCustomHeaderImage) {
+            final boolean value = ((SwitchPreference)preference).isChecked();
+            Settings.System.putInt(mResolver,
+                    Settings.System.STATUS_BAR_CUSTOM_HEADER, value ? 1 : 0);
+            return true;
+        }
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
+    }
+
+    private void getAvailableHeaderPacks(List<String> entries, List<String> values) {
+        Intent i = new Intent();
+        PackageManager packageManager = getPackageManager();
+        i.setAction("org.omnirom.DaylightHeaderPack");
+        for (ResolveInfo r : packageManager.queryIntentActivities(i, 0)) {
+            String packageName = r.activityInfo.packageName;
+            if (packageName.equals(DEFAULT_HEADER_PACKAGE)) {
+                values.add(0, packageName);
+            } else {
+                values.add(packageName);
+            }
+            String label = r.activityInfo.loadLabel(getPackageManager()).toString();
+            if (label == null) {
+                label = r.activityInfo.packageName;
+            }
+            if (packageName.equals(DEFAULT_HEADER_PACKAGE)) {
+                entries.add(0, label);
+            } else {
+                entries.add(label);
+            }
+        }
+        i.setAction("org.omnirom.DaylightHeaderPack1");
+        for (ResolveInfo r : packageManager.queryIntentActivities(i, 0)) {
+            String packageName = r.activityInfo.packageName;
+            values.add(packageName  + "/" + r.activityInfo.name);
+            String label = r.activityInfo.loadLabel(getPackageManager()).toString();
+            if (label == null) {
+                label = packageName;
+            }
+            entries.add(label);
+        }
     }
 
     private void showDialogInner(int id) {
@@ -201,11 +270,13 @@ public class Header extends SettingsPreferenceFragment implements Indexable,
                         new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_CUSTOM_HEADER, 0);
+                            Settings.System.putString(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_DAYLIGHT_HEADER_PACK, null);
+                            Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_EXPANDED_HEADER_SHOW_WEATHER, 0);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_EXPANDED_HEADER_SHOW_WEATHER_LOCATION, 1);
-                            Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.STATUS_BAR_CUSTOM_HEADER_DEFAULT, 0);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_POWER_MENU, 0);
                             getOwner().refreshSettings();

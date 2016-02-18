@@ -1388,11 +1388,7 @@
     <string name="contextual_title">Contextual headers</string>
     <string name="status_bar_custom_header_title">Custom header image</string>
     <string name="status_bar_custom_header_summary">Enable notification panel header image</string>
-    <string name="status_bar_custom_header_default_title">Select your images</string>
-    <string name="custom_header_image_0">Default</string>
-    <string name="custom_header_image_1">Modern</string>
-    <string name="custom_header_image_2">Flat</string>
-    <string name="custom_header_image_3">Poly HD</string>
+    <string name="daylight_header_pack_title">Header image pack</string>
 
     <!-- Device policy override -->
     <string name="device_policy_override_title">Device policy override</string>
