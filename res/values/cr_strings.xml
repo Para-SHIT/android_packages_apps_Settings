@@ -678,14 +678,6 @@
     <string name="qs_tile_slim_floats">Slim Floats</string>
     <string name="qs_slim_pie_tile">Pie</string>
 
-    <!-- Smart cover -->
-    <string name="smart_cover_title">Smart cover</string>
-    <string name="lid_settings_title">Lid</string>
-    <string name="lid_controls_sleep_title">Control sleep</string>
-    <string name="lid_controls_sleep_summary">Turn screen off when lid closes</string>
-    <string name="lid_controls_wake_title">Control wake</string>
-    <string name="lid_controls_wake_summary">Turn screen on when lid opens</string>
-
     <!-- Safe headset volume restore checkbox -->
     <string name="safe_headset_volume_title">Safe headset volume</string>
     <string name="safe_headset_volume_summary">Prevent loud volume levels when headset is first plugged in</string>
