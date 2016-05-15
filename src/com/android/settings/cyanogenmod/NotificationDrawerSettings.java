@@ -47,7 +47,7 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
     private static final String PREF_SMART_PULLDOWN = "smart_pulldown";
     private static final String PREF_BLOCK_ON_SECURE_KEYGUARD = "block_on_secure_keyguard";
     private static final String PREF_ENABLE_TASK_MANAGER = "enable_task_manager";
-    private static final String PREF_STATUS_BAR_WEATHER_FONT_STYLE = "status_bar_weather_font_style";
+    private static final String PREF_STATUS_BAR_HEADER_FONT_STYLE = "status_bar_header_font_style";
 
     private ListPreference mQuickPulldown;
     private ListPreference mSmartPulldown;
