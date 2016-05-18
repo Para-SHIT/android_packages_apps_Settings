@@ -46,12 +46,16 @@ public class BatteryBar extends SettingsPreferenceFragment implements
     private static final String PREF_BATT_BAR_COLOR = "battery_bar_color";
     private static final String PREF_BATT_BAR_WIDTH = "battery_bar_thickness";
     private static final String PREF_BATT_ANIMATE = "battery_bar_animate";
+    private static final String PREF_BATT_BAR_CHARGING_COLOR = "battery_bar_charging_color";
+    private static final String PREF_BATT_BAR_BATTERY_LOW_COLOR = "battery_bar_battery_low_color";
 
     private ListPreference mBatteryBar;
     private ListPreference mBatteryBarStyle;
     private ListPreference mBatteryBarThickness;
     private CheckBoxPreference mBatteryBarChargingAnimation;
     private ColorPickerPreference mBatteryBarColor;
+    private ColorPickerPreference mBatteryBarChargingColor;
+    private ColorPickerPreference mBatteryBarBatteryLowColor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,9 @@ public class BatteryBar extends SettingsPreferenceFragment implements
         addPreferencesFromResource(R.xml.battery_bar);
         PreferenceScreen prefSet = getPreferenceScreen();
         ContentResolver resolver = getActivity().getContentResolver();
+        int intColor;
+        String hexColor;
+        int defaultColor = 0xffffffff;
 
         mBatteryBar = (ListPreference) findPreference(PREF_BATT_BAR);
         mBatteryBar.setOnPreferenceChangeListener(this);
@@ -81,8 +88,20 @@ public class BatteryBar extends SettingsPreferenceFragment implements
         mBatteryBarThickness = (ListPreference) findPreference(PREF_BATT_BAR_WIDTH);
         mBatteryBarThickness.setOnPreferenceChangeListener(this);
         mBatteryBarThickness.setValue((Settings.System.getInt(resolver,
-                Settings.System.STATUSBAR_BATTERY_BAR_THICKNESS, 1)) + "");
-
+                Settings.System.STATUSBAR_BATTERY_BAR_THICKNESS, 1)) + ""); 
+	
+        mBatteryBarChargingColor = (ColorPickerPreference) findPreference(PREF_BATT_BAR_CHARGING_COLOR);
+        mBatteryBarChargingColor.setOnPreferenceChangeListener(this);
+        intColor = Settings.System.getInt(getActivity().getContentResolver(), Settings.System.STATUSBAR_BATTERY_BAR_CHARGING_COLOR, defaultColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mBatteryBarChargingColor.setSummary(hexColor);
+ 
+        mBatteryBarBatteryLowColor = (ColorPickerPreference) findPreference(PREF_BATT_BAR_BATTERY_LOW_COLOR);
+        mBatteryBarBatteryLowColor.setOnPreferenceChangeListener(this);
+        intColor = Settings.System.getInt(getActivity().getContentResolver(), Settings.System.STATUSBAR_BATTERY_BAR_BATTERY_LOW_COLOR, defaultColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mBatteryBarBatteryLowColor.setSummary(hexColor);
+          
     }
 
     @Override
@@ -119,7 +138,23 @@ public class BatteryBar extends SettingsPreferenceFragment implements
             int val = Integer.parseInt((String) newValue);
             return Settings.System.putInt(resolver,
                     Settings.System.STATUSBAR_BATTERY_BAR_THICKNESS, val);
-        }
+        } else if (preference == mBatteryBarChargingColor) {
+            String hex = ColorPickerPreference.convertToARGB(Integer
+                    .valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_BATTERY_BAR_CHARGING_COLOR, intHex);
+            return true;
+        } else if (preference == mBatteryBarBatteryLowColor) {
+            String hex = ColorPickerPreference.convertToARGB(Integer
+                    .valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_BATTERY_BAR_BATTERY_LOW_COLOR, intHex);
+            return true;
+       }     
         return false;
     }
 
