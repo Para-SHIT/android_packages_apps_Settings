@@ -9,6 +9,12 @@
         android:key="screen_and_animations"
         android:title="@string/screen_and_animations_title" >
 
+        <PreferenceScreen
+            android:key="interface_animation_keyboard"
+            android:fragment="com.android.settings.temasek.KeyboardAnimationInterfaceSettings"
+            android:title="@string/ime_animation_title"
+            android:summary="@string/ime_animation_summary" />
+
         <!-- Toast Animation -->
         <ListPreference
             android:key="toast_animation"
