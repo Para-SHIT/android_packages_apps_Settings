@@ -15,13 +15,18 @@
  */
 package com.android.settings.temasek;
 
+import android.content.Context;
 import android.content.ContentResolver;
 import android.content.res.Resources;
+import android.database.ContentObserver;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.UserHandle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
@@ -30,6 +35,9 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RecentsPanelSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
@@ -37,10 +45,9 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
 
     private static final String SHOW_CLEAR_ALL_RECENTS = "show_clear_all_recents";
     private static final String RECENTS_CLEAR_ALL_LOCATION = "recents_clear_all_location";
-	private static final String PREF_CLEAR_ALL_BG_COLOR =
-            "android_recents_clear_all_bg_color";
-    private static final String PREF_CLEAR_ALL_ICON_COLOR =
-            "android_recents_clear_all_icon_color";
+    private static final String PREF_CLEAR_ALL_BG_COLOR = "android_recents_clear_all_bg_color";
+    private static final String PREF_CLEAR_ALL_ICON_COLOR = "android_recents_clear_all_icon_color";
+    private static final String IMMERSIVE_RECENTS = "immersive_recents";
 
     private static final int RED = 0xffDC4C3C;
     private static final int WHITE = 0xffffffff;
@@ -50,6 +57,7 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
     private ListPreference mRecentsClearAllLocation;
     private ColorPickerPreference mClearAllIconColor;
     private ColorPickerPreference mClearAllBgColor;
+    private ListPreference mImmersiveRecents;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -61,6 +69,13 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
         int intvalue;
         int intColor;
         String hexColor;
+
+
+        mImmersiveRecents = (ListPreference) findPreference(IMMERSIVE_RECENTS);
+        mImmersiveRecents.setValue(String.valueOf(Settings.System.getInt(
+                getContentResolver(), Settings.System.IMMERSIVE_RECENTS, 0)));
+        mImmersiveRecents.setSummary(mImmersiveRecents.getEntry());
+        mImmersiveRecents.setOnPreferenceChangeListener(this);
 
         mRecentsClearAll = (SwitchPreference) prefSet.findPreference(SHOW_CLEAR_ALL_RECENTS);
         mRecentsClearAll.setChecked(Settings.System.getIntForUser(resolver,
@@ -111,6 +126,12 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
             Settings.System.putIntForUser(getActivity().getContentResolver(),
                     Settings.System.SHOW_CLEAR_ALL_RECENTS, value ? 1 : 0, UserHandle.USER_CURRENT);
             return true;
+        }
+        if (preference == mImmersiveRecents) {
+            Settings.System.putInt(getContentResolver(), Settings.System.IMMERSIVE_RECENTS,
+                    Integer.valueOf((String) newValue));
+            mImmersiveRecents.setValue(String.valueOf(newValue));
+            mImmersiveRecents.setSummary(mImmersiveRecents.getEntry());
         } else if (preference == mRecentsClearAllLocation) {
             int location = Integer.valueOf((String) newValue);
             Settings.System.putIntForUser(getActivity().getContentResolver(),
