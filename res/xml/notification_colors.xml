@@ -16,6 +16,7 @@
 
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
     android:title="@string/notification_color_settings_title">
 
     <PreferenceCategory
@@ -46,7 +47,7 @@
         android:entries="@array/notification_icons_color_mode_entries"
         android:entryValues="@array/notification_color_mode_values" />
 
-	</PreferenceCategory>
+    </PreferenceCategory>
 
     <PreferenceCategory
         android:key="notification_cat_colors"
@@ -78,9 +79,28 @@
             android:defaultValue="0xff000000" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
-           android:key="notification_drawer_clear_all_icon_color"
-           android:title="@string/notification_drawer_clear_all_icon_color_title"
-           android:defaultValue="0xffffffff" />
+            android:key="notification_drawer_clear_all_icon_color"
+            android:title="@string/notification_drawer_clear_all_icon_color_title"
+            android:defaultValue="0xffffffff" />
 
-	</PreferenceCategory>
+    </PreferenceCategory>
+
+    <com.android.settings.temasek.SeekBarPreference
+        android:key="transparent_power_menu"
+        android:title="@string/power_menu_transparency"
+        android:max="100"
+        settings:min="0"
+        settings:unitsLeft=""
+        settings:unitsRight="%"
+        android:persistent="false" />
+
+    <com.android.settings.temasek.SeekBarPreference
+        android:key="transparent_power_dialog_dim"
+        android:title="@string/power_menu_dialog_dim"
+        android:max="100"
+        settings:min="0"
+        settings:unitsLeft=""
+        settings:unitsRight="%"
+        android:persistent="false"/>
+
 </PreferenceScreen>
