@@ -132,6 +132,8 @@ public class NetworkTraffic extends SettingsPreferenceFragment
             mNetTrafficPeriod.setSummary(mNetTrafficPeriod.getEntry());
             mNetTrafficPeriod.setOnPreferenceChangeListener(this);
         }
+        
+        setHasOptionsMenu(true);
     }
 
     private void updateNetworkTrafficState(int mIndex) {

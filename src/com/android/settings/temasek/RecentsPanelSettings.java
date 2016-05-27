@@ -15,8 +15,12 @@
  */
 package com.android.settings.temasek;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.content.Intent;
@@ -30,6 +34,9 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
@@ -47,17 +54,23 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
     private static final String RECENTS_CLEAR_ALL_LOCATION = "recents_clear_all_location";
     private static final String PREF_CLEAR_ALL_BG_COLOR = "android_recents_clear_all_bg_color";
     private static final String PREF_CLEAR_ALL_ICON_COLOR = "android_recents_clear_all_icon_color";
-    private static final String IMMERSIVE_RECENTS = "immersive_recents";
+    private static final String IMMERSIVE_RECENTS = "immersive_recents";	
+    private static final String MEM_TEXT_COLOR = "mem_text_color";
+    private static final String RECENTS_DATE_COLOR = "recents_date_color";
+    private static final String RECENTS_CLOCK_COLOR = "recents_clock_color";
 
+    private static final int MENU_RESET = Menu.FIRST;
     private static final int RED = 0xffDC4C3C;
     private static final int WHITE = 0xffffffff;
-    private static final int HOLO_BLUE_LIGHT = 0xff33b5e5;
 
     private SwitchPreference mRecentsClearAll;
     private ListPreference mRecentsClearAllLocation;
+    private ListPreference mImmersiveRecents;
     private ColorPickerPreference mClearAllIconColor;
     private ColorPickerPreference mClearAllBgColor;
-    private ListPreference mImmersiveRecents;
+    private ColorPickerPreference mMemTextColor;
+    private ColorPickerPreference mClockColor;
+    private ColorPickerPreference mDateColor;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -69,7 +82,6 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
         int intvalue;
         int intColor;
         String hexColor;
-
 
         mImmersiveRecents = (ListPreference) findPreference(IMMERSIVE_RECENTS);
         mImmersiveRecents.setValue(String.valueOf(Settings.System.getInt(
@@ -89,30 +101,47 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
         mRecentsClearAllLocation.setOnPreferenceChangeListener(this);
         updateRecentsLocation(location);
 
-        mClearAllBgColor =
-        (ColorPickerPreference) findPreference(PREF_CLEAR_ALL_BG_COLOR);
+        mClearAllBgColor = (ColorPickerPreference) findPreference(PREF_CLEAR_ALL_BG_COLOR);
+        mClearAllBgColor.setOnPreferenceChangeListener(this);
         intColor = Settings.System.getInt(resolver,
-            Settings.System.RECENT_APPS_CLEAR_ALL_BG_COLOR, RED); 
-        mClearAllBgColor.setNewPreviewColor(intColor);
+            Settings.System.RECENT_APPS_CLEAR_ALL_BG_COLOR, RED);
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mClearAllBgColor.setSummary(hexColor);
-        //mClearAllBgColor.setDefaultColors(RED, RED);
-        mClearAllBgColor.setOnPreferenceChangeListener(this);
+        mClearAllBgColor.setNewPreviewColor(intColor);
 
-        mClearAllIconColor =
-		      (ColorPickerPreference) findPreference(PREF_CLEAR_ALL_ICON_COLOR);
+        mClearAllIconColor = (ColorPickerPreference) findPreference(PREF_CLEAR_ALL_ICON_COLOR);
+        mClearAllIconColor.setOnPreferenceChangeListener(this);
         intColor = Settings.System.getInt(resolver,
-           Settings.System.RECENT_APPS_CLEAR_ALL_ICON_COLOR, WHITE); 
-        mClearAllIconColor.setNewPreviewColor(intColor);
+            Settings.System.RECENT_APPS_CLEAR_ALL_ICON_COLOR, WHITE);
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mClearAllIconColor.setSummary(hexColor);
-        //mClearAllIconColor.setDefaultColors(WHITE, WHITE);
-        mClearAllIconColor.setOnPreferenceChangeListener(this);
-    }
+        mClearAllIconColor.setNewPreviewColor(intColor);
 
-    @Override
-    public void onResume() {
-        super.onResume();
+        mMemTextColor = (ColorPickerPreference) prefSet.findPreference(MEM_TEXT_COLOR);
+        mMemTextColor.setOnPreferenceChangeListener(this);
+        intColor = Settings.System.getInt(resolver,
+            Settings.System.MEM_TEXT_COLOR, WHITE);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mMemTextColor.setSummary(hexColor);
+        mMemTextColor.setNewPreviewColor(intColor);
+
+        mClockColor= (ColorPickerPreference) prefSet.findPreference(RECENTS_CLOCK_COLOR);
+        mClockColor.setOnPreferenceChangeListener(this);
+        intColor = Settings.System.getInt(resolver,
+            Settings.System.RECENTS_CLOCK_COLOR, WHITE);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mClockColor.setSummary(hexColor);
+        mClockColor.setNewPreviewColor(intColor);
+
+        mDateColor= (ColorPickerPreference) prefSet.findPreference(RECENTS_DATE_COLOR);
+        mDateColor.setOnPreferenceChangeListener(this);
+        intColor = Settings.System.getInt(resolver,
+            Settings.System.RECENTS_DATE_COLOR, WHITE);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mDateColor.setSummary(hexColor);
+        mDateColor.setNewPreviewColor(intColor);
+
+        setHasOptionsMenu(true);
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -154,8 +183,91 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
                     Settings.System.RECENT_APPS_CLEAR_ALL_ICON_COLOR, intHex);
             preference.setSummary(hex);
             return true;
+        }  else if (preference == mMemTextColor) {
+            hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.MEM_TEXT_COLOR, intHex);
+            return true;
+        } else if (preference == mClockColor) {
+            hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.RECENTS_CLOCK_COLOR, intHex);
+            return true;
+        }  else if (preference == mDateColor) {
+            hex = ColorPickerPreference.convertToARGB(
+                   Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                   Settings.System.RECENTS_DATE_COLOR, intHex);
+            return true;
         }
         return false;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.add(0, MENU_RESET, 0, R.string.reset)
+                .setIcon(R.drawable.ic_settings_reset)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MENU_RESET:
+                resetToDefault();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    private void resetToDefault() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setTitle(R.string.recents_colors_reset_title);
+        alertDialog.setMessage(R.string.recents_colors_reset_message);
+        alertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                resetValues();
+            }
+        });
+        alertDialog.setNegativeButton(R.string.cancel, null);
+        alertDialog.create().show();
+    }
+
+    private void resetValues() {
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.RECENT_APPS_CLEAR_ALL_BG_COLOR, RED);
+        mClearAllBgColor.setNewPreviewColor(RED);
+        mClearAllBgColor.setSummary(R.string.default_string);
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.RECENT_APPS_CLEAR_ALL_ICON_COLOR, WHITE);
+        mClearAllIconColor.setNewPreviewColor(WHITE);
+        mClearAllIconColor.setSummary(R.string.default_string);
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.MEM_TEXT_COLOR, WHITE);
+        mMemTextColor.setNewPreviewColor(WHITE);
+        mMemTextColor.setSummary(R.string.default_string);
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.RECENTS_CLOCK_COLOR, WHITE);
+        mClockColor.setNewPreviewColor(WHITE);
+        mClockColor.setSummary(R.string.default_string);
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.RECENTS_DATE_COLOR, WHITE);
+        mDateColor.setNewPreviewColor(WHITE);
+        mDateColor.setSummary(R.string.default_string);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     private void updateRecentsLocation(int value) {

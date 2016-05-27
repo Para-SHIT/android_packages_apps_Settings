@@ -319,6 +319,9 @@
     <string name="recents_clear_all_dismiss_all_summary">Choose whether to dismiss all tasks or ignore the foreground task</string>
     <string name="recents_show_membar_title">Memory bar</string>
     <string name="recents_show_membar_summary">Show a bar with the device\'s available memory</string>
+    <string name="mem_text_color">MemBar Text</string>
+    <string name="recents_colors_reset_title">Reset option colors</string>
+    <string name="recents_colors_reset_message">Are you sure you want to reset these colors to default?</string>
 
     <!-- Toast animations -->
     <string name="toast_animation_title">Toast animations</string>
@@ -1127,6 +1130,13 @@
 
     <!-- Status bar expanded header: Custom background color -->
     <string name="background_header_title">Header background color</string>
+    <string name="header_icon_color">Header icon color</string>
+    <string name="header_clock_color">Header clock color</string>
+    <string name="header_detail_color">Header date color</string>
+    <string name="header_weatherone_color">Weather text color line 1</string>
+    <string name="header_weathertwo_color">Weather text color line 2</string>
+    <string name="header_battery_text_color">Battery text color</string>
+    <string name="header_alarm_text_color">Next alarm text color</string>
 
     <!-- Task Manager -->
     <string name="enable_task_manager_title">Task Manager</string>
@@ -1473,5 +1483,7 @@
     <string name="recents_full_screen_clock_summary">Shows clock at the top while in fullscreen</string>
     <string name="recents_full_screen_date_title">Show date</string>
     <string name="recents_full_screen_date_summary">Shows date at the top while in fullscreen</string>
+    <string name="recents_clock_color">FullScreen Recents Clock Text</string>	
+    <string name="recents_date_color">FullScreen Recents Date Text</string>
 
 </resources>

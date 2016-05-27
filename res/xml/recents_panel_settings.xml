@@ -63,6 +63,12 @@
             android:summary="@string/recents_show_membar_summary"
             android:defaultValue="false" />
 
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="mem_text_color"
+            android:title="@string/mem_text_color"
+            android:defaultValue="0xffffffff" 
+	    android:dependency="systemui_recents_mem_display" />
+
         <!-- Search in Recents -->
         <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
             android:key="recents_show_search_bar"
@@ -93,6 +99,18 @@
             android:summary="@string/recents_full_screen_date_summary"
             android:defaultValue="false"
             android:dependency="immersive_recents" />
+
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="recents_clock_color"
+            android:title="@string/recents_clock_color"
+            android:defaultValue="0xffffffff"
+	    android:dependency="immersive_recents" />
+
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="recents_date_color"
+            android:title="@string/recents_date_color"
+            android:defaultValue="0xffffffff" 
+	    android:dependency="immersive_recents" />
 
     </PreferenceCategory>
 
