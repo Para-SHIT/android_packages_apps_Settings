@@ -2,20 +2,30 @@ package com.android.settings.temasek;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.res.Resources;
+import android.database.ContentObserver;
 import android.os.SystemProperties;
+import android.os.UserHandle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.internal.util.cm.QSUtils;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.R;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 
 public class ScreenAndAnimations extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -30,6 +40,7 @@ public class ScreenAndAnimations extends SettingsPreferenceFragment implements
     private static final String SCROLLINGCACHE_PREF = "pref_scrollingcache";
     private static final String SCROLLINGCACHE_PERSIST_PROP = "persist.sys.scrollingcache";
     private static final String SCROLLINGCACHE_DEFAULT = "1";
+    private static final String POWER_MENU_ANIMATIONS = "power_menu_animations";
 
     private Context mContext;
 
@@ -39,6 +50,7 @@ public class ScreenAndAnimations extends SettingsPreferenceFragment implements
     private SwitchPreference mTorchOff;
     private ListPreference mTorchOffDelay;
     private ListPreference mScrollingCachePref;
+    private ListPreference mPowerMenuAnimations;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -94,6 +106,12 @@ public class ScreenAndAnimations extends SettingsPreferenceFragment implements
         mScrollingCachePref.setValue(SystemProperties.get(SCROLLINGCACHE_PERSIST_PROP,
                 SystemProperties.get(SCROLLINGCACHE_PERSIST_PROP, SCROLLINGCACHE_DEFAULT)));
         mScrollingCachePref.setOnPreferenceChangeListener(this);
+
+        mPowerMenuAnimations = (ListPreference) findPreference(POWER_MENU_ANIMATIONS);
+        mPowerMenuAnimations.setValue(String.valueOf(Settings.System.getInt(
+                getContentResolver(), Settings.System.POWER_MENU_ANIMATIONS, 0)));
+        mPowerMenuAnimations.setSummary(mPowerMenuAnimations.getEntry());
+        mPowerMenuAnimations.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -140,6 +158,13 @@ public class ScreenAndAnimations extends SettingsPreferenceFragment implements
                 SystemProperties.set(SCROLLINGCACHE_PERSIST_PROP, (String)objValue);
             return true;
             }
+        }
+        if (preference == mPowerMenuAnimations) {
+            Settings.System.putInt(getContentResolver(), Settings.System.POWER_MENU_ANIMATIONS,
+                    Integer.valueOf((String) objValue));
+            mPowerMenuAnimations.setValue(String.valueOf(objValue));
+            mPowerMenuAnimations.setSummary(mPowerMenuAnimations.getEntry());
+            return true;
         }
         return false;
     }
