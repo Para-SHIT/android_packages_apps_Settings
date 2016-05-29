@@ -1508,4 +1508,9 @@
     <string name="power_menu_animation_translucent_top">Translucent (top)</string>
     <string name="power_menu_animation_translucent_bottom">Translucent (bottom)</string>
 
+    <!-- Hide apps from recents -->
+    <string name="hide_from_recents_add_app">Add App</string>
+    <string name="hide_apps_from_recents_title">Hidden Apps</string>
+    <string name="hide_apps_from_recents_summary">Pick which apps to exclude from the recents panel.</string>
+
 </resources>

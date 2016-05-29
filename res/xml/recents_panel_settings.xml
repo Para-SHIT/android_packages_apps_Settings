@@ -50,11 +50,17 @@
             android:defaultValue="0xffDC4C3C"
             android:dependency="show_clear_all_recents" />
 
-         <net.margaritov.preference.colorpicker.ColorPickerPreference
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="android_recents_clear_all_icon_color"
             android:title="@string/icon_title"
             android:defaultValue="0xffffffff"
             android:dependency="show_clear_all_recents" />
+
+        <!-- Hide Apps from Recents (HAFR) -->
+        <Preference
+            android:key="hide_app_from_recents"
+            android:title="@string/hide_apps_from_recents_title"
+            android:summary="@string/hide_apps_from_recents_summary" />
 
         <!-- Membar in Recents -->
         <com.android.settings.cyanogenmod.SystemSettingSwitchPreference

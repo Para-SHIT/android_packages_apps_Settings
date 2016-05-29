@@ -58,6 +58,14 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
     private static final String MEM_TEXT_COLOR = "mem_text_color";
     private static final String RECENTS_DATE_COLOR = "recents_date_color";
     private static final String RECENTS_CLOCK_COLOR = "recents_clock_color";
+    private static final String PREF_HIDDEN_RECENTS_APPS_START = "hide_app_from_recents";
+    
+    // Package name of the hidden recetns apps activity
+    public static final String HIDDEN_RECENTS_PACKAGE_NAME = "com.android.settings";
+    // Intent for launching the hidden recents actvity
+    public static Intent INTENT_HIDDEN_RECENTS_SETTINGS = new Intent(Intent.ACTION_MAIN)
+    .setClassName(HIDDEN_RECENTS_PACKAGE_NAME,
+    HIDDEN_RECENTS_PACKAGE_NAME + ".temasek.HAFRAppListActivity");
 
     private static final int MENU_RESET = Menu.FIRST;
     private static final int RED = 0xffDC4C3C;
@@ -71,6 +79,7 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
     private ColorPickerPreference mMemTextColor;
     private ColorPickerPreference mClockColor;
     private ColorPickerPreference mDateColor;
+    private Preference mHiddenRecentsApps;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -116,6 +125,8 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mClearAllIconColor.setSummary(hexColor);
         mClearAllIconColor.setNewPreviewColor(intColor);
+
+        mHiddenRecentsApps = (Preference) prefSet.findPreference(PREF_HIDDEN_RECENTS_APPS_START);
 
         mMemTextColor = (ColorPickerPreference) prefSet.findPreference(MEM_TEXT_COLOR);
         mMemTextColor.setOnPreferenceChangeListener(this);
@@ -207,6 +218,16 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
             Settings.System.putInt(getActivity().getContentResolver(),
                    Settings.System.RECENTS_DATE_COLOR, intHex);
             return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        if (preference == mHiddenRecentsApps) {
+            getActivity().startActivity(INTENT_HIDDEN_RECENTS_SETTINGS);
+        } else {
+            return super.onPreferenceTreeClick(preferenceScreen, preference);
         }
         return false;
     }
