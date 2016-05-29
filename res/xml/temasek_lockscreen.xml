@@ -85,7 +85,7 @@
             android:summary="@string/lock_clock_font_size_summary"
             android:persistent="false" />
 
-       <ListPreference
+        <ListPreference
             android:key="lockdate_font_size"
             android:title="@string/lockdate_font_size_title"
             android:dialogTitle="@string/lockdate_font_size_title"
@@ -93,6 +93,24 @@
             android:entryValues="@array/lockdate_font_size_values"
             android:summary="@string/lockdate_font_size_summary"
             android:persistent="false" />
+
+        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+            android:key="hide_lockscreen_clock"
+            android:title="@string/hide_lockscreen_clock_title"
+ 	    android:summary="@string/hide_lockscreen_clock_summary"
+            android:defaultValue="true" />
+
+        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+            android:key="hide_lockscreen_date"
+            android:title="@string/hide_lockscreen_date_title"
+	    android:summary="@string/hide_lockscreen_date_summary"
+            android:defaultValue="true" />
+  
+        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+            android:key="hide_lockscreen_alarm"
+            android:title="@string/hide_lockscreen_alarm_title"
+ 	    android:summary="@string/hide_lockscreen_alarm_summary"
+            android:defaultValue="true" />
 
         <PreferenceScreen
             android:key="lock_screen_color_settings"
