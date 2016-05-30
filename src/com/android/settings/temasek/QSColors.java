@@ -53,6 +53,8 @@ public class QSColors extends SettingsPreferenceFragment implements
             "qs_color_switch";
     private static final String PREF_BG_COLOR = 
             "expanded_header_background_color";
+    private static final String PREF_BRIGHTNESS_ICON_COLOR =
+            "qs_brightness_icon_color";
     private static final String PREF_CUSTOM_HEADER_DEFAULT =
             "status_bar_custom_header_default";
     private static final String HEADER_ICON_COLOR = "header_icon_color";
@@ -74,7 +76,7 @@ public class QSColors extends SettingsPreferenceFragment implements
     private ColorPickerPreference mQSBackgroundColor;
     private ColorPickerPreference mQSIconColor;
     private ColorPickerPreference mQSTextColor;
-    private ColorPickerPreference mClearAllIconColor;
+    private ColorPickerPreference mSliderIconColor;
     private ColorPickerPreference mBackgroundColor;
     private ColorPickerPreference mHeaderIconColor;
     private ColorPickerPreference mHeaderCLockColor;
@@ -135,6 +137,14 @@ public class QSColors extends SettingsPreferenceFragment implements
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mQSTextColor.setSummary(hexColor);
         mQSTextColor.setOnPreferenceChangeListener(this);
+
+        mSliderIconColor = (ColorPickerPreference) findPreference(PREF_BRIGHTNESS_ICON_COLOR);
+        intColor = Settings.System.getInt(getContentResolver(),
+                    Settings.System.QS_BRIGHTNESS_ICON_COLOR, WHITE);
+        mSliderIconColor.setNewPreviewColor(intColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mSliderIconColor.setSummary(hexColor);
+        mSliderIconColor.setOnPreferenceChangeListener(this);
 
         mQSShadeTransparency = (SwitchPreference) findPreference(PREF_QS_TRANSPARENT_SHADE);
         mQSShadeTransparency.setChecked((Settings.System.getInt(mResolver,
@@ -271,6 +281,14 @@ public class QSColors extends SettingsPreferenceFragment implements
                 Settings.System.QS_TEXT_COLOR, intHex);
             preference.setSummary(hex);
             return true;
+        } else if (preference == mSliderIconColor) {
+            hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue)));
+            intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(mResolver,
+                    Settings.System.QS_BRIGHTNESS_ICON_COLOR, intHex);
+            preference.setSummary(hex);
+            return true;
         } else if (preference == mQSShadeTransparency) {
             boolean value = (Boolean) newValue;
             Settings.System.putInt(getActivity().getContentResolver(),
@@ -397,6 +415,8 @@ public class QSColors extends SettingsPreferenceFragment implements
                                     Settings.System.QS_ICON_COLOR, WHITE);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.QS_TEXT_COLOR, WHITE);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.QS_BRIGHTNESS_ICON_COLOR, WHITE);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.QS_TRANSPARENT_SHADE, 0);
                             Settings.System.putInt(getOwner().mResolver,

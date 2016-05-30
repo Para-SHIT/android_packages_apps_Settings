@@ -1522,4 +1522,7 @@
     <string name="hide_lockscreen_alarm_title">Alarm</string>
     <string name="hide_lockscreen_alarm_summary">Show lockscreen alarm</string>
 
+    <string name="brightness_icon_title">Brightness Icon </string>
+    <string name="qs_brightness_icon_color">Brightness Icon</string>
+
 </resources>
