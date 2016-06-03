@@ -1529,4 +1529,39 @@
     <string name="brightness_icon_title">Brightness Icon </string>
     <string name="qs_brightness_icon_color">Brightness Icon</string>
 
+    <!-- Optional Dashboard Switches -->
+    <string name="dashboard_switches_title">Dashboard Switches</string>
+    <string name="dashboard_switches_off">Switches Off</string>
+    <string name="dashboard_switches_on">Switches On</string>
+    <string name="dashboard_switches_summary">Change the position of the dashboard switches</string>
+    <string name="dashboard_switches_dialog_title">Select switch state</string>
+
+    <string name="db_custom_colors">Dashboard Custom Styles</string>
+    <string name="db_custom_colors_summary">Colorize Various Elements of Dashboard With the Options Below.</string>
+    <string name="db_colors">Dashboard Styles</string>
+    <string name="db_icon_color">Dashboard Icons</string>
+    <string name="db_text_color">Title text</string>
+    <string name="db_sub_text_color">Text</string>
+    <string name="background_title">Background</string>
+    <string name="text_cat_title">Sub Text</string>
+    <string name="db_colors_reset_title">Reset Dashboard Color</string>
+    <string name="db_colors_reset_message">Reset Dashboard Color Back to Default</string>
+
+    <!-- Dashboard settings -->
+    <string name="dashboard_category">Dashboard settings</string>
+    <string name="dashboard_columns_title">Dashboard Columns</string>
+    <string name="dashboard_columns_summary">Change the number of columns displayed in the dashboard</string>
+    <string name="dashboard_columns_dialog_title">Select dashboard columns</string>
+    <string name="dashboard_columns_one">One</string>
+    <string name="dashboard_columns_two">Two</string>
+    <string name="dashboard_columns_three">Three</string>
+    <string name="dashboard_tileview_double_lines_title">Dashboard title view</string>
+    <string name="dashboard_tileview_double_lines_summary">Show dashboard tile titles in 2 lines</string>
+    <string name="dashboard_tileview_dividers_title">Dashboard dividers</string>
+    <string name="dashboard_tileview_dividers_summary">Hide dashboard tile dividers</string>
+
+    <!-- Dashboard Text Size -->
+    <string name="dash_title_text_size">Title Text Size</string>
+    <string name="dash_category_text_size">Category Text Size</string>
+
 </resources>
