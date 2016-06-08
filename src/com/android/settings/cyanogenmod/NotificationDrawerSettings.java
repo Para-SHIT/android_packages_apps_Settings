@@ -46,8 +46,6 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
     private static final String QUICK_PULLDOWN = "quick_pulldown";
     private static final String PREF_SMART_PULLDOWN = "smart_pulldown";
     private static final String PREF_BLOCK_ON_SECURE_KEYGUARD = "block_on_secure_keyguard";
-    private static final String PREF_ENABLE_TASK_MANAGER = "enable_task_manager";
-    private static final String PREF_STATUS_BAR_HEADER_FONT_STYLE = "status_bar_header_font_style";
     private static final String PREF_TILE_ANIM_STYLE = "qs_tile_animation_style";
     private static final String PREF_TILE_ANIM_DURATION = "qs_tile_animation_duration";
     private static final String PREF_TILE_ANIM_INTERPOLATOR = "qs_tile_animation_interpolator";
@@ -55,10 +53,8 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
     private ListPreference mQuickPulldown;
     private ListPreference mSmartPulldown;
     private SwitchPreference mBlockOnSecureKeyguard;
-    private SwitchPreference mEnableTaskManager;
     private Preference mQSTiles;
     private ListPreference mNumColumns;
-    private ListPreference mStatusBarHeaderFontStyle;
     private ListPreference mTileAnimationStyle;
     private ListPreference mTileAnimationDuration;
     private ListPreference mTileAnimationInterpolator;
@@ -128,11 +124,6 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
         mSmartPulldown.setValue(String.valueOf(smartPulldown));
         updateSmartPulldownSummary(smartPulldown);
 
-        // Task manager
-        mEnableTaskManager = (SwitchPreference) prefSet.findPreference(PREF_ENABLE_TASK_MANAGER);
-        mEnableTaskManager.setChecked((Settings.System.getInt(getActivity().getContentResolver(),
-                Settings.System.ENABLE_TASK_MANAGER, 0) == 1));
-
         mNumColumns = (ListPreference) findPreference("sysui_qs_num_columns");
         int numColumns = Settings.Secure.getIntForUser(getContentResolver(),
                 Settings.Secure.QS_NUM_TILE_COLUMNS, getDefaultNumColums(),
@@ -142,12 +133,6 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
         mNumColumns.setOnPreferenceChangeListener(this);
         DraggableGridView.setColumnCount(numColumns);
 
-        // Status bar header font style
-        mStatusBarHeaderFontStyle = (ListPreference) findPreference(PREF_STATUS_BAR_HEADER_FONT_STYLE);
-        mStatusBarHeaderFontStyle.setOnPreferenceChangeListener(this);
-        mStatusBarHeaderFontStyle.setValue(Integer.toString(Settings.System.getIntForUser(resolver,
-                Settings.System.STATUS_BAR_HEADER_FONT_STYLE, 0, UserHandle.USER_CURRENT)));
-        mStatusBarHeaderFontStyle.setSummary(mStatusBarHeaderFontStyle.getEntry());
     }
 
     @Override
@@ -205,25 +190,8 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
             updateNumColumnsSummary(numColumns);
             DraggableGridView.setColumnCount(numColumns);
             return true;
-        } else if (preference == mStatusBarHeaderFontStyle) {
-            int val = Integer.parseInt((String) newValue);
-            int index = mStatusBarHeaderFontStyle.findIndexOfValue((String) newValue);
-            Settings.System.putIntForUser(resolver,
-                    Settings.System.STATUS_BAR_HEADER_FONT_STYLE, val, UserHandle.USER_CURRENT);
-            mStatusBarHeaderFontStyle.setSummary(mStatusBarHeaderFontStyle.getEntries()[index]);
-            return true;
         }
         return false;
-    }
-
-    @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        if (preference == mEnableTaskManager) {
-           boolean enabled = ((SwitchPreference)preference).isChecked();
-           Settings.System.putInt(getActivity().getContentResolver(),
-                   Settings.System.ENABLE_TASK_MANAGER, enabled ? 1:0);
-        }
-        return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
     private void updatePulldownSummary(int value) {

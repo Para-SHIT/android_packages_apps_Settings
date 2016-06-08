@@ -51,19 +51,8 @@ public class QSColors extends SettingsPreferenceFragment implements
             "qs_transparent_shade";
     private static final String PREF_QS_COLOR_SWITCH =
             "qs_color_switch";
-    private static final String PREF_BG_COLOR = 
-            "expanded_header_background_color";
     private static final String PREF_BRIGHTNESS_ICON_COLOR =
             "qs_brightness_icon_color";
-    private static final String PREF_CUSTOM_HEADER_DEFAULT =
-            "status_bar_custom_header_default";
-    private static final String HEADER_ICON_COLOR = "header_icon_color";
-    private static final String HEADER_CLOCK_COLOR = "header_clock_color";
-    private static final String HEADER_DETAIL_COLOR = "header_detail_color";
-    private static final String HEADER_WEATHERONE_COLOR = "header_weatherone_color";
-    private static final String HEADER_WEATHERTWO_COLOR = "header_weathertwo_color";
-    private static final String HEADER_BATTERY_COLOR = "header_battery_text_color";
-    private static final String HEADER_ALARM_COLOR = "header_alarm_text_color";
 
     private static final int DEFAULT_BACKGROUND_COLOR = 0xff263238;
     private static final int WHITE = 0xffffffff;
@@ -77,17 +66,8 @@ public class QSColors extends SettingsPreferenceFragment implements
     private ColorPickerPreference mQSIconColor;
     private ColorPickerPreference mQSTextColor;
     private ColorPickerPreference mSliderIconColor;
-    private ColorPickerPreference mBackgroundColor;
-    private ColorPickerPreference mHeaderIconColor;
-    private ColorPickerPreference mHeaderCLockColor;
-    private ColorPickerPreference mHeaderDetailColor;
-    private ColorPickerPreference mHeaderWeatheroneColor;
-    private ColorPickerPreference mHeaderWeathertwoColor;	
-    private ColorPickerPreference mBatteryColor;
-    private ColorPickerPreference mAlarmColor;
     private SwitchPreference mQSShadeTransparency;
     private SwitchPreference mQSSSwitch;
-    private ListPreference mCustomHeaderDefault;
 
     private ContentResolver mResolver;
 
@@ -151,86 +131,10 @@ public class QSColors extends SettingsPreferenceFragment implements
                 Settings.System.QS_TRANSPARENT_SHADE, 0) == 1));
         mQSShadeTransparency.setOnPreferenceChangeListener(this);
 
-        mBackgroundColor =
-                (ColorPickerPreference) findPreference(PREF_BG_COLOR);
-        intColor = Settings.System.getInt(mResolver,
-                Settings.System.STATUS_BAR_EXPANDED_HEADER_BG_COLOR,
-                DEFAULT_BG_COLOR); 
-        mBackgroundColor.setNewPreviewColor(intColor);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mBackgroundColor.setSummary(hexColor);
-        //mBackgroundColor.setDefaultColors(DEFAULT_BG_COLOR, DEFAULT_BG_COLOR);
-        mBackgroundColor.setOnPreferenceChangeListener(this);
-		mBackgroundColor.setAlphaSliderEnabled(true);
-
-        mHeaderIconColor = (ColorPickerPreference) findPreference(HEADER_ICON_COLOR);
-        mHeaderIconColor.setOnPreferenceChangeListener(this);
-        intColor = Settings.System.getInt(getContentResolver(),
-                    Settings.System.HEADER_ICON_COLOR, WHITE);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mHeaderIconColor.setSummary(hexColor);
-        mHeaderIconColor.setNewPreviewColor(intColor);
-
-        mHeaderCLockColor = (ColorPickerPreference) findPreference(HEADER_CLOCK_COLOR);
-        mHeaderCLockColor.setOnPreferenceChangeListener(this);
-        intColor = Settings.System.getInt(getContentResolver(),
-                    Settings.System.HEADER_CLOCK_COLOR, WHITE);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mHeaderCLockColor.setSummary(hexColor);
-        mHeaderCLockColor.setNewPreviewColor(intColor);
-
-        mHeaderDetailColor = (ColorPickerPreference) findPreference(HEADER_DETAIL_COLOR);
-        mHeaderDetailColor.setOnPreferenceChangeListener(this);
-        intColor = Settings.System.getInt(getContentResolver(),
-                    Settings.System.HEADER_DETAIL_COLOR, WHITE);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mHeaderDetailColor.setSummary(hexColor);
-        mHeaderDetailColor.setNewPreviewColor(intColor);
-
-        mHeaderWeatheroneColor = (ColorPickerPreference) findPreference(HEADER_WEATHERONE_COLOR);
-        mHeaderWeatheroneColor.setOnPreferenceChangeListener(this);
-        intColor = Settings.System.getInt(getContentResolver(),
-                    Settings.System.HEADER_WEATHERONE_COLOR, WHITE);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mHeaderWeatheroneColor.setSummary(hexColor);
-        mHeaderWeatheroneColor.setNewPreviewColor(intColor);
-
-        mHeaderWeathertwoColor = (ColorPickerPreference) findPreference(HEADER_WEATHERTWO_COLOR);
-        mHeaderWeathertwoColor.setOnPreferenceChangeListener(this);
-        intColor = Settings.System.getInt(getContentResolver(),
-                    Settings.System.HEADER_WEATHERTWO_COLOR, WHITE);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mHeaderWeathertwoColor.setSummary(hexColor);
-        mHeaderWeathertwoColor.setNewPreviewColor(intColor);
-
-       	mBatteryColor = (ColorPickerPreference) findPreference(HEADER_BATTERY_COLOR);
-        mBatteryColor.setOnPreferenceChangeListener(this);
-        intColor = Settings.System.getInt(getContentResolver(),
-                    Settings.System.HEADER_BATTERY_TEXT_COLOR, WHITE);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mBatteryColor.setSummary(hexColor);
-        mBatteryColor.setNewPreviewColor(intColor);
-
-        mAlarmColor = (ColorPickerPreference) findPreference(HEADER_ALARM_COLOR);
-        mAlarmColor.setOnPreferenceChangeListener(this);
-        intColor = Settings.System.getInt(getContentResolver(),
-                    Settings.System.HEADER_ALARM_TEXT_COLOR , WHITE);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mAlarmColor.setSummary(hexColor);
-        mAlarmColor.setNewPreviewColor(intColor);
-
         mQSSSwitch = (SwitchPreference) findPreference(PREF_QS_COLOR_SWITCH);
         mQSSSwitch.setChecked((Settings.System.getInt(mResolver,
                 Settings.System.QS_COLOR_SWITCH, 0) == 1));
         mQSSSwitch.setOnPreferenceChangeListener(this);
-
-        // Status bar custom header default
-        mCustomHeaderDefault = (ListPreference) findPreference(PREF_CUSTOM_HEADER_DEFAULT);
-        mCustomHeaderDefault.setOnPreferenceChangeListener(this);
-        int customHeaderDefault = Settings.System.getInt(mResolver,
-                Settings.System.STATUS_BAR_CUSTOM_HEADER_DEFAULT, 0);
-        mCustomHeaderDefault.setValue(String.valueOf(customHeaderDefault));
-        mCustomHeaderDefault.setSummary(mCustomHeaderDefault.getEntry());
 
         setHasOptionsMenu(true);
     }
@@ -300,78 +204,6 @@ public class QSColors extends SettingsPreferenceFragment implements
                     Settings.System.QS_COLOR_SWITCH, value ? 1 : 0);
             refreshSettings();
             return true;
-        } else if (preference == mBackgroundColor) {
-            hex = ColorPickerPreference.convertToARGB(
-                Integer.valueOf(String.valueOf(newValue)));
-            intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(mResolver,
-                Settings.System.STATUS_BAR_EXPANDED_HEADER_BG_COLOR, intHex);
-            preference.setSummary(hex);
-            return true;
-        } else if (preference == mHeaderIconColor) {
-            hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(mResolver,
-                    Settings.System.HEADER_ICON_COLOR, intHex);
-            return true;
-        } else if (preference == mHeaderCLockColor) {
-            hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(mResolver,
-                    Settings.System.HEADER_CLOCK_COLOR, intHex);
-            return true;
-         } else if (preference == mHeaderDetailColor) {
-            hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(mResolver,
-                    Settings.System.HEADER_DETAIL_COLOR, intHex);
-            return true;
-         } else if (preference == mHeaderWeatheroneColor) {
-            hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(mResolver,
-                    Settings.System.HEADER_WEATHERONE_COLOR, intHex);
-            return true;
-         } else if (preference == mHeaderWeathertwoColor) {
-            hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(mResolver,
-                    Settings.System.HEADER_WEATHERTWO_COLOR, intHex);
-            return true;
-         }  else if (preference == mBatteryColor) {
-            hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(mResolver,
-                    Settings.System.HEADER_BATTERY_TEXT_COLOR, intHex);
-            return true;
-         }  else if (preference == mAlarmColor) {
-            hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(mResolver,
-                    Settings.System.HEADER_ALARM_TEXT_COLOR, intHex);
-            return true;
-        } else if (preference == mCustomHeaderDefault) {
-            int customHeaderDefault = Integer.valueOf((String) newValue);
-            int index = mCustomHeaderDefault.findIndexOfValue((String) newValue);
-            Settings.System.putInt(mResolver, 
-                Settings.System.STATUS_BAR_CUSTOM_HEADER_DEFAULT, customHeaderDefault);
-            mCustomHeaderDefault.setSummary(mCustomHeaderDefault.getEntries()[index]);
-            refreshSettings();
-            return true;
         }
         return false;
     }
@@ -419,25 +251,6 @@ public class QSColors extends SettingsPreferenceFragment implements
                                     Settings.System.QS_BRIGHTNESS_ICON_COLOR, WHITE);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.QS_TRANSPARENT_SHADE, 0);
-                            Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.STATUS_BAR_EXPANDED_HEADER_BG_COLOR,
-                                    DEFAULT_BG_COLOR);
-                            Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.HEADER_ICON_COLOR, WHITE);
-                            Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.HEADER_CLOCK_COLOR, WHITE);
-                            Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.HEADER_DETAIL_COLOR, WHITE);
-                            Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.HEADER_WEATHERONE_COLOR, WHITE);
-                            Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.HEADER_WEATHERTWO_COLOR, WHITE);
-                            Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.HEADER_BATTERY_TEXT_COLOR, WHITE);
-                            Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.HEADER_ALARM_TEXT_COLOR, WHITE);
-                            Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.STATUS_BAR_CUSTOM_HEADER_DEFAULT, 0);
                             getOwner().refreshSettings();
                         }
                     })

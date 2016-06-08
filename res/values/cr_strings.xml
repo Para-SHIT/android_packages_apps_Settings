@@ -626,14 +626,16 @@
     <!-- QuickSettings colors -->
     <string name="background_title">Background</string>
     <string name="icon_title">Icon</string>
-    <string name="qs_colors_title">Quick Settings Color Options</string>
-    <string name="qs_colors_summary">Change background, icon and text colors for the tiles</string>
+    <string name="qs_colors_title">QS panel and notification color</string>
+    <string name="qs_colors_summary">Customize background, icon and text colors</string>
     <string name="colors_title">Colors</string>
     <string name="cat_colors_title">Customize notification colors</string>
     <string name="text_title">Text</string>
     <string name="qs_transparent_shade_title">Shade alpha</string>
     <string name="qs_transparent_shade_summary">Ability to apply color alpha value and make notification shade transparent.</string>
     <string name="qs_color_switch_title">Custom color switch</string>
+    <string name="qs_colors">QS Panel Colors</string>
+    <string name="notification_colors">Notification Colors</string>
 
     <!-- Captive Portal -->
     <string name="captive_portal_detection">Captive portal detection</string>
@@ -1141,6 +1143,9 @@
     <string name="header_weathertwo_color">Weather text color line 2</string>
     <string name="header_battery_text_color">Battery text color</string>
     <string name="header_alarm_text_color">Next alarm text color</string>
+    <string name="header_color">Colors</string>	
+    <string name="header_colors_reset_title">Reset Header Color</string>
+    <string name="header_colors_reset_message">Reset Header Color Back to Default</string>
 
     <!-- Task Manager -->
     <string name="enable_task_manager_title">Task Manager</string>
@@ -1409,7 +1414,7 @@
     <string name="yes">YES</string>
 
     <!-- Status bar header font style -->
-    <string name="status_bar_header_font_style_title">Header font style</string>
+    <string name="status_bar_header_font_style_title">Other text font</string>
 
     <!--SmartControl Settings -->
     <string name="smartcontrol_title">Smart Control</string>
@@ -1587,5 +1592,25 @@
     <string name="qs_set_animation_style">%1$s</string>
     <string name="qs_set_animation_duration">%1$s</string>
     <string name="qs_set_animation_interpolator">%1$s</string>
+
+    <!-- Notification Header Customizations -->
+    <string name="header_title">Header options</string>
+    <string name="header_summary">Customize of notification header</string>
+    <string name="header_items">Header items</string>
+    <string name="header_colors_title">Header colors</string>
+    <string name="header_colors_summary">Customize background, icons and text color of header</string>
+    <string name="header_fonts">Fonts</string>
+    <string name="header_fonts_title">Header fonts</string>
+    <string name="header_fonts_summary">Customize fonts style of header</string>
+    <string name="status_bar_header_clock_font_style_title">Header clock font</string>
+    <string name="status_bar_header_weather_font_style">Header weather font</string>
+    <string name="status_bar_header_weather_font_style_title">Header weather font</string>
+    <string name="status_bar_header_date_font_style">Header date font</string>
+    <string name="status_bar_header_alarm_style_title">Header alarm font</string>
+    <string name="status_bar_header_detail_font_style_title">Header am/pm font</string>
+    <string name="expanded_header_show_weather_title">Show weather</string>
+    <string name="expanded_header_show_weather_summary">Enable to show the weather</string>
+    <string name="expanded_header_show_weather_location_title">Show location</string>
+    <string name="expanded_header_show_weather_location_summary">Enable to show the location</string>
 
 </resources>
