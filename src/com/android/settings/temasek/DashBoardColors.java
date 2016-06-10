@@ -32,6 +32,11 @@ import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
+import com.android.settings.util.Helpers;
+import com.android.settings.Utils;
+import android.provider.SearchIndexableResource;
+import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Indexable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuInflater;
@@ -48,34 +53,34 @@ import com.android.settings.temasek.SeekBarPreference;
 import java.util.List;
 import java.util.ArrayList;
 
-public class DashBoardColors extends SettingsPreferenceFragment  implements Preference.OnPreferenceChangeListener {
+public class DashBoardColors extends SettingsPreferenceFragment  implements Preference.OnPreferenceChangeListener ,Indexable {
 
  private static final String DASHBOARD_ICON_COLOR = "db_icon_color";
  private static final String DASHBOARD_TEXT_COLOR = "db_text_color";
- private static final String PREF_BG_COLOR = "settings_bg_color";
- private static final String PREF_CAT_TEXT_COLOR = "settings_category_text_color";        
+ private static final String PREF_BG_COLOR =
+            "settings_bg_color";
+ private static final String PREF_CAT_TEXT_COLOR =
+            "settings_category_text_color";
+ private static final String SETTINGS_TITLE_TEXT_SIZE  = "settings_title_text_size";
+ private static final String SETTINGS_CATEGORY_TEXT_SIZE  = "settings_category_text_size";         
  private static final String DASHBOARD_COLUMNS = "dashboard_columns";
  private static final String DASHBOARD_SWITCHES = "dashboard_switches";
- private static final String SETTINGS_TITLE_TEXT_SIZE  = "settings_title_text_size";
- private static final String SETTINGS_CATEGORY_TEXT_SIZE  = "settings_category_text_size";
 
- static final int DEFAULT = 0xffffffff;
+ static final int DEFAULT = 0xfff4f4f4;
+ static final int TEXT = 0xf13e3e3e;
+ static final int ICON = 0xff787878;
+ static final int BG = 0xfff4f4f4;
 
  private static final int MENU_RESET = Menu.FIRST;
- private static final int TRANSLUCENT_BLACK = 0x80000000;
- private static final int CYANIDE_BLUE = 0xff1976D2;
- private static final int HOLO_BLUE_LIGHT = 0xff33b5e5;
- private static final int WHITE = 0xffffffff;
-	
 
     private ColorPickerPreference mIconColor;
     private ColorPickerPreference mTextColor;
     private ColorPickerPreference mBgColor;
     private ColorPickerPreference mCatTextColor;
-    private ListPreference mDashboardColumns;
-    private ListPreference mDashboardSwitches;
     private SeekBarPreference mDashTitleTextSize;
-    private SeekBarPreference mDashCategoryTextSize;	
+    private SeekBarPreference mDashCategoryTextSize;
+    private ListPreference mDashboardColumns;
+    private ListPreference mDashboardSwitches;	
 
  @Override
     public void onCreate(Bundle icicle) {
@@ -90,24 +95,24 @@ public class DashBoardColors extends SettingsPreferenceFragment  implements Pref
         mIconColor = (ColorPickerPreference) findPreference(DASHBOARD_ICON_COLOR);
         mIconColor.setOnPreferenceChangeListener(this);
         intColor = Settings.System.getInt(getContentResolver(),
-                    Settings.System.DB_ICON_COLOR, DEFAULT);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
+                    Settings.System.DB_ICON_COLOR, ICON);
+        hexColor = String.format("#%08x", (0xff787878 & intColor));
         mIconColor.setSummary(hexColor);
         mIconColor.setNewPreviewColor(intColor);
 
         mTextColor = (ColorPickerPreference) findPreference(DASHBOARD_TEXT_COLOR);
         mTextColor.setOnPreferenceChangeListener(this);
         intColor = Settings.System.getInt(getContentResolver(),
-                    Settings.System.DB_TEXT_COLOR, DEFAULT);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
+                    Settings.System.DB_TEXT_COLOR, TEXT);
+        hexColor = String.format("#%08x", (0xf13e3e3e & intColor));
         mTextColor.setSummary(hexColor);
         mTextColor.setNewPreviewColor(intColor);
         
         mBgColor =
                 (ColorPickerPreference) findPreference(PREF_BG_COLOR);
         intColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.SETTINGS_BG_COLOR, WHITE);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
+                Settings.System.SETTINGS_BG_COLOR, BG);
+        hexColor = String.format("#%08x", (0xfff4f4f4 & intColor));
         mBgColor.setNewPreviewColor(intColor);
         mBgColor.setSummary(hexColor);
         mBgColor.setOnPreferenceChangeListener(this);
@@ -116,24 +121,25 @@ public class DashBoardColors extends SettingsPreferenceFragment  implements Pref
 	mCatTextColor =
                 (ColorPickerPreference) findPreference(PREF_CAT_TEXT_COLOR);
         intColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.SETTINGS_CATEGORY_TEXT_COLOR, HOLO_BLUE_LIGHT);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
+                Settings.System.SETTINGS_CATEGORY_TEXT_COLOR, TEXT);
+        hexColor = String.format("#%08x", (0xf13e3e3e & intColor));
         mCatTextColor.setNewPreviewColor(intColor);
         mCatTextColor.setSummary(hexColor);
         mCatTextColor.setOnPreferenceChangeListener(this);
-
+        
+        
         mDashTitleTextSize =
                 (SeekBarPreference) findPreference(SETTINGS_TITLE_TEXT_SIZE);
         mDashTitleTextSize.setValue(Settings.System.getInt(getActivity().getContentResolver(),
                 Settings.System.SETTINGS_TITLE_TEXT_SIZE, 14));
         mDashTitleTextSize.setOnPreferenceChangeListener(this);
 
-
         mDashCategoryTextSize =
                 (SeekBarPreference) findPreference(SETTINGS_CATEGORY_TEXT_SIZE);
         mDashCategoryTextSize.setValue(Settings.System.getInt(getActivity().getContentResolver(),
                 Settings.System.SETTINGS_CATEGORY_TEXT_SIZE, 15));
         mDashCategoryTextSize.setOnPreferenceChangeListener(this);
+        
         
         mDashboardColumns = (ListPreference) findPreference(DASHBOARD_COLUMNS);
         mDashboardColumns.setValue(String.valueOf(Settings.System.getInt(
@@ -193,17 +199,17 @@ public class DashBoardColors extends SettingsPreferenceFragment  implements Pref
                     Settings.System.SETTINGS_CATEGORY_TEXT_COLOR, intHex);
             preference.setSummary(hex);
             return true;
-         } else if (preference == mDashTitleTextSize) {
+        } else if (preference == mDashTitleTextSize) {
             int width = ((Integer)newValue).intValue();
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.SETTINGS_TITLE_TEXT_SIZE, width);
             return true;
-         } else if (preference == mDashCategoryTextSize) {
+        } else if (preference == mDashCategoryTextSize) {
             int width = ((Integer)newValue).intValue();
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.SETTINGS_CATEGORY_TEXT_SIZE, width);
             return true;
-         } else if (preference == mDashboardSwitches) {
+         }else   if (preference == mDashboardSwitches) {
              Settings.System.putInt(getContentResolver(), Settings.System.DASHBOARD_SWITCHES,
                      Integer.valueOf((String) newValue));
              mDashboardSwitches.setValue(String.valueOf(newValue));
@@ -253,21 +259,44 @@ public class DashBoardColors extends SettingsPreferenceFragment  implements Pref
 
     private void resetValues() {
         Settings.System.putInt(getContentResolver(),
-                Settings.System.DB_ICON_COLOR, DEFAULT);
-        mIconColor.setNewPreviewColor(DEFAULT);
+                Settings.System.DB_ICON_COLOR, ICON);
+        mIconColor.setNewPreviewColor(ICON);
         mIconColor.setSummary(R.string.default_string);
         Settings.System.putInt(getContentResolver(),
-                Settings.System.DB_TEXT_COLOR, DEFAULT);
-        mTextColor.setNewPreviewColor(DEFAULT);
+                Settings.System.DB_TEXT_COLOR, TEXT);
+        mTextColor.setNewPreviewColor(TEXT);
         mTextColor.setSummary(R.string.default_string);
         Settings.System.putInt(getContentResolver(),
-                Settings.System.SETTINGS_BG_COLOR, DEFAULT);
-        mBgColor.setNewPreviewColor(DEFAULT);
+                Settings.System.SETTINGS_BG_COLOR, BG);
+        mBgColor.setNewPreviewColor(BG);
         mBgColor.setSummary(R.string.default_string);
         Settings.System.putInt(getContentResolver(),
-                Settings.System.SETTINGS_CATEGORY_TEXT_COLOR, DEFAULT);
-        mCatTextColor.setNewPreviewColor(DEFAULT);
+                Settings.System.SETTINGS_CATEGORY_TEXT_COLOR, TEXT);
+        mCatTextColor.setNewPreviewColor(TEXT);
         mCatTextColor.setSummary(R.string.default_string);
 
     }
+    
+            public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+            new BaseSearchIndexProvider() {
+                @Override
+                public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                                                                             boolean enabled) {
+                     ArrayList<SearchIndexableResource> result =
+                             new ArrayList<SearchIndexableResource>();
+ 
+                     SearchIndexableResource sir = new SearchIndexableResource(context);
+                    sir.xmlResId = R.xml.dashboard_colors;
+                     result.add(sir);
+ 
+                     return result;
+                 }
+ 
+                 @Override
+                 public List<String> getNonIndexableKeys(Context context) {
+                     final List<String> keys = new ArrayList<String>();
+                     return keys;
+                 }
+         };
+
 }

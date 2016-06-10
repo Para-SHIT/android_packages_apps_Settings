@@ -7,26 +7,13 @@
 
     <PreferenceCategory
         android:key="screen_and_animations"
-        android:title="@string/screen_and_animations_title" >
+        android:title="@string/animations_cat" >
 
         <PreferenceScreen
             android:key="interface_animation_keyboard"
             android:fragment="com.android.settings.temasek.KeyboardAnimationInterfaceSettings"
             android:title="@string/ime_animation_title"
             android:summary="@string/ime_animation_summary" />
-
-        <!-- Toast Animation -->
-        <ListPreference
-            android:key="toast_animation"
-            android:title="@string/toast_animation_title"
-            android:entries="@array/toast_animation_entries"
-            android:entryValues="@array/toast_animation_values"
-            android:persistent="false" />
-
-        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
-            android:key="toast_icon"
-            android:title="@string/toast_icon_title"
-            android:defaultValue="true" />
 
         <!-- List view animation -->
         <ListPreference
@@ -45,6 +32,13 @@
             android:entryValues="@array/listview_interpolator_values"
             android:defaultValue="0" />
 
+        <!-- AOKP custom animations -->
+        <PreferenceScreen
+            android:key="aokp_animation"
+            android:title="@string/aokp_animation_title"
+            android:summary="@string/aokp_animation_summary"
+            android:fragment="com.android.settings.temasek.fragments.AnimationControls" />
+
         <ListPreference
             android:key="power_menu_animations"
             android:title="@string/power_menu_animation_title"
@@ -54,18 +48,43 @@
             android:summary="@string/power_menu_animation_summary"
             android:persistent="false" />
 
-        <!-- AOKP custom animations -->
-        <PreferenceScreen
-            android:key="aokp_animation"
-            android:title="@string/aokp_animation_title"
-            android:summary="@string/aokp_animation_summary"
-            android:fragment="com.android.settings.temasek.fragments.AnimationControls" />
+        <!-- Toast Animation -->
+        <ListPreference
+            android:key="toast_animation"
+            android:title="@string/toast_animation_title"
+            android:entries="@array/toast_animation_entries"
+            android:entryValues="@array/toast_animation_values"
+            android:persistent="false" />
+
+        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+            android:key="toast_icon"
+            android:title="@string/toast_icon_title"
+            android:defaultValue="true" />
 
         <PreferenceScreen
             android:key="overscroll_effects"
             android:title="@string/ui_overscroll_title"
             android:summary="@string/overscroll_weight_summary"
             android:fragment="com.android.settings.temasek.OverscrollEffects" />
+
+        <ListPreference 
+            android:key="pref_scrollingcache"
+            android:dialogTitle="@string/pref_scrollingcache_title"
+            android:title="@string/pref_scrollingcache_title"
+            android:summary="@string/pref_scrollingcache_summary"
+            android:entries="@array/entries_scrollingcache"
+            android:entryValues="@array/values_scrollingcache" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/category_interface">
+
+        <PreferenceScreen
+            android:key="dashboard_colors"
+            android:title="@string/db_colors"
+            android:summary="@string/db_colors_summary"
+	    android:fragment="com.android.settings.temasek.DashBoardColors"/>
 
         <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
             android:key="disable_torch_on_screen_off"
@@ -79,14 +98,6 @@
             android:entries="@array/torch_screen_off_delay_entries"
             android:entryValues="@array/torch_screen_off_delay_values"
             android:dependency="disable_torch_on_screen_off" />
-
-        <ListPreference 
-            android:key="pref_scrollingcache"
-            android:dialogTitle="@string/pref_scrollingcache_title"
-            android:title="@string/pref_scrollingcache_title"
-            android:summary="@string/pref_scrollingcache_summary"
-            android:entries="@array/entries_scrollingcache"
-            android:entryValues="@array/values_scrollingcache" />
 
     </PreferenceCategory>
 

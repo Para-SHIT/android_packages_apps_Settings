@@ -154,11 +154,6 @@
                 settings:keywords="@string/keywords_display_font_size"
                 android:summary="@string/summary_font_size"
                 android:dialogTitle="@string/dialog_title_font_size" />
-        
-        <PreferenceScreen
-                android:key="dashboard_colors"
-                android:title="@string/db_colors" 
-	        android:fragment="com.android.settings.temasek.DashBoardColors"/>
 
     </PreferenceCategory>
 

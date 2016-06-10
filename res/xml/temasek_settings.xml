@@ -19,52 +19,72 @@
     android:title="@string/temasek_settings_title"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
-    <!-- App circle bar -->
-    <PreferenceScreen
-         android:key="app_circle_bar"
-         android:fragment="com.android.settings.temasek.AppCircleBar"
-         android:title="@string/app_circle_bar_title"/>
+    <PreferenceCategory
+        android:title="@string/temasek_settings_title" >
 
-    <!-- App sidebar -->
-    <PreferenceScreen
-         android:key="app_sidebar"
-         android:fragment="com.android.settings.temasek.AppSidebar"
-         android:title="@string/app_sidebar_title"/>
+        <!-- Status bar -->
+        <PreferenceScreen
+             android:id="@+id/status_bar_settings"
+             android:title="@string/status_bar_title"
+             android:fragment="com.android.settings.cyanogenmod.StatusBarSettings"
+             android:icon="@drawable/ic_settings_extdesk_hidenavbar" />
 
-    <!-- Clock widget -->
-    <PreferenceScreen
-         android:key="lock_clock"
-         android:fragment="com.android.settings.temasek.LockClock"
-         android:title="@string/lock_clock_title" />
+        <!-- Notification drawer -->
+        <PreferenceScreen
+             android:id="@+id/notification_drawer_settings"
+             android:title="@string/notification_drawer_title"
+             android:fragment="com.android.settings.cyanogenmod.NotificationDrawerSettings"
+             android:icon="@drawable/ic_settings_notification_drawer" />
 
-    <!-- Gesture anywhere -->
-    <PreferenceScreen
-         android:key="gesture_anywhere"
-         android:fragment="com.android.settings.temasek.gestureanywhere.GestureAnywhereSettings"
-         android:title="@string/gesture_anywhere_title" />
+        <!-- Recent panel settings -->
+        <PreferenceScreen
+             android:key="recents_panel"
+             android:fragment="com.android.settings.temasek.RecentsPanelSettings"
+             android:title="@string/recents_panel_title" 
+             android:icon="@drawable/ic_settings_recents" />
 
-    <!-- Lockscreen shortcuts -->
-    <PreferenceScreen
-         android:key="lockscreen_temasek"
-         android:fragment="com.android.settings.temasek.LockScreenSettings"
-         android:title="@string/temasek_lockscreen_title" />
+        <!-- Buttons -->
+        <PreferenceScreen
+             android:id="@+id/button_settings"
+             android:title="@string/button_pref_title"
+             android:fragment="com.android.settings.ButtonSettings"
+             android:icon="@drawable/ic_settings_buttons" />
 
-    <!-- Recent panel settings -->
-    <PreferenceScreen
-         android:key="recents_panel"
-         android:fragment="com.android.settings.temasek.RecentsPanelSettings"
-         android:title="@string/recents_panel_title"/>
+        <!-- Lock screen -->
+        <PreferenceScreen
+             android:id="@+id/lockscreen_settings"
+             android:title="@string/lockscreen_settings"
+             android:fragment="com.android.settings.lockscreen.LockScreenSettings"
+             android:icon="@drawable/ic_settings_security" />
 
-    <!-- Screen and animations -->
-    <PreferenceScreen
-         android:key="screen_and_animations"
-         android:fragment="com.android.settings.temasek.ScreenAndAnimations"
-         android:title="@string/screen_and_animations_title"/>
+        <!-- Screen and animations -->
+        <PreferenceScreen
+             android:key="screen_and_animations"
+             android:fragment="com.android.settings.temasek.ScreenAndAnimations"
+             android:title="@string/screen_and_animations_title"
+             android:icon="@drawable/ic_settings_display_animations" />
 
-    <!-- Smartcontrol Options -->
-    <PreferenceScreen
-        android:key="smartcontrol"
-        android:fragment="com.android.settings.temasek.SmartControl"	
-        android:title="@string/smartcontrol_title" />
+        <!-- TRDS -->
+        <PreferenceScreen
+             android:id="@+id/theme_settings"
+             android:icon="@drawable/ic_settings_theme"
+             android:fragment="com.android.settings.temasek.themes.ThemeSettings"
+             android:title="@string/theme_settings_title" />
+
+        <!-- Notification manager -->
+        <PreferenceScreen
+             android:id="@+id/notification_manager"
+             android:title="@string/notification_manager"
+             android:fragment="com.android.settings.notification.NotificationManagerSettings"
+             android:icon="@drawable/ic_settings_notifications" />
+
+        <!-- Smartcontrol Options -->
+        <PreferenceScreen
+             android:key="smartcontrol"
+             android:fragment="com.android.settings.temasek.SmartControl"	
+             android:title="@string/smartcontrol_title"
+             android:icon="@drawable/ic_settings_smartcontrol" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

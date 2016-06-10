@@ -20,23 +20,51 @@
     android:title="@string/smartcontrol_title"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
-    <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
-        android:key="shake_to_clean_recents"
-        android:title="@string/shake_clean_recent"
-        android:summary="@string/shake_clean_recent_summary"
-        android:defaultValue="false" />
+    <PreferenceCategory
+        android:title="@string/smartcontrol_title" >
 
-    <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
-        android:key="shake_to_clean_notifications"
-        android:title="@string/shake_clean_notification"
-        android:summary="@string/shake_clean_notification_summary"
-        android:defaultValue="false" />
+        <!-- App circle bar -->
+        <PreferenceScreen
+             android:key="app_circle_bar"
+             android:fragment="com.android.settings.temasek.AppCircleBar"
+             android:title="@string/app_circle_bar_title"/>
 
-    <!-- Three-fingers-swipe to screenshot -->
-    <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
-        android:key="three_finger_gesture"
-        android:title="@string/three_finger_gesture"
-        android:summary="@string/three_finger_gesture_summary"
-        android:defaultValue="false" />
+        <!-- App sidebar -->
+        <PreferenceScreen
+             android:key="app_sidebar"
+             android:fragment="com.android.settings.temasek.AppSidebar"
+             android:title="@string/app_sidebar_title"/>
+
+         <!-- Gesture anywhere -->
+         <PreferenceScreen
+             android:key="gesture_anywhere"
+             android:fragment="com.android.settings.temasek.gestureanywhere.GestureAnywhereSettings"
+             android:title="@string/gesture_anywhere_title" />
+
+         <PreferenceScreen
+             android:key="pie_settings"
+             android:fragment="com.android.settings.slim.PieControl"
+             android:title="@string/pie_control_title" />
+
+         <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+             android:key="shake_to_clean_recents"
+             android:title="@string/shake_clean_recent"
+             android:summary="@string/shake_clean_recent_summary"
+             android:defaultValue="false" />
+
+         <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+             android:key="shake_to_clean_notifications"
+             android:title="@string/shake_clean_notification"
+             android:summary="@string/shake_clean_notification_summary"
+             android:defaultValue="false" />
+
+         <!-- Three-fingers-swipe to screenshot -->
+         <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+             android:key="three_finger_gesture"
+             android:title="@string/three_finger_gesture"
+             android:summary="@string/three_finger_gesture_summary"
+             android:defaultValue="false" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

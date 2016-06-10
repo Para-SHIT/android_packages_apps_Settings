@@ -81,19 +81,22 @@
             android:defaultValue="true"
             settings:advanced="true"/>
 
-        <PreferenceScreen
-            android:key="lockscreen_wallpaper"
-            android:title="@string/lockscreen_wallpaper_title"
-            android:summary="@string/lockscreen_wallpaper_summary"
-            android:persistent="false"
-            android:fragment="com.android.settings.temasek.LockscreenWallpaper">
-        </PreferenceScreen>
-
         <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
             android:key="lockscreen_media_metadata"
             android:title="@string/media_art_title"
             android:summary="@string/media_art_summary"
             android:defaultValue="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/advanced">
+
+        <!-- Lockscreen shortcuts -->
+        <PreferenceScreen
+            android:key="lockscreen_temasek"
+            android:fragment="com.android.settings.temasek.LockScreenSettings"
+            android:title="@string/temasek_lockscreen_title" />
 
     </PreferenceCategory>
 
