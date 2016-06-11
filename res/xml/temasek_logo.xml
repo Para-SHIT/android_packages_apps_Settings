@@ -15,29 +15,59 @@
 -->
 
 <PreferenceScreen
-    android:title="@string/status_bar_logo"
+    android:title="@string/status_bar_logo_title"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
-    <!-- Status bar Temasek logo -->
-    <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+    <PreferenceCategory
+        android:title="@string/temasek_logo_cat" >
+
+        <!-- Status bar Temasek logo -->
+        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
             android:key="status_bar_temasek_logo"
             android:title="@string/status_bar_temasek_logo_title"
             android:summary="@string/status_bar_temasek_logo_summary" />
 
-    <net.margaritov.preference.colorpicker.ColorPickerPreference
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="status_bar_temasek_logo_color"
             android:title="@string/status_bar_temasek_logo_color"
             android:defaultValue="0xffffffff"
             android:dependency="status_bar_temasek_logo" />
 
-    <ListPreference
-           android:key="status_bar_temasek_logo_style"
-           android:title="@string/status_bar_temasek_logo_position"
-           android:dialogTitle="@string/status_bar_temasek_logo_position"
-           android:entries="@array/status_bar_logo_position_entries"
-           android:entryValues="@array/status_bar_logo_position_values"
-           android:dependency="status_bar_temasek_logo" />
+        <ListPreference
+            android:key="status_bar_temasek_logo_style"
+            android:title="@string/status_bar_temasek_logo_position"
+            android:dialogTitle="@string/status_bar_temasek_logo_position"
+            android:entries="@array/status_bar_logo_position_entries"
+            android:entryValues="@array/status_bar_logo_position_values"
+            android:dependency="status_bar_temasek_logo" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/sb_custom_logos">
+
+        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+            android:key="show_custom_logo"
+            android:title="@string/show_custom_logo_title"
+            android:summary="@string/show_custom_logo_summary"
+	    android:defaultValue="false" />
+
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="custom_logo_color"
+            android:title="@string/custom_logo_color"
+            android:defaultValue="0xffffffff"
+            android:dependency="show_custom_logo" />
+
+        <ListPreference
+            android:key="custom_logo_style"
+            android:title="@string/custom_logo_style"
+            android:dialogTitle="@string/custom_logos"
+            android:entries="@array/custom_logo_entries"
+            android:entryValues="@array/custom_logo_values"
+            android:dependency="show_custom_logo" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>
 
