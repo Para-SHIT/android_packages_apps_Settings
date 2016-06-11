@@ -64,12 +64,6 @@
             android:title="@string/status_bar_temperature_title"
             android:fragment="com.android.settings.temasek.StatusBarWeather" />
 
-        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
-            android:key="status_bar_brightness_control"
-            android:title="@string/status_bar_toggle_brightness"
-            android:summary="@string/status_bar_toggle_brightness_summary"
-            android:defaultValue="false" />
-
         <PreferenceScreen
             android:key="network_traffic_state"
             android:fragment="com.android.settings.temasek.NetworkTraffic"
@@ -81,6 +75,12 @@
             android:title="@string/status_bar_network_activity_title"
             android:summary="@string/status_bar_network_activity_summary"
             android:defaultValue="false"/>
+
+        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+            android:key="status_bar_brightness_control"
+            android:title="@string/status_bar_toggle_brightness"
+            android:summary="@string/status_bar_toggle_brightness_summary"
+            android:defaultValue="false" />
 
         <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
             android:key="status_bar_notif_count"
