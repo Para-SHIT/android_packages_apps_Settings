@@ -66,10 +66,9 @@ public class DashBoardColors extends SettingsPreferenceFragment  implements Pref
  private static final String DASHBOARD_COLUMNS = "dashboard_columns";
  private static final String DASHBOARD_SWITCHES = "dashboard_switches";
 
- static final int DEFAULT = 0xfff4f4f4;
- static final int TEXT = 0xf13e3e3e;
- static final int ICON = 0xff787878;
- static final int BG = 0xfff4f4f4;
+ static final int TEXT = 0x8a000000;
+ static final int ICON = 0xff009688;
+ static final int BG = 0xffffffff;
 
  private static final int MENU_RESET = Menu.FIRST;
 
@@ -96,7 +95,7 @@ public class DashBoardColors extends SettingsPreferenceFragment  implements Pref
         mIconColor.setOnPreferenceChangeListener(this);
         intColor = Settings.System.getInt(getContentResolver(),
                     Settings.System.DB_ICON_COLOR, ICON);
-        hexColor = String.format("#%08x", (0xff787878 & intColor));
+        hexColor = String.format("#%08x", (0xff009688 & intColor));
         mIconColor.setSummary(hexColor);
         mIconColor.setNewPreviewColor(intColor);
 
@@ -104,7 +103,7 @@ public class DashBoardColors extends SettingsPreferenceFragment  implements Pref
         mTextColor.setOnPreferenceChangeListener(this);
         intColor = Settings.System.getInt(getContentResolver(),
                     Settings.System.DB_TEXT_COLOR, TEXT);
-        hexColor = String.format("#%08x", (0xf13e3e3e & intColor));
+        hexColor = String.format("#%08x", (0x8a000000 & intColor));
         mTextColor.setSummary(hexColor);
         mTextColor.setNewPreviewColor(intColor);
         
@@ -112,7 +111,7 @@ public class DashBoardColors extends SettingsPreferenceFragment  implements Pref
                 (ColorPickerPreference) findPreference(PREF_BG_COLOR);
         intColor = Settings.System.getInt(getContentResolver(),
                 Settings.System.SETTINGS_BG_COLOR, BG);
-        hexColor = String.format("#%08x", (0xfff4f4f4 & intColor));
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
         mBgColor.setNewPreviewColor(intColor);
         mBgColor.setSummary(hexColor);
         mBgColor.setOnPreferenceChangeListener(this);
@@ -121,8 +120,8 @@ public class DashBoardColors extends SettingsPreferenceFragment  implements Pref
 	mCatTextColor =
                 (ColorPickerPreference) findPreference(PREF_CAT_TEXT_COLOR);
         intColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.SETTINGS_CATEGORY_TEXT_COLOR, TEXT);
-        hexColor = String.format("#%08x", (0xf13e3e3e & intColor));
+                Settings.System.SETTINGS_CATEGORY_TEXT_COLOR, ICON);
+        hexColor = String.format("#%08x", (0xff009688 & intColor));
         mCatTextColor.setNewPreviewColor(intColor);
         mCatTextColor.setSummary(hexColor);
         mCatTextColor.setOnPreferenceChangeListener(this);
@@ -271,8 +270,8 @@ public class DashBoardColors extends SettingsPreferenceFragment  implements Pref
         mBgColor.setNewPreviewColor(BG);
         mBgColor.setSummary(R.string.default_string);
         Settings.System.putInt(getContentResolver(),
-                Settings.System.SETTINGS_CATEGORY_TEXT_COLOR, TEXT);
-        mCatTextColor.setNewPreviewColor(TEXT);
+                Settings.System.SETTINGS_CATEGORY_TEXT_COLOR, ICON);
+        mCatTextColor.setNewPreviewColor(ICON);
         mCatTextColor.setSummary(R.string.default_string);
 
     }
