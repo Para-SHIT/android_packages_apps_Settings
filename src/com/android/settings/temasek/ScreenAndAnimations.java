@@ -86,7 +86,6 @@ public class ScreenAndAnimations extends SettingsPreferenceFragment implements
         mListViewInterpolator.setValue(String.valueOf(listviewinterpolator));
         mListViewInterpolator.setSummary(mListViewInterpolator.getEntry());
         mListViewInterpolator.setOnPreferenceChangeListener(this);
-        mListViewInterpolator.setEnabled(listviewanimation > 0);
 
         mTorchOff = (SwitchPreference) prefSet.findPreference(DISABLE_TORCH_ON_SCREEN_OFF);
         mTorchOffDelay = (ListPreference) prefSet.findPreference(DISABLE_TORCH_ON_SCREEN_OFF_DELAY);
@@ -120,46 +119,41 @@ public class ScreenAndAnimations extends SettingsPreferenceFragment implements
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
-        final String key = preference.getKey();
         if (preference == mToastAnimation) {
             int index = mToastAnimation.findIndexOfValue((String) objValue);
             Settings.System.putString(getContentResolver(), Settings.System.TOAST_ANIMATION, (String) objValue);
             mToastAnimation.setSummary(mToastAnimation.getEntries()[index]);
             Toast.makeText(mContext, "Toast Test", Toast.LENGTH_SHORT).show();
             return true;
-        }
-        if (KEY_LISTVIEW_ANIMATION.equals(key)) {
-            int value = Integer.parseInt((String) objValue);
+        } else if (preference == mListViewAnimation) {
+            int listviewanimation = Integer.parseInt((String) objValue);
             int index = mListViewAnimation.findIndexOfValue((String) objValue);
-            Settings.System.putInt(getContentResolver(),
+            Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.LISTVIEW_ANIMATION,
-                    value);
+                    listviewanimation);
             mListViewAnimation.setSummary(mListViewAnimation.getEntries()[index]);
-            mListViewInterpolator.setEnabled(value > 0);
-        }
-        if (KEY_LISTVIEW_INTERPOLATOR.equals(key)) {
-            int value = Integer.parseInt((String) objValue);
+            return true;
+        } else if (preference == mListViewInterpolator) {
+            int listviewinterpolator = Integer.parseInt((String) objValue);
             int index = mListViewInterpolator.findIndexOfValue((String) objValue);
-            Settings.System.putInt(getContentResolver(),
+            Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.LISTVIEW_INTERPOLATOR,
-                    value);
+                    listviewinterpolator);
             mListViewInterpolator.setSummary(mListViewInterpolator.getEntries()[index]);
-        }
-        if (preference == mTorchOffDelay) {
+            return true;
+        } else if (preference == mTorchOffDelay) {
             int torchOffDelay = Integer.valueOf((String) objValue);
             int index = mTorchOffDelay.findIndexOfValue((String) objValue);
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.DISABLE_TORCH_ON_SCREEN_OFF_DELAY, torchOffDelay);
             mTorchOffDelay.setSummary(mTorchOffDelay.getEntries()[index]);
             return true;
-        }
-        if (preference == mScrollingCachePref) {
+        } else if (preference == mScrollingCachePref) {
             if (objValue != null) {
                 SystemProperties.set(SCROLLINGCACHE_PERSIST_PROP, (String)objValue);
             return true;
             }
-        }
-        if (preference == mPowerMenuAnimations) {
+        } else if (preference == mPowerMenuAnimations) {
             Settings.System.putInt(getContentResolver(), Settings.System.POWER_MENU_ANIMATIONS,
                     Integer.valueOf((String) objValue));
             mPowerMenuAnimations.setValue(String.valueOf(objValue));
