@@ -173,9 +173,9 @@ public class DashboardTileView extends FrameLayout implements View.OnClickListen
         mCustomColors = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.DASHBOARD_CUSTOM_COLORS, 0) == 1;
         mIconColor = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.DB_ICON_COLOR, 0xFFFFFFFF);         
+                Settings.System.DB_ICON_COLOR, 0XFF009688);         
 	mTextcolor = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.DB_TEXT_COLOR, 0xFFFFFFFF); 
+                Settings.System.DB_TEXT_COLOR, 0X8A000000); 
         if (mCustomColors) {
 		if (mTitleTextView !=null) {
 		mTitleTextView.setTextColor(mTextcolor);      
@@ -191,13 +191,13 @@ public class DashboardTileView extends FrameLayout implements View.OnClickListen
                Settings.System.DASHBOARD_CUSTOM_COLORS, 0) == 1;
         if(mCustomColors) {       
         setBackgroundColor(Settings.System.getInt(context.getContentResolver(),
-            Settings.System.SETTINGS_BG_COLOR, 0xff000000));
+            Settings.System.SETTINGS_BG_COLOR, 0xffffffff));
         mDivider = (View) view.findViewById(R.id.tile_divider);
         mDivider.setBackgroundResource(R.drawable.dashboard_tile_background);
         mDivider.setBackgroundColor(Settings.System.getInt(context.getContentResolver(),
-            Settings.System.SETTINGS_BG_COLOR, 0xff000000));
+            Settings.System.SETTINGS_BG_COLOR, 0xffffffff));
         mStatusTextView.setTextColor(Settings.System.getInt(context.getContentResolver(),
-            Settings.System.SETTINGS_CATEGORY_TEXT_COLOR, 0xff1976D2));
+            Settings.System.SETTINGS_CATEGORY_TEXT_COLOR, 0xff009688));
         mStatusTextView.setTextSize(Settings.System.getIntForUser(context.getContentResolver(),
             Settings.System.SETTINGS_TITLE_TEXT_SIZE, 14,
                UserHandle.USER_CURRENT));
