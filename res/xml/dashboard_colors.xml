@@ -44,7 +44,7 @@
                 android:summary="@string/dashboard_tileview_dividers_summary"
                 android:defaultValue="false" />      
 
- 	 <ListPreference
+ 	<ListPreference
                 android:key="dashboard_switches"
                 android:title="@string/dashboard_switches_title"
                 android:dialogTitle="@string/dashboard_switches_dialog_title"

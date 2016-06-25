@@ -207,7 +207,7 @@ public class DashboardSummary extends Fragment {
 
     private static int getDashboardSwitches(Context context) {
         return Settings.System.getInt(context.getContentResolver(),
-                Settings.System.DASHBOARD_SWITCHES, 0);
+                Settings.System.DASHBOARD_SWITCHES, 1);
     }
 
     private void sendRebuildUI() {

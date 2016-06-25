@@ -148,7 +148,7 @@ public class DashBoardColors extends SettingsPreferenceFragment  implements Pref
 
  	mDashboardSwitches = (ListPreference) findPreference(DASHBOARD_SWITCHES);
         mDashboardSwitches.setValue(String.valueOf(Settings.System.getInt(
-                getContentResolver(), Settings.System.DASHBOARD_SWITCHES, 0)));
+                getContentResolver(), Settings.System.DASHBOARD_SWITCHES, 1)));
         mDashboardSwitches.setSummary(mDashboardSwitches.getEntry());
         mDashboardSwitches.setOnPreferenceChangeListener(this);
         
