@@ -19,6 +19,29 @@
     android:title="@string/notification_drawer_title">
 
     <PreferenceCategory
+        android:title="@string/header_category_title">
+
+        <PreferenceScreen
+            android:key="temasek_header"
+            android:title="@string/header_title"
+            android:summary="@string/header_summary"
+            android:fragment="com.android.settings.temasek.Header" />
+
+        <PreferenceScreen
+            android:key="temasek_header_fonts"
+            android:title="@string/header_fonts_title"
+            android:summary="@string/header_fonts_summary"
+            android:fragment="com.android.settings.temasek.HeaderFonts" />
+
+        <PreferenceScreen
+            android:key="temasek_header_colors"
+            android:title="@string/header_colors_title"
+            android:summary="@string/header_colors_summary"
+            android:fragment="com.android.settings.temasek.HeaderColors" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/qs_category_title">
 
         <PreferenceScreen
@@ -86,12 +109,6 @@
             android:entries="@array/smart_pulldown_entries"
             android:entryValues="@array/smart_pulldown_values"
             android:persistent="false" />
-
-        <PreferenceScreen
-            android:key="temasek_header"
-            android:title="@string/header_title"
-            android:summary="@string/header_summary"
-            android:fragment="com.android.settings.temasek.Header" />
 
         <com.android.settings.cyanogenmod.SecureSettingSwitchPreference
             android:key="block_on_secure_keyguard"

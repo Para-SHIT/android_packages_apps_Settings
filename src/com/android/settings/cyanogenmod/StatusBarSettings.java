@@ -52,10 +52,8 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private static final String TAG = "StatusBar";
 
     private static final String KEY_CARRIERLABEL_PREFERENCE = "carrier_options";
-    private static final String KEY_STATUS_BAR_TICKER = "status_bar_ticker";
 
     private PreferenceScreen mCarrierLabel;
-    private SwitchPreference mTicker;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -70,11 +68,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         TelephonyManager.getDefault().isMultiSimEnabled()) {
             prefSet.removePreference(mCarrierLabel);
         }
-
-        mTicker = (SwitchPreference) findPreference(KEY_STATUS_BAR_TICKER);
-        mTicker.setChecked(Settings.System.getInt(
-                getContentResolver(), Settings.System.TICKER_ENABLED, 0) == 1);
-        mTicker.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -84,12 +77,6 @@ public class StatusBarSettings extends SettingsPreferenceFragment
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        ContentResolver resolver = getActivity().getContentResolver();
-        if (preference == mTicker) {
-            Settings.System.putInt(resolver, Settings.System.TICKER_ENABLED,
-                    (Boolean) newValue ? 1 : 0);
-            return true;
-        }
         return false;
     }
 

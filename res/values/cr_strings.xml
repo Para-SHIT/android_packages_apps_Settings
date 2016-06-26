@@ -31,6 +31,8 @@
     <string name="extras_temasek_settings">Temasek Extras</string>
     <string name="reset_default_message">Reset default</string>
     <string name="additional_options_title">Additional options</string>
+    <string name="category_general_title">General options</string>
+    <string name="category_colors_title">Customize colors</string>
 
     <!-- Changelog -->
     <string name="changelog_temasek_title">Changelog</string>
@@ -668,9 +670,9 @@
     <string name="double_tap_sleep_nav_bar_summary">Double tap navigation bar to put the device to sleep</string>
 
     <!-- Show carrier label and custom -->
-    <string name="carrier_options">Carrier Label</string>
+    <string name="carrier_options">Carrier label</string>
+    <string name="carrier_options_summary">Customize of carrier label</string>
     <string name="show_status_bar_carrier_title">Status bar carrier</string>
-    <string name="show_status_bar_carrier_summary">Show carrier in status bar</string>
     <string name="custom_carrier_label_title">Custom carrier label</string>
     <string name="custom_carrier_label_explain">Please enter a new label. Leave blank to revert to stock label.</string>
     <string name="custom_carrier_label_notset">Custom label currently not set</string>
@@ -858,8 +860,8 @@
     <string name="show_unac_and_overcounted_stats_summary">Show in battery statistics unaccounted and over-counted usage.</string>
 
     <!-- Status bar battery status settings -->
-    <string name="status_bar_battery_status_settings_title">Battery status</string>
-    <string name="status_bar_battery_status_settings_summary">Customize the battery status</string>
+    <string name="status_bar_battery_status_settings_title">Battery style</string>
+    <string name="status_bar_battery_status_settings_summary">Customize of battery in status bar</string>
     <string name="battery_status_cat_circle_options_title">Customize the circle</string>
     <string name="battery_status_style_title">Indicator</string>
     <string name="battery_status_style_icon_portrait">Icon portrait</string>
@@ -885,17 +887,14 @@
     <string name="battery_status_text_color_title">Text</string>
 
     <!-- Battery Bar -->
-    <string name="battery_icon">Battery icon style</string>
-    <string name="battery_not_title">Battery icon in notifications</string>
-    <string name="battery_not_summary">Battery icon will show up where the clear all button shows up</string>
     <string name="battery_bar_location">Battery bar location</string>
     <string name="battery_bar_color">Battery bar color</string>
-    <string name="battery_bar">Battery bar options</string>
+    <string name="battery_bar">Battery bar</string>
+    <string name="battery_bar_summary">Customize of battery bar</string>
     <string name="battery_bar_style_title">Battery bar style</string>
     <string name="battery_bar_thickness_title">Battery bar thickness</string>
     <string name="battery_bar_animate_title">Charging animation</string>
     <string name="battery_bar_animate_summary">The charging animation may result in a poor user experience. Enable at your own discretion.</string>
-
     <string name="battery_bar_charging_color">Battery bar charging color</string>
     <string name="battery_bar_battery_low_color">Battery bar low battery color</string>
     <string name="battery_bar_style_regular">Regular</string>
@@ -1262,6 +1261,7 @@
 
     <!-- Status bar temperature -->
     <string name="status_bar_temperature_title">Weather temperature</string>
+    <string name="status_bar_temperature_summary">Customize of weather temperature</string>
     <string name="status_bar_temperature_hidden">Hidden</string>
     <string name="status_bar_temperature_show_scale">Shown with scale</string>
     <string name="status_bar_temperature_hide_scale">Shown without scale</string>
@@ -1389,10 +1389,6 @@
     <string name="lockscreen_see_through_title">Lockscreen blur</string>
     <string name="lockscreen_see_through_summary">Blurs and displays the content behind your lockscreen.</string>
     <string name="lockscreen_blur_radius">Blur effect intensity</string>
-
-    <!-- Status Bar Activity Indicators -->
-    <string name="status_bar_network_activity_title">Activity indicators</string>
-    <string name="status_bar_network_activity_summary">Show indicators in signal bars</string>
 
     <!-- Media art -->
     <string name="media_art_title">Media cover art</string>
@@ -1627,6 +1623,7 @@
     <string name="qs_set_animation_interpolator">%1$s</string>
 
     <!-- Notification Header Customizations -->
+    <string name="header_category_title">Notification header</string>
     <string name="header_title">Header options</string>
     <string name="header_summary">Customize of notification header</string>
     <string name="header_items">Header items</string>
@@ -1645,6 +1642,36 @@
     <string name="expanded_header_show_weather_summary">Enable to show the weather</string>
     <string name="expanded_header_show_weather_location_title">Show location</string>
     <string name="expanded_header_show_weather_location_summary">Enable to show the location</string>
+    <string name="hide_panel_items_title">Notification panel icons</string>
+    <string name="hide_panel_clock_title">Show notification panel clock</string>
+    <string name="hide_panel_date_title">Show notification panel date</string>
+    <string name="hide_panel_clockvalue">Show clock detail</string>
+    <string name="hide_panel_battery">Show notification panel battery text</string>
+    <string name="hide_panel_icons">Show notification icons</string>
+    <string name="hide_panel_alarm_title">Hide alarm</string>	
+    <string name="hide_user_icon">Show notification panel user switcher</string>
+    <string name="panel_clock_sum">Show / hide clock in header</string>
+    <string name="panel_date_sum">Show / hide Date In Header</string>
+    <string name="panel_ampm_sum">Show / hide am/pm values in header</string>
+    <string name="panel_battery_sum">Show / hide battery percentange while charging in header</string>
+    <string name="panel_icons_sum">Show / hide ystem icons like battery in header</string>	
+    <string name="panel_user_sum">Show / hide users switch icon in header</string>
+    <string name="panel_settings_sum">Show / hide settings icon in header</string>	
+    <string name="hide_panel_alarm_sum">Show / hide next alarm in header</string>
+
+    <!--Summary on/off-->	
+	<string name="hide_clock_summary_on">Clock shown</string>	
+	<string name="hide_clock_summary_off">Clock hidden</string>
+	<string name="hide_panel_date_summary_on">Date shown</string>	
+	<string name="hide_panel_date_summary_off">Date hidden</string>
+	<string name="hide_ampm_summary_on">Am/Pm shown</string>	
+	<string name="hide_ampm_summary_off">Am/Pm hidden</string>
+	<string name="hide_battery_summary_on">Battery shown</string>	
+	<string name="hide_battery_summary_off">Battery hidden</string>
+	<string name="hide_icons_summary_on">System icons shown</string>	
+	<string name="hide_icons_summary_off">System icons hidden</string>
+	<string name="hide_user_summary_on">User switch shown</string>	
+	<string name="hide_user_summary_off">User switch hidden</string>
 
     <!-- Statusbar logo -->
     <string name="status_bar_logo_title">Status bar logo</string>
@@ -1709,5 +1736,31 @@
     <!-- Navbar buttons rotating icons -->
     <string name="nav_buttons_rotation_title">Rotation animation for icons</string>
     <string name="nav_buttons_rotation_summary">Enable for icons to rotate when screen is rotated or navbar recreated</string>
+
+    <!-- Status bar signals icon settings  -->
+    <string name="status_bar_signal_settings_title">Mobile &amp; Wi-Fi network icons</string>
+    <string name="status_bar_signal_settings_summary">Customize the status bar mobile and wi-fi network icons</string>
+    <string name="signal_wifi_show_activity_title">Show network activity</string>
+    <string name="signal_wifi_show_activity_summary">Enable to show the network activity</string>
+    <string name="cat_network_icons_title">Network icons</string>
+    <string name="cat_network_activity_icons_title">Activity icons</string>
+    <string name="cat_airplane_mode_icon_title">Airplane mode icon</string>
+    <string name="cat_vpn_icon_title">VPN icon</string>
+    <string name="color_normal_title">Normal</string>
+    <string name="color_fully_title">Fully connected</string>
+
+    <!-- Status bar notifications and system icons -->
+    <string name="notif_system_icons_colorize_notif_icons_title">Colorize notification icons</string>
+    <string name="notif_system_icons_colorize_notif_icons_summary">Enable to colorize the notification icons color</string>
+    <string name="notif_system_icons_show_count_title">Show notification count</string>
+    <string name="notif_system_icons_show_count_summary">Display the number of pending notifications</string>
+    <string name="notif_system_icons_icon_color_title">Icons</string>
+    <string name="notif_system_icons_notif_text_color_title">Ticker text</string>
+    <string name="notif_system_icons_count_icon_color_title">Notification count icon</string>
+    <string name="notif_system_icons_count_text_color_title">Notification count Text</string>
+    <string name="notif_system_icons_show_ticker_title">Notification ticker</string>
+    <string name="notif_system_icons_show_ticker_summary">Notification text animation in the status bar</string>
+    <string name="status_bar_notif_system_icons_settings_title">Notifications &amp; system icons</string>
+    <string name="status_bar_notif_system_icons_settings_summary">Customize the notifications &amp; system icons</string>
 
 </resources>

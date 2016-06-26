@@ -58,17 +58,47 @@
             android:title="@string/enable_task_manager_title"
             android:summary="@string/enable_task_manager_summary" />
 
-        <PreferenceScreen
-            android:key="temasek_header_fonts"
-            android:title="@string/header_fonts_title"
-            android:summary="@string/header_fonts_summary"
-            android:fragment="com.android.settings.temasek.HeaderFonts" />
-
-        <PreferenceScreen
-            android:key="temasek_header_colors"
-            android:title="@string/header_colors_title"
-            android:summary="@string/header_colors_summary"
-            android:fragment="com.android.settings.temasek.HeaderColors" />
+        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+	    android:key="hide_panel_clock"
+	    android:title="@string/hide_panel_clock_title" 
+	    android:summaryOn="@string/hide_clock_summary_on"
+	    android:summaryOff="@string/hide_clock_summary_off"
+	    android:defaultValue="true"/>
+	
+	<com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+	    android:key="hide_panel_date"
+	    android:title="@string/hide_panel_date_title" 
+	    android:summaryOn="@string/hide_panel_date_summary_on"
+	    android:summaryOff="@string/hide_panel_date_summary_off"
+	    android:defaultValue="true"/>
+	
+	<com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+	    android:key="hide_panel_clockvalue"
+	    android:title="@string/hide_panel_clockvalue" 
+	    android:summaryOn="@string/hide_ampm_summary_on"
+	    android:summaryOff="@string/hide_ampm_summary_off"
+	    android:defaultValue="true"/>
+	
+	<com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+	    android:key="hide_panel_battery"
+	    android:title="@string/hide_panel_battery" 
+	    android:summaryOn="@string/hide_battery_summary_on"
+	    android:summaryOff="@string/hide_battery_summary_off"
+	    android:defaultValue="true"/>
+	
+	<com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+	    android:key="hide_panel_icons"
+	    android:title="@string/hide_panel_icons" 
+	    android:summaryOn="@string/hide_icons_summary_on"
+	    android:summaryOff="@string/hide_icons_summary_off"
+	    android:defaultValue="true"/>
+	
+	<com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+	    android:key="hide_user_icon"
+	    android:title="@string/hide_user_icon" 
+	    android:summaryOn="@string/hide_user_summary_on"
+	    android:summaryOff="@string/hide_user_summary_off"
+	    android:defaultValue="true"/>
 
     </PreferenceCategory>
 
