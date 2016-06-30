@@ -174,7 +174,7 @@ public class HeaderColors extends SettingsPreferenceFragment  implements Prefere
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.HEADER_ICON_COLOR, intHex);
             return true;
-	 } else if (preference == mHeaderCLockColor) {
+	 	} else if (preference == mHeaderCLockColor) {
             String hex = ColorPickerPreference.convertToARGB(
                     Integer.valueOf(String.valueOf(newValue)));
             preference.setSummary(hex);
@@ -282,7 +282,7 @@ public class HeaderColors extends SettingsPreferenceFragment  implements Prefere
         mHeaderWeatheroneColor.setSummary(R.string.default_string);
         Settings.System.putInt(getContentResolver(),
                 Settings.System.HEADER_WEATHERTWO_COLOR, DEFAULT);
-	mHeaderWeathertwoColor.setNewPreviewColor(DEFAULT);
+		mHeaderWeathertwoColor.setNewPreviewColor(DEFAULT);
         mHeaderWeathertwoColor.setSummary(R.string.default_string);
         Settings.System.putInt(getContentResolver(),
                 Settings.System.HEADER_BATTERY_TEXT_COLOR, DEFAULT);
