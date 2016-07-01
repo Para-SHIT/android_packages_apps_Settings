@@ -350,8 +350,8 @@
     <string name="toast_icon_title">Toast icon</string>
 
     <!-- ListView animation -->
-    <string name="interface_settings_animation_title">Animation options</string>
-    <string name="listview_animation_title">ListView animation</string>
+    <string name="listview_animation_title">ListView animations</string>
+    <string name="listview_animation_summary">Set custom animations for system list</string>
     <string name="listview_off">Default</string>
     <string name="listview_wave_left">Wave (left)</string>
     <string name="listview_wave_right">Wave (right)</string>
@@ -363,6 +363,18 @@
     <string name="listview_fold">Fold</string>
     <string name="listview_translate_left">Translate (left)</string>
     <string name="listview_translate_right">Translate (right)</string>
+    <string name="listview_duration_title">ListView Duration</string>
+    <string name="listview_cache_title">ListView Persistent Cache</string>
+    <string name="listview_cache_none">No Cache</string>
+    <string name="listview_cache_anim">Animation Cache</string>
+    <string name="listview_cache_scroll">Scrolling Cache</string>
+    <string name="listview_cache_all">Animation &amp; Scrolling</string>
+    <string name="listview_blacklist_title">Excluded applications</string>
+    <string name="listview_blacklist_summary">Prevent Apps from animating</string>
+    <string name="listview_test">Test ListView</string>
+    <string name="listview_test_summary">Open Test Dialog with a ListView</string>
+    <string name="listview_test_instructions">Scroll to see changes</string>
+    <string name="listview_test_item">ListView Item</string>
 
     <!-- ListView interpolator -->
     <string name="listview_interpolator_title">ListView interpolator</string>
