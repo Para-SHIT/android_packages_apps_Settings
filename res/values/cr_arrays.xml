@@ -1248,12 +1248,6 @@
         <item>17</item>
     </string-array>
 
-    <!-- SlimSizer -->
-    <string-array name="slimsizer_profile_array">
-        <item >Load Profile</item>
-        <item >Save Profile</item>
-    </string-array>
-
     <!-- Status bar clock font sizes -->
     <string-array name="clock_font_size_entries" translatable="false">
         <item>@string/clock_font_size_4</item>
