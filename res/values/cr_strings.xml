@@ -654,6 +654,7 @@
     <string name="qs_color_switch_title">Custom color switch</string>
     <string name="qs_colors">QS Panel Colors</string>
     <string name="notification_colors">Notification Colors</string>
+    <string name="ripple_title">Ripple effect</string>
 
     <!-- Captive Portal -->
     <string name="captive_portal_detection">Captive portal detection</string>

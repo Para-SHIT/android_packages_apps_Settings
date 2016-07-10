@@ -64,9 +64,9 @@
         	android:summary="@string/status_bar_custom_header_text_shadow_summary"
         	android:defaultValue="0"
         	android:max="25"
-        	settings:min="0"
-        	settings:unitsLeft=""
-        	settings:unitsRight="@string/unit_percent"
+            settings:min="0"
+            settings:unitsLeft=""
+            settings:unitsRight="@string/unit_percent"
         	android:persistent="false" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference

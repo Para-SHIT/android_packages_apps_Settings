@@ -115,5 +115,6 @@ public class Settings extends SettingsActivity {
     public static class NotificationManagerActivity extends SettingsActivity { /* empty */ }
     public static class ButtonSettingsActivity extends SettingsActivity { /* empty */ }
     public static class ContributorsCloudActivity extends SettingsActivity { /* empty */ }
+    public static class TemasekSettingsActivity extends SettingsActivity { /* empty */ }
 }
 

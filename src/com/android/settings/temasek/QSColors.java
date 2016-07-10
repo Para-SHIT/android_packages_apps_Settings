@@ -41,18 +41,13 @@ import net.margaritov.preference.colorpicker.ColorPickerPreference;
 public class QSColors extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
-    private static final String PREF_QS_BACKGROUND_COLOR =
-            "qs_background_color";
-    private static final String PREF_QS_ICON_COLOR =
-            "qs_icon_color";
-    private static final String PREF_QS_TEXT_COLOR =
-            "qs_text_color";
-    private static final String PREF_QS_TRANSPARENT_SHADE =
-            "qs_transparent_shade";
-    private static final String PREF_QS_COLOR_SWITCH =
-            "qs_color_switch";
-    private static final String PREF_BRIGHTNESS_ICON_COLOR =
-            "qs_brightness_icon_color";
+    private static final String PREF_QS_BACKGROUND_COLOR = "qs_background_color";
+    private static final String PREF_QS_ICON_COLOR = "qs_icon_color";
+    private static final String PREF_QS_TEXT_COLOR = "qs_text_color";
+    private static final String PREF_QS_TRANSPARENT_SHADE = "qs_transparent_shade";
+    private static final String PREF_QS_COLOR_SWITCH = "qs_color_switch";
+    private static final String PREF_BRIGHTNESS_ICON_COLOR = "qs_brightness_icon_color";
+    private static final String PREF_QS_RIPPLE_COLOR = "qs_ripple_color";
 
     private static final int DEFAULT_BACKGROUND_COLOR = 0xff263238;
     private static final int WHITE = 0xffffffff;
@@ -66,6 +61,7 @@ public class QSColors extends SettingsPreferenceFragment implements
     private ColorPickerPreference mQSIconColor;
     private ColorPickerPreference mQSTextColor;
     private ColorPickerPreference mSliderIconColor;
+    private ColorPickerPreference mQSRippleColor;
     private SwitchPreference mQSShadeTransparency;
     private SwitchPreference mQSSSwitch;
 
@@ -89,19 +85,16 @@ public class QSColors extends SettingsPreferenceFragment implements
         int intColor;
         String hexColor;
 
-        mQSBackgroundColor =
-                (ColorPickerPreference) findPreference(PREF_QS_BACKGROUND_COLOR);
+        mQSBackgroundColor = (ColorPickerPreference) findPreference(PREF_QS_BACKGROUND_COLOR);
         intColor = Settings.System.getInt(mResolver,
-                Settings.System.QS_BACKGROUND_COLOR,
-                DEFAULT_BACKGROUND_COLOR);
+                Settings.System.QS_BACKGROUND_COLOR, DEFAULT_BACKGROUND_COLOR);
         mQSBackgroundColor.setNewPreviewColor(intColor);
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mQSBackgroundColor.setSummary(hexColor);
         mQSBackgroundColor.setAlphaSliderEnabled(true);
         mQSBackgroundColor.setOnPreferenceChangeListener(this);
 
-        mQSIconColor =
-                (ColorPickerPreference) findPreference(PREF_QS_ICON_COLOR);
+        mQSIconColor = (ColorPickerPreference) findPreference(PREF_QS_ICON_COLOR);
         intColor = Settings.System.getInt(mResolver,
                 Settings.System.QS_ICON_COLOR, WHITE);
         mQSIconColor.setNewPreviewColor(intColor);
@@ -109,8 +102,7 @@ public class QSColors extends SettingsPreferenceFragment implements
         mQSIconColor.setSummary(hexColor);
         mQSIconColor.setOnPreferenceChangeListener(this);
 
-        mQSTextColor =
-                (ColorPickerPreference) findPreference(PREF_QS_TEXT_COLOR);
+        mQSTextColor = (ColorPickerPreference) findPreference(PREF_QS_TEXT_COLOR);
         intColor = Settings.System.getInt(mResolver,
                 Settings.System.QS_TEXT_COLOR, WHITE);
         mQSTextColor.setNewPreviewColor(intColor);
@@ -120,11 +112,19 @@ public class QSColors extends SettingsPreferenceFragment implements
 
         mSliderIconColor = (ColorPickerPreference) findPreference(PREF_BRIGHTNESS_ICON_COLOR);
         intColor = Settings.System.getInt(getContentResolver(),
-                    Settings.System.QS_BRIGHTNESS_ICON_COLOR, WHITE);
+                Settings.System.QS_BRIGHTNESS_ICON_COLOR, WHITE);
         mSliderIconColor.setNewPreviewColor(intColor);
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mSliderIconColor.setSummary(hexColor);
         mSliderIconColor.setOnPreferenceChangeListener(this);
+
+        mQSRippleColor = (ColorPickerPreference) findPreference(PREF_QS_RIPPLE_COLOR);
+        intColor = Settings.System.getInt(mResolver,
+                Settings.System.QS_RIPPLE_COLOR, WHITE); 
+        mQSRippleColor.setNewPreviewColor(intColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mQSRippleColor.setSummary(hexColor);
+        mQSRippleColor.setOnPreferenceChangeListener(this);
 
         mQSShadeTransparency = (SwitchPreference) findPreference(PREF_QS_TRANSPARENT_SHADE);
         mQSShadeTransparency.setChecked((Settings.System.getInt(mResolver,
@@ -187,10 +187,18 @@ public class QSColors extends SettingsPreferenceFragment implements
             return true;
         } else if (preference == mSliderIconColor) {
             hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
+                Integer.valueOf(String.valueOf(newValue)));
             intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(mResolver,
                     Settings.System.QS_BRIGHTNESS_ICON_COLOR, intHex);
+            preference.setSummary(hex);
+            return true;
+        } else if (preference == mQSRippleColor) {
+            hex = ColorPickerPreference.convertToARGB(
+                Integer.valueOf(String.valueOf(newValue)));
+            intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(mResolver,
+                Settings.System.QS_RIPPLE_COLOR, intHex);
             preference.setSummary(hex);
             return true;
         } else if (preference == mQSShadeTransparency) {
@@ -249,6 +257,8 @@ public class QSColors extends SettingsPreferenceFragment implements
                                     Settings.System.QS_TEXT_COLOR, WHITE);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.QS_BRIGHTNESS_ICON_COLOR, WHITE);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.QS_RIPPLE_COLOR, WHITE);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.QS_TRANSPARENT_SHADE, 0);
                             getOwner().refreshSettings();

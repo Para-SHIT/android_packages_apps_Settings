@@ -2151,6 +2151,21 @@
                 android:value="true" />
         </activity>
 
+        <!-- Temasek Main Settings -->
+        <activity android:name="Settings$TemasekSettingsActivity"
+            android:label="@string/temasek_settings_title"
+            android:taskAffinity="">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
+                android:value="com.android.settings.temasek.TemasekSettings" />
+        </activity>
+
+        <activity
+             android:name=".temasek.TemasekSettings" />
+
         <activity android:name="Settings$UserSettingsActivity"
                 android:label="@string/user_settings_title"
                 android:taskAffinity="">
