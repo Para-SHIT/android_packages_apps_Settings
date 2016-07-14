@@ -18,6 +18,8 @@
     <string name="display_settings_title">Display settings</string>
     <string name="general_options_title">General</string>
     <string name="animations_cat">Animations</string>
+    <string name="qs_anim_title">QS animations</string>
+    <string name="qs_anim_summary">customize quick settings animation</string>
 
     <!-- General strings -->
     <string name="attention">Attention</string>
@@ -1194,6 +1196,16 @@
     <!-- Task Manager -->
     <string name="enable_task_manager_title">Task Manager</string>
     <string name="enable_task_manager_summary">Enable/Disable action for the task manager button in the expanded statusbar area.</string>
+    <string name="expansion_view_animation_title">Task Manager Animation</string>
+    <string name="expansion_view_animation_summary">Change the enter/exit animation of the panel change</string>
+    <string name="expansion_view_animation_dialog_title">Select your animation</string>
+    <string name="expansion_view_animation_down">Down (Default)</string>
+    <string name="expansion_view_animation_enter">Enter</string>
+    <string name="expansion_view_animation_left">Left</string>
+    <string name="expansion_view_animation_right">Right</string>
+    <string name="expansion_view_animation_rotate">Rotate</string>
+    <string name="expansion_view_animation_turn">Turn</string>
+    <string name="expansion_view_animation_up">Up</string>
 
     <!-- Disable torch when screen goes off -->
     <string name="disable_torch_screen_off_title">Disable torch on screen off</string>

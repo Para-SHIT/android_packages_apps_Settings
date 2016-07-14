@@ -37,6 +37,12 @@
             android:summary="@string/power_menu_animation_summary"
             android:persistent="false" />
 
+        <PreferenceScreen
+            android:key="qs_animations"
+            android:title="@string/qs_anim_title"
+            android:summary="@string/qs_anim_summary"
+            android:fragment="com.android.settings.temasek.QSAnim" />
+
         <!-- Toast Animation -->
         <ListPreference
             android:key="toast_animation"
