@@ -49,10 +49,10 @@ public class Header extends SettingsPreferenceFragment implements Indexable,
     private static final String TAG = "MainSettings";
 
     private static final String PREF_ENABLE_TASK_MANAGER = "enable_task_manager";
-    private static final String PREF_CUSTOM_HEADER_DEFAULT =
-                "status_bar_custom_header_default";
+    private static final String PREF_CUSTOM_HEADER_DEFAULT = "status_bar_custom_header_default";
     private static final String PREF_SHOW_WEATHER = "expanded_header_show_weather";
     private static final String PREF_SHOW_LOCATION = "expanded_header_show_weather_location";
+    private static final String STATUS_BAR_POWER_MENU = "status_bar_power_menu";
 
     private static final int MENU_RESET = Menu.FIRST;
     private static final int DLG_RESET = 0;
@@ -61,6 +61,7 @@ public class Header extends SettingsPreferenceFragment implements Indexable,
     private SwitchPreference mEnableTaskManager;
     private SwitchPreference mShowWeather;
     private SwitchPreference mShowLocation;
+    private ListPreference mStatusBarPowerMenu;
 
     private ContentResolver mResolver;
 
@@ -99,6 +100,14 @@ public class Header extends SettingsPreferenceFragment implements Indexable,
         mShowWeather = (SwitchPreference) findPreference(PREF_SHOW_WEATHER);
         mShowWeather.setChecked(showWeather);
         mShowWeather.setOnPreferenceChangeListener(this);
+
+        // status bar power menu
+        mStatusBarPowerMenu = (ListPreference) findPreference(STATUS_BAR_POWER_MENU);
+        mStatusBarPowerMenu.setOnPreferenceChangeListener(this);
+        int statusBarPowerMenu = Settings.System.getInt(mResolver,
+                STATUS_BAR_POWER_MENU, 0);
+        mStatusBarPowerMenu.setValue(String.valueOf(statusBarPowerMenu));
+        mStatusBarPowerMenu.setSummary(mStatusBarPowerMenu.getEntry());
 
         if (showWeather) {
             mShowLocation = (SwitchPreference) findPreference(PREF_SHOW_LOCATION);
@@ -152,6 +161,16 @@ public class Header extends SettingsPreferenceFragment implements Indexable,
                 Settings.System.STATUS_BAR_EXPANDED_HEADER_SHOW_WEATHER_LOCATION,
                 value ? 1 : 0);
             return true;
+        } else if (preference == mStatusBarPowerMenu) {
+            String statusBarPowerMenu = (String) newValue;
+            int statusBarPowerMenuValue = Integer.parseInt(statusBarPowerMenu);
+            Settings.System.putInt(mResolver,
+                    Settings.System.STATUS_BAR_POWER_MENU, statusBarPowerMenuValue);
+            int statusBarPowerMenuIndex = mStatusBarPowerMenu
+                    .findIndexOfValue(statusBarPowerMenu);
+            mStatusBarPowerMenu
+                    .setSummary(mStatusBarPowerMenu.getEntries()[statusBarPowerMenuIndex]);
+            return true;
         }
         return false;
     }
@@ -204,6 +223,8 @@ public class Header extends SettingsPreferenceFragment implements Indexable,
                                     Settings.System.STATUS_BAR_EXPANDED_HEADER_SHOW_WEATHER_LOCATION, 1);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_CUSTOM_HEADER_DEFAULT, 0);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_POWER_MENU, 0);
                             getOwner().refreshSettings();
                         }
                     })

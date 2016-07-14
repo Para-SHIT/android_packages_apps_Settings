@@ -1769,4 +1769,11 @@
     <string name="status_bar_custom_header_text_shadow_color_title">Header text shadow color</string>
     <string name="unit_percent">\u0025</string>
 
+    <!-- Status bar power menu -->
+    <string name="status_bar_power_menu_title">Power menu</string>
+    <string name="status_bar_power_menu_dialog_title">Set tap and long-press actions</string>
+    <string name="status_bar_power_menu_off">Disabled</string>
+    <string name="status_bar_power_menu_action_screen_off">Screen off - Power menu</string>
+    <string name="status_bar_power_menu_action_dialog">Power menu - Screen off</string>
+
 </resources>
