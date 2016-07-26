@@ -97,7 +97,7 @@ public class QSAnim extends SettingsPreferenceFragment implements Indexable,
          
         mTileAnimationInterpolator = (ListPreference) findPreference(PREF_TILE_ANIM_INTERPOLATOR);
         int tileAnimationInterpolator = Settings.System.getIntForUser(mResolver,
-                Settings.System.ANIM_TILE_INTERPOLATOR, 0,
+                Settings.System.ANIM_TILE_INTERPOLATOR, 7,
                 UserHandle.USER_CURRENT);
         mTileAnimationInterpolator.setValue(String.valueOf(tileAnimationInterpolator));
         updateTileAnimationInterpolatorSummary(tileAnimationInterpolator);
