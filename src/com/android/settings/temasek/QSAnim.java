@@ -97,7 +97,7 @@ public class QSAnim extends SettingsPreferenceFragment implements Indexable,
          
         mTileAnimationInterpolator = (ListPreference) findPreference(PREF_TILE_ANIM_INTERPOLATOR);
         int tileAnimationInterpolator = Settings.System.getIntForUser(mResolver,
-                Settings.System.ANIM_TILE_INTERPOLATOR, 7,
+                Settings.System.ANIM_TILE_INTERPOLATOR, 0,
                 UserHandle.USER_CURRENT);
         mTileAnimationInterpolator.setValue(String.valueOf(tileAnimationInterpolator));
         updateTileAnimationInterpolatorSummary(tileAnimationInterpolator);
@@ -105,7 +105,7 @@ public class QSAnim extends SettingsPreferenceFragment implements Indexable,
 
         mAnimation = (ListPreference) findPreference(QS_TASK_ANIMATION);
         mAnimation.setValue(String.valueOf(Settings.System.getInt(mResolver,
-                Settings.System.QS_TASK_ANIMATION, 0)));
+                Settings.System.QS_TASK_ANIMATION, 7)));
         mAnimation.setSummary(mAnimation.getEntry());
         mAnimation.setOnPreferenceChangeListener(this);
 
