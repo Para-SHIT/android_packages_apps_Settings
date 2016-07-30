@@ -43,19 +43,6 @@
             android:summary="@string/qs_anim_summary"
             android:fragment="com.android.settings.temasek.QSAnim" />
 
-        <!-- Toast Animation -->
-        <ListPreference
-            android:key="toast_animation"
-            android:title="@string/toast_animation_title"
-            android:entries="@array/toast_animation_entries"
-            android:entryValues="@array/toast_animation_values"
-            android:persistent="false" />
-
-        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
-            android:key="toast_icon"
-            android:title="@string/toast_icon_title"
-            android:defaultValue="true" />
-
         <PreferenceScreen
             android:key="overscroll_effects"
             android:title="@string/ui_overscroll_title"
@@ -73,13 +60,43 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="toast"
+        android:title="@string/toast_settings">
+
+        <!-- Toast Animation -->
+        <ListPreference
+            android:key="toast_animation"
+            android:title="@string/toast_animation_title"
+            android:entries="@array/toast_animation_entries"
+            android:entryValues="@array/toast_animation_values"
+            android:persistent="false" />
+
+        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+            android:key="toast_icon"
+            android:title="@string/toast_icon_title"
+            android:summary="@string/toast_icon_summary"
+            android:defaultValue="true" />
+
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="toast_icon_color"
+            android:title="@string/toast_icon_color"
+            android:defaultValue="0xffffffff" />
+
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="toast_text_color"
+            android:title="@string/toast_text_color"
+            android:defaultValue="0xffffffff" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/category_interface">
 
         <PreferenceScreen
             android:key="dashboard_colors"
             android:title="@string/db_colors"
             android:summary="@string/db_colors_summary"
-	    android:fragment="com.android.settings.temasek.DashBoardColors"/>
+	        android:fragment="com.android.settings.temasek.DashBoardColors"/>
 
         <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
             android:key="disable_torch_on_screen_off"

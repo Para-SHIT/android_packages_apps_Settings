@@ -48,7 +48,6 @@ public class Header extends SettingsPreferenceFragment implements Indexable,
 
     private static final String TAG = "MainSettings";
 
-    private static final String PREF_ENABLE_TASK_MANAGER = "enable_task_manager";
     private static final String PREF_CUSTOM_HEADER_DEFAULT = "status_bar_custom_header_default";
     private static final String PREF_SHOW_WEATHER = "expanded_header_show_weather";
     private static final String PREF_SHOW_LOCATION = "expanded_header_show_weather_location";
@@ -58,7 +57,6 @@ public class Header extends SettingsPreferenceFragment implements Indexable,
     private static final int DLG_RESET = 0;
 
     private ListPreference mCustomHeaderDefault;
-    private SwitchPreference mEnableTaskManager;
     private SwitchPreference mShowWeather;
     private SwitchPreference mShowLocation;
     private ListPreference mStatusBarPowerMenu;
@@ -91,11 +89,6 @@ public class Header extends SettingsPreferenceFragment implements Indexable,
                 Settings.System.STATUS_BAR_CUSTOM_HEADER_DEFAULT, 0);
         mCustomHeaderDefault.setValue(String.valueOf(customHeaderDefault));
         mCustomHeaderDefault.setSummary(mCustomHeaderDefault.getEntry());
-
-        // Task manager
-        mEnableTaskManager = (SwitchPreference) prefSet.findPreference(PREF_ENABLE_TASK_MANAGER);
-        mEnableTaskManager.setChecked((Settings.System.getInt(getActivity().getContentResolver(),
-                Settings.System.ENABLE_TASK_MANAGER, 0) == 1));
 
         mShowWeather = (SwitchPreference) findPreference(PREF_SHOW_WEATHER);
         mShowWeather.setChecked(showWeather);
@@ -173,16 +166,6 @@ public class Header extends SettingsPreferenceFragment implements Indexable,
             return true;
         }
         return false;
-    }
-
-    @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        if (preference == mEnableTaskManager) {
-           boolean enabled = ((SwitchPreference)preference).isChecked();
-           Settings.System.putInt(getActivity().getContentResolver(),
-                   Settings.System.ENABLE_TASK_MANAGER, enabled ? 1:0);
-        }
-        return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
     private void showDialogInner(int id) {

@@ -35,6 +35,7 @@
     <string name="additional_options_title">Additional options</string>
     <string name="category_general_title">General options</string>
     <string name="category_colors_title">Customize colors</string>
+    <string name="app_icon_color_title">App Icon</string>
 
     <!-- Changelog -->
     <string name="changelog_temasek_title">Changelog</string>
@@ -347,9 +348,13 @@
     <string name="toast_Translucent_animation">Translucent animation</string>
     <string name="toast_SlideLeftRight_animation">Slide left to right</string>
     <string name="toast_SlideRightLeft_animation">Slide right to left</string>
+    <string name="toast_settings">Toast settings</string>
+    <string name="toast_icon_color">Toast icon color</string>
+    <string name="toast_text_color">Toast text color</string>
 
     <!-- Toast Icons -->
-    <string name="toast_icon_title">Toast icon</string>
+    <string name="toast_icon_title">Toast app icon</string>
+    <string name="toast_icon_summary">Whether to show the app icon which created the toast</string>
 
     <!-- ListView animation -->
     <string name="listview_animation_title">ListView animations</string>
@@ -1215,6 +1220,16 @@
     <string name="expansion_view_xylon_toast">Toast</string>
     <string name="expansion_view_search_bar">SearchBar Animation</string>
     <string name="expansion_view_toko_toast">Toko Toast</string>
+    <string name="task_manager_title">Task Manager</string>
+    <string name="task_manager_summary">Fully customize the task manager</string>
+    <string name="task_manager_show_summary">Show/hide the task manager button in the expanded header</string>
+    <string name="task_manager_memory_text_title">Memory Text</string>
+    <string name="task_manager_task_kill_button_title">Task Kill Button</string>
+    <string name="task_manager_task_text_title">Task Text</string>
+    <string name="task_manager_title_text_title">Title Text</string>
+    <string name="task_manager_kill_all_text_title">Kill All Text</string>
+    <string name="task_manager_ram_used_title">RAM Used</string>
+    <string name="task_manager_ram_free_title">RAM Free</string>
 
     <!-- Disable torch when screen goes off -->
     <string name="disable_torch_screen_off_title">Disable torch on screen off</string>
