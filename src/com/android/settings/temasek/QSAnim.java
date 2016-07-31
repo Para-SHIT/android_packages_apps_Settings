@@ -105,7 +105,7 @@ public class QSAnim extends SettingsPreferenceFragment implements Indexable,
 
         mAnimation = (ListPreference) findPreference(QS_TASK_ANIMATION);
         mAnimation.setValue(String.valueOf(Settings.System.getInt(mResolver,
-                Settings.System.QS_TASK_ANIMATION, 7)));
+                Settings.System.QS_TASK_ANIMATION, 8)));
         mAnimation.setSummary(mAnimation.getEntry());
         mAnimation.setOnPreferenceChangeListener(this);
 
