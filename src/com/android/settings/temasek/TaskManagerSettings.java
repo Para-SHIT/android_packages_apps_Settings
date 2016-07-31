@@ -54,6 +54,8 @@ public class TaskManagerSettings extends SettingsPreferenceFragment implements
     private static final String TASK_MANAGER_TASK_TEXT_COLOR = "task_manager_task_text_color";
     private static final String TASK_MANAGER_TITLE_TEXT_COLOR = "task_manager_title_text_color";
     private static final String TASK_MANAGER_TASK_KILL_ALL_COLOR = "task_manager_kill_all_color";
+    private static final String TASK_MANAGER_FONT_STYLE = "task_manager_font_style";
+    private static final String TASK_MANAGER_BAR_THICKNESS = "task_manager_bar_thickness";
 
     private static final int WHITE = 0xffffffff;
     private static final int TEMASEK_BLUE = 0xff1976D2;
@@ -71,6 +73,8 @@ public class TaskManagerSettings extends SettingsPreferenceFragment implements
     private ColorPickerPreference mTaskTextColor;
     private ColorPickerPreference mTaskTitleTextColor;
     private ColorPickerPreference mTaskKillAllColor;
+    private ListPreference mFontStyle;
+    private ListPreference mBarThickness;
 
     private ContentResolver mResolver;
 
@@ -177,8 +181,23 @@ public class TaskManagerSettings extends SettingsPreferenceFragment implements
             hexColor = String.format("#%08x", (0xffffffff & intColor));
             mTaskTitleTextColor.setSummary(hexColor);
             mTaskTitleTextColor.setOnPreferenceChangeListener(this);
+
+            mFontStyle = (ListPreference) findPreference(TASK_MANAGER_FONT_STYLE);
+            mFontStyle.setOnPreferenceChangeListener(this);
+            mFontStyle.setValue(Integer.toString(Settings.System.getInt(getActivity()
+                    .getContentResolver(), Settings.System.TASK_MANAGER_FONT_STYLE, 0)));
+            mFontStyle.setSummary(mFontStyle.getEntry());
+
+            mBarThickness = (ListPreference) findPreference(TASK_MANAGER_BAR_THICKNESS);
+            mBarThickness.setOnPreferenceChangeListener(this);
+            mBarThickness.setValue(Integer.toString(Settings.System.getInt(getActivity()
+                    .getContentResolver(), Settings.System.TASK_MANAGER_BAR_THICKNESS, 1)));
+            mBarThickness.setSummary(mBarThickness.getEntry());
+
         } else {
             removePreference(COLORS_CATEGORY);
+            removePreference(TASK_MANAGER_FONT_STYLE);
+            removePreference(TASK_MANAGER_BAR_THICKNESS);
         }
 
         setHasOptionsMenu(true);
@@ -205,6 +224,7 @@ public class TaskManagerSettings extends SettingsPreferenceFragment implements
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         String hex;
         int intHex;
+        int index;
 
         if (preference == mTaskManager) {
             boolean value = (Boolean) newValue;
@@ -277,6 +297,20 @@ public class TaskManagerSettings extends SettingsPreferenceFragment implements
                     Settings.System.TASK_MANAGER_TITLE_TEXT_COLOR, intHex);
             preference.setSummary(hex);
             return true;
+        } else if (preference == mFontStyle) {
+            int val = Integer.parseInt((String) newValue);
+            index = mFontStyle.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.TASK_MANAGER_FONT_STYLE, val);
+            mFontStyle.setSummary(mFontStyle.getEntries()[index]);
+            return true;
+        } else if (preference == mBarThickness) {
+            int val = Integer.parseInt((String) newValue);
+            index = mBarThickness.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.TASK_MANAGER_BAR_THICKNESS, val);
+            mBarThickness.setSummary(mBarThickness.getEntries()[index]);
+        return true;
         }
         return false;
     }
@@ -340,6 +374,12 @@ public class TaskManagerSettings extends SettingsPreferenceFragment implements
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.TASK_MANAGER_TASK_KILL_ALL_COLOR,
                                     WHITE);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.TASK_MANAGER_FONT_STYLE,
+                                    0);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.TASK_MANAGER_BAR_THICKNESS,
+                                    1);
                             getOwner().refreshSettings();
                         }
                     })
