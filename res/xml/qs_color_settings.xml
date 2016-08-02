@@ -13,7 +13,8 @@
 
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/qs_colors_title">
+    android:title="@string/qs_colors_title"
+    xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
     <PreferenceCategory
         android:key="qs_cat_colors"
@@ -59,8 +60,36 @@
             android:key="qs_brightness_icon_color"
             android:title="@string/qs_brightness_icon_color"
             android:defaultValue="0xffffffff" 
-	    android:dependency="qs_color_switch" />
+	        android:dependency="qs_color_switch" />
 
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="qs_panel_logo_category"
+        android:title="@string/qs_panel_logo_category">
+ 
+        <ListPreference
+            android:key="qs_panel_logo"
+            android:title="@string/qs_panel_logo_title"
+            android:dialogTitle="@string/qs_panel_logo_title"
+            android:entries="@array/qs_panel_logo_entries"
+            android:entryValues="@array/qs_panel_logo_values"
+            android:defaultValue="0" />
+ 
+        <com.android.settings.temasek.SeekBarPreference
+            android:key="qs_panel_logo_alpha"
+            android:title="@string/qs_panel_logo_alpha_title"
+            android:max="255"
+            settings:min="0"
+            settings:unitsLeft=""
+            settings:unitsRight="%"
+            android:persistent="false" />
+ 
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="qs_panel_logo_color"
+            android:title="@string/qs_panel_logo_color_title"
+            android:defaultValue="0xffffffff"/>
+ 
     </PreferenceCategory>
 
     <PreferenceCategory

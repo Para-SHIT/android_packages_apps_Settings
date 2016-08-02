@@ -762,6 +762,13 @@
     <string name="qs_systemui_restart_tile">Restart SystemUI</string>
     <string name="qs_tile_slim_floats">Slim Floats</string>
     <string name="qs_slim_pie_tile">Pie</string>
+    <string name="qs_panel_logo_category">QS panel logo</string>
+    <string name="qs_panel_logo_title">QS panel logo</string>
+    <string name="qs_panel_logo_disabled">Disabled</string>
+    <string name="qs_panel_logo_accent">Accent color</string>
+    <string name="qs_panel_logo_custom">Custom color</string>
+    <string name="qs_panel_logo_color_title">QS panel logo color</string>
+    <string name="qs_panel_logo_alpha_title">QS panel logo transparency</string>
 
     <!-- Safe headset volume restore checkbox -->
     <string name="safe_headset_volume_title">Safe headset volume</string>
