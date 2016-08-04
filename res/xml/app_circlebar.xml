@@ -24,6 +24,13 @@
         android:title="@string/app_circle_bar_title"
         android:summary="@string/app_circle_bar_summary" />
 
+    <!-- Appcirclebar floating mode switch -->
+    <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+        android:key="appcirclebar_floating"
+        android:title="@string/appcirclebar_floating_window_title"
+        android:summary="@string/appcirclebar_floating_window_summary"
+        android:defaultValue="false" />
+
     <com.android.settings.util.AppMultiSelectListPreference
         android:key="app_circle_bar_included_apps"
         android:persistent="false"

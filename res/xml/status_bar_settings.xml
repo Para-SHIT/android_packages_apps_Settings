@@ -36,12 +36,6 @@
             android:fragment="com.android.settings.temasek.StatusBarBatteryStatusSettings" />
 
         <PreferenceScreen
-        	android:key="battery_bar"
-        	android:fragment="com.android.settings.temasek.BatteryBar"
-        	android:title="@string/battery_bar"
-            android:summary="@string/battery_bar_summary" />
-
-        <PreferenceScreen
             android:key="carrier_options"
             android:title="@string/carrier_options"
             android:summary="@string/carrier_options_summary"

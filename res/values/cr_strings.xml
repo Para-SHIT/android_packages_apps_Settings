@@ -422,9 +422,9 @@
     <string name="smart_pulldown_all">No dismissable or persistent</string>
 
     <!-- Gesture Anywhere -->
-    <string name="gesture_anywhere_title">Gesture Anywhere</string>
-    <string name="gesture_anywhere_enabled_title">Gesture Anywhere</string>
-    <string name="gesture_anywhere_enabled_summary">Enable the Gesture Anywhere feature</string>
+    <string name="gesture_anywhere_title">Gesture anywhere</string>
+    <string name="gesture_anywhere_enabled_title">Gesture anywhere</string>
+    <string name="gesture_anywhere_enabled_summary">Enable the gesture anywhere feature</string>
     <string name="gesture_anywhere_position_title">Location</string>
     <string name="gesture_anywhere_position_left">Left edge</string>
     <string name="gesture_anywhere_position_right">Right edge</string>
@@ -479,7 +479,7 @@
     <string name="profile_applist_title">Applications</string>
 
     <!-- Gesture Anywhere floating mode-->
-    <string name="gesture_anywhere_floating">Gesture Anywhere</string>
+    <string name="gesture_anywhere_floating">Float mode</string>
     <string name="gesture_anywhere_floating_summary">Launch shortcuts in float mode</string>
 
     <!-- App Circle sidebar -->
@@ -494,6 +494,8 @@
     <string name="trigger_top_summary">Adjust the vertical postion of the trigger area</string>
     <string name="trigger_bottom_title">Trigger height</string>
     <string name="trigger_bottom_summary">Adjust the height of the trigger area</string>
+    <string name="appcirclebar_floating_window_title">Float mode</string>
+    <string name="appcirclebar_floating_window_summary">Launch apps that are located in AppCircleBar in float mode</string>
 
     <!-- Volume Steps -->
     <string name="volume_steps_title">Volume Steps</string>
@@ -1054,8 +1056,8 @@
     <string name="alarm_ringtone_title">Default alarm ringtone</string>
     
     <!-- App sidebar -->
-    <string name="app_sidebar_title">Appbar</string>
-    <string name="app_sidebar_enable_title">Enable Appbar</string>
+    <string name="app_sidebar_title">App side bar</string>
+    <string name="app_sidebar_enable_title">Enable appbar</string>
     <string name="app_sidebar_enable_summaryOn">Appbar is enabled</string>
     <string name="app_sidebar_enable_summaryOff">Appbar is disabled</string>
     <string name="app_sidebar_setup_items_title">Setup Appbar content</string>
@@ -1082,6 +1084,8 @@
     <string name="trigger_top_summary">Adjust the vertical postion of the trigger area</string>
     <string name="trigger_bottom_title">Trigger height</string>
     <string name="trigger_bottom_summary">Adjust the height of the trigger area</string>
+    <string name="appsidebar_floating_window_title">Float mode</string>
+    <string name="appsidebar_floating_window_summary">When turned on, long press to launch in float mode</string>
 
     <!-- Breathing Notifications -->
     <string name="breathing_notifications_title">Breathing notifications</string>
@@ -1606,31 +1610,31 @@
     <string name="hide_lockscreen_alarm_title">Alarm</string>
     <string name="hide_lockscreen_alarm_summary">Show lockscreen alarm</string>
 
-    <string name="brightness_icon_title">Brightness Icon </string>
-    <string name="qs_brightness_icon_color">Brightness Icon</string>
+    <string name="brightness_icon_title">Brightness icon </string>
+    <string name="qs_brightness_icon_color">Brightness icon</string>
 
     <!-- Optional Dashboard Switches -->
-    <string name="dashboard_switches_title">Dashboard Switches</string>
-    <string name="dashboard_switches_off">Switches Off</string>
-    <string name="dashboard_switches_on">Switches On</string>
+    <string name="dashboard_switches_title">Dashboard switches</string>
+    <string name="dashboard_switches_off">Switches off</string>
+    <string name="dashboard_switches_on">Switches on</string>
     <string name="dashboard_switches_summary">Change the position of the dashboard switches</string>
     <string name="dashboard_switches_dialog_title">Select switch state</string>
 
-    <string name="db_custom_colors">Dashboard Custom Styles</string>
-    <string name="db_custom_colors_summary">Colorize Various Elements of Dashboard With the Options Below.</string>
-    <string name="db_colors">Dashboard Styles</string>
+    <string name="db_custom_colors">Dashboard custom styles</string>
+    <string name="db_custom_colors_summary">Colorize various elements of dashboard with the options below.</string>
+    <string name="db_colors">Dashboard styles</string>
     <string name="db_colors_summary">Customize of dashboard settings</string>
-    <string name="db_icon_color">Dashboard Icons</string>
+    <string name="db_icon_color">Dashboard icons</string>
     <string name="db_text_color">Title text</string>
     <string name="db_sub_text_color">Text</string>
     <string name="db_background_title">Background</string>
-    <string name="text_cat_title">Sub Text</string>
-    <string name="db_colors_reset_title">Reset Dashboard Color</string>
-    <string name="db_colors_reset_message">Reset Dashboard Color Back to Default</string>
+    <string name="text_cat_title">Sub text</string>
+    <string name="db_colors_reset_title">Reset dashboard color</string>
+    <string name="db_colors_reset_message">Reset dashboard color back to default</string>
 
     <!-- Dashboard settings -->
     <string name="dashboard_category">Dashboard settings</string>
-    <string name="dashboard_columns_title">Dashboard Columns</string>
+    <string name="dashboard_columns_title">Dashboard columns</string>
     <string name="dashboard_columns_summary">Change the number of columns displayed in the dashboard</string>
     <string name="dashboard_columns_dialog_title">Select dashboard columns</string>
     <string name="dashboard_columns_one">One</string>
@@ -1642,8 +1646,8 @@
     <string name="dashboard_tileview_dividers_summary">Hide dashboard tile dividers</string>
 
     <!-- Dashboard Text Size -->
-    <string name="dash_title_text_size">Title Text Size</string>
-    <string name="dash_category_text_size">Category Text Size</string>
+    <string name="dash_title_text_size">Title text size</string>
+    <string name="dash_category_text_size">Category text size</string>
 
     <!-- Tiles animation style  -->
     <string name="quicksettings_tiles_category">Tile animation options</string>

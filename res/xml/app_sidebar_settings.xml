@@ -26,6 +26,13 @@
         android:summaryOff="@string/app_sidebar_enable_summaryOff"
         android:defaultValue="false" />
 
+    <!-- Appsidebar floating mode switch -->
+    <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+        android:key="appsidebar_floating"
+        android:title="@string/appsidebar_floating_window_title"
+        android:summary="@string/appsidebar_floating_window_summary"
+        android:defaultValue="false" />
+
     <Preference
         android:key="sidebar_setup_items"
         android:title="@string/app_sidebar_setup_items_title"

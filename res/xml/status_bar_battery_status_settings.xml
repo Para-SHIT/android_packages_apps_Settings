@@ -39,6 +39,12 @@
        	android:entryValues="@array/battery_status_charge_animation_speed_values"
        	android:defaultValue="3" />
 
+    <PreferenceScreen
+        android:key="battery_bar"
+        android:fragment="com.android.settings.temasek.BatteryBar"
+        android:title="@string/battery_bar"
+        android:summary="@string/battery_bar_summary" />
+
     <PreferenceCategory
        	android:key="battery_status_cat_circle_options"
        	android:title="@string/battery_status_cat_circle_options_title">
