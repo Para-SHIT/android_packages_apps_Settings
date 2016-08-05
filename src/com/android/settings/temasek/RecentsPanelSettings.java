@@ -56,6 +56,8 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
     private static final String PREF_CLEAR_ALL_ICON_COLOR = "android_recents_clear_all_icon_color";
     private static final String IMMERSIVE_RECENTS = "immersive_recents";	
     private static final String MEM_TEXT_COLOR = "mem_text_color";
+    private static final String MEMORY_BAR_COLOR = "memory_bar_color";
+    private static final String MEMORY_BAR_USED_COLOR = "memory_bar_used_color";
     private static final String RECENTS_DATE_COLOR = "recents_date_color";
     private static final String RECENTS_CLOCK_COLOR = "recents_clock_color";
     private static final String PREF_HIDDEN_RECENTS_APPS_START = "hide_app_from_recents";
@@ -77,6 +79,8 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
     private ColorPickerPreference mClearAllIconColor;
     private ColorPickerPreference mClearAllBgColor;
     private ColorPickerPreference mMemTextColor;
+    private ColorPickerPreference mMemBarColor;
+    private ColorPickerPreference mMemBarUsedColor;
     private ColorPickerPreference mClockColor;
     private ColorPickerPreference mDateColor;
     private Preference mHiddenRecentsApps;
@@ -135,6 +139,24 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mMemTextColor.setSummary(hexColor);
         mMemTextColor.setNewPreviewColor(intColor);
+
+        mMemBarColor =
+                (ColorPickerPreference) findPreference(MEMORY_BAR_COLOR);
+        intColor = Settings.System.getInt(resolver,
+                Settings.System.MEMORY_BAR_COLOR, WHITE); 
+        mMemBarColor.setNewPreviewColor(intColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mMemBarColor.setSummary(hexColor);
+        mMemBarColor.setOnPreferenceChangeListener(this);
+
+        mMemBarUsedColor =
+                (ColorPickerPreference) findPreference(MEMORY_BAR_USED_COLOR);
+        intColor = Settings.System.getInt(resolver,
+                Settings.System.MEMORY_BAR_USED_COLOR, WHITE); 
+        mMemBarUsedColor.setNewPreviewColor(intColor);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mMemBarUsedColor.setSummary(hexColor);
+        mMemBarUsedColor.setOnPreferenceChangeListener(this);
 
         mClockColor= (ColorPickerPreference) prefSet.findPreference(RECENTS_CLOCK_COLOR);
         mClockColor.setOnPreferenceChangeListener(this);
@@ -201,6 +223,22 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
             intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.MEM_TEXT_COLOR, intHex);
+            return true;
+        } else if (preference == mMemBarColor) {
+            hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue)));
+            intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.MEMORY_BAR_COLOR, intHex);
+            preference.setSummary(hex);
+            return true;
+        } else if (preference == mMemBarUsedColor) {
+            hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue)));
+            intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.MEMORY_BAR_USED_COLOR, intHex);
+            preference.setSummary(hex);
             return true;
         } else if (preference == mClockColor) {
             hex = ColorPickerPreference.convertToARGB(
@@ -276,6 +314,14 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
                 Settings.System.MEM_TEXT_COLOR, WHITE);
         mMemTextColor.setNewPreviewColor(WHITE);
         mMemTextColor.setSummary(R.string.default_string);
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.MEMORY_BAR_COLOR, WHITE);
+        mMemBarColor.setNewPreviewColor(WHITE);
+        mMemBarColor.setSummary(R.string.default_string);
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.MEMORY_BAR_USED_COLOR, WHITE);
+        mMemBarUsedColor.setNewPreviewColor(WHITE);
+        mMemBarUsedColor.setSummary(R.string.default_string);
         Settings.System.putInt(getContentResolver(),
                 Settings.System.RECENTS_CLOCK_COLOR, WHITE);
         mClockColor.setNewPreviewColor(WHITE);

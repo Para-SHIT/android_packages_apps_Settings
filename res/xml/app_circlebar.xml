@@ -29,7 +29,8 @@
         android:key="appcirclebar_floating"
         android:title="@string/appcirclebar_floating_window_title"
         android:summary="@string/appcirclebar_floating_window_summary"
-        android:defaultValue="false" />
+        android:defaultValue="false"
+        android:dependency="enable_app_circle_bar" />
 
     <com.android.settings.util.AppMultiSelectListPreference
         android:key="app_circle_bar_included_apps"

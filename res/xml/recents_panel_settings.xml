@@ -36,6 +36,14 @@
             android:defaultValue="true"
             android:dependency="show_clear_all_recents" />
 
+        <!-- Search in Recents -->
+        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+            android:key="recents_show_search_bar"
+            android:title="@string/recents_show_searchbar"
+            settings:keywords="@string/keywords_recents_show_searchbar"
+            android:defaultValue="true"
+            settings:advanced="true" />
+
         <ListPreference
             android:key="recents_clear_all_location"
             android:title="@string/recents_clear_all_location_title"
@@ -61,27 +69,6 @@
             android:key="hide_app_from_recents"
             android:title="@string/hide_apps_from_recents_title"
             android:summary="@string/hide_apps_from_recents_summary" />
-
-        <!-- Membar in Recents -->
-        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
-            android:key="systemui_recents_mem_display"
-            android:title="@string/recents_show_membar_title"
-            android:summary="@string/recents_show_membar_summary"
-            android:defaultValue="false" />
-
-        <net.margaritov.preference.colorpicker.ColorPickerPreference
-            android:key="mem_text_color"
-            android:title="@string/mem_text_color"
-            android:defaultValue="0xffffffff" 
-	    android:dependency="systemui_recents_mem_display" />
-
-        <!-- Search in Recents -->
-        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
-            android:key="recents_show_search_bar"
-            android:title="@string/recents_show_searchbar"
-            settings:keywords="@string/keywords_recents_show_searchbar"
-            android:defaultValue="true"
-            settings:advanced="true" />
 
         <ListPreference
             android:key="immersive_recents"
@@ -110,27 +97,64 @@
             android:key="recents_clock_color"
             android:title="@string/recents_clock_color"
             android:defaultValue="0xffffffff"
-	    android:dependency="immersive_recents" />
+	    	android:dependency="immersive_recents" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="recents_date_color"
             android:title="@string/recents_date_color"
             android:defaultValue="0xffffffff" 
-	    android:dependency="immersive_recents" />
+	    	android:dependency="immersive_recents" />
 
     </PreferenceCategory>
 
-    <!-- Slim recents -->
-    <PreferenceScreen
-        android:key="recent_panel"
-        android:fragment="com.android.settings.temasek.RecentPanel"
-        android:title="@string/recent_panel_category" />
+    <PreferenceCategory
+	    android:key="memory_bar"
+	    android:title="@string/memory_bar_options_title">
 
-    <!-- OmniSwitch -->
-    <PreferenceScreen
-        android:key="omniswitch"
-        android:id="@+id/omniswitch"
-        android:title="@string/omniswitch_settings_title"
-        android:fragment="com.android.settings.temasek.OmniSwitch" />
+        <!-- Membar in Recents -->
+        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+            android:key="systemui_recents_mem_display"
+            android:title="@string/recents_show_membar_title"
+            android:summary="@string/recents_show_membar_summary"
+            android:defaultValue="false" />
+
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="memory_bar_color"
+            android:title="@string/membar_bar_color"
+            android:defaultValue="0xffffffff"
+            android:dependency="systemui_recents_mem_display" />
+
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="memory_bar_used_color"
+            android:title="@string/membar_bar_used_color"
+            android:defaultValue="0xffffffff"
+            android:dependency="systemui_recents_mem_display" />
+
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="mem_text_color"
+            android:title="@string/mem_text_color"
+            android:defaultValue="0xffffffff" 
+	    	android:dependency="systemui_recents_mem_display" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+	    android:key="other_recent"
+	    android:title="@string/other_recents_option_title">
+
+    	<!-- Slim recents -->
+    	<PreferenceScreen
+        	android:key="recent_panel"
+        	android:fragment="com.android.settings.temasek.RecentPanel"
+        	android:title="@string/recent_panel_category" />
+
+    	<!-- OmniSwitch -->
+    	<PreferenceScreen
+        	android:key="omniswitch"
+        	android:id="@+id/omniswitch"
+        	android:title="@string/omniswitch_settings_title"
+        	android:fragment="com.android.settings.temasek.OmniSwitch" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

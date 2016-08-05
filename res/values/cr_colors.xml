@@ -11,6 +11,6 @@
     <color name="divider">#1fffffff</color>
     <color name="ripple_material_dark">#4dffffff</color>
 
-    <color name="seekbar_dot_color">@android:color/holo_red_light</color>
+    <color name="seekbar_dot_color">#3f51b5</color>
 
 </resources>

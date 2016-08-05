@@ -31,7 +31,8 @@
         android:key="appsidebar_floating"
         android:title="@string/appsidebar_floating_window_title"
         android:summary="@string/appsidebar_floating_window_summary"
-        android:defaultValue="false" />
+        android:defaultValue="false"
+        android:dependency="sidebar_enable" />
 
     <Preference
         android:key="sidebar_setup_items"
