@@ -18,9 +18,10 @@ package com.android.settings.dashboard;
 
 import android.app.Activity;
 import android.content.Context;
-import android.provider.Settings;
-import android.os.UserHandle;
 import android.graphics.PorterDuff.Mode;
+import android.graphics.Typeface;
+import android.os.UserHandle;
+import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import com.android.settings.R;
 import com.android.settings.Utils;
+
+import com.android.internal.util.temasek.FontHelper;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -90,13 +93,16 @@ public class DashboardTileView extends FrameLayout implements View.OnClickListen
         updatedashboard(context,view);
         setFocusable(true);
         setcolors(view);
+        updateDashFont();
     }
 
     public TextView getTitleTextView() {
+        updateDashFont();
         return mTitleTextView;
     }
 
     public TextView getStatusTextView() {
+        updateDashFont();
         return mStatusTextView;
     }
 
@@ -174,7 +180,7 @@ public class DashboardTileView extends FrameLayout implements View.OnClickListen
                 Settings.System.DASHBOARD_CUSTOM_COLORS, 0) == 1;
         mIconColor = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.DB_ICON_COLOR, 0XFF009688);         
-	mTextcolor = Settings.System.getInt(mContext.getContentResolver(),
+	    mTextcolor = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.DB_TEXT_COLOR, 0X8A000000); 
         if (mCustomColors) {
 		if (mTitleTextView !=null) {
@@ -204,6 +210,144 @@ public class DashboardTileView extends FrameLayout implements View.OnClickListen
         mTitleTextView.setTextSize(Settings.System.getIntForUser(context.getContentResolver(),
             Settings.System.SETTINGS_TITLE_TEXT_SIZE, 18,
                UserHandle.USER_CURRENT));            
+        }
+    }
+
+    private void updateDashFont() {
+        final int mDashFontStyle = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.DASHBOARD_FONT_STYLE, FontHelper.FONT_NORMAL);
+
+        getFontStyle(mDashFontStyle);
+    }
+
+    public void getFontStyle(int font) {
+        switch (font) {
+            case FontHelper.FONT_NORMAL:
+            default:
+                mTitleTextView.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+                mStatusTextView.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+                DashboardSummary.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+                break;
+            case FontHelper.FONT_ITALIC:
+                mTitleTextView.setTypeface(Typeface.create("sans-serif", Typeface.ITALIC));
+                mStatusTextView.setTypeface(Typeface.create("sans-serif", Typeface.ITALIC));
+                DashboardSummary.setTypeface(Typeface.create("sans-serif", Typeface.ITALIC));
+                break;
+            case FontHelper.FONT_BOLD:
+                mTitleTextView.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
+                mStatusTextView.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
+                DashboardSummary.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
+                break;
+            case FontHelper.FONT_BOLD_ITALIC:
+                mTitleTextView.setTypeface(Typeface.create("sans-serif", Typeface.BOLD_ITALIC));
+                mStatusTextView.setTypeface(Typeface.create("sans-serif", Typeface.BOLD_ITALIC));
+                DashboardSummary.setTypeface(Typeface.create("sans-serif", Typeface.BOLD_ITALIC));
+                break;
+            case FontHelper.FONT_LIGHT:
+                mTitleTextView.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+                mStatusTextView.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+                DashboardSummary.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+                break;
+            case FontHelper.FONT_LIGHT_ITALIC:
+                mTitleTextView.setTypeface(Typeface.create("sans-serif-light", Typeface.ITALIC));
+                mStatusTextView.setTypeface(Typeface.create("sans-serif-light", Typeface.ITALIC));
+                DashboardSummary.setTypeface(Typeface.create("sans-serif-light", Typeface.ITALIC));
+                break;
+            case FontHelper.FONT_THIN:
+                mTitleTextView.setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
+                mStatusTextView.setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
+                DashboardSummary.setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
+                break;
+            case FontHelper.FONT_THIN_ITALIC:
+                mTitleTextView.setTypeface(Typeface.create("sans-serif-thin", Typeface.ITALIC));
+                mStatusTextView.setTypeface(Typeface.create("sans-serif-thin", Typeface.ITALIC));
+                DashboardSummary.setTypeface(Typeface.create("sans-serif-thin", Typeface.ITALIC));
+                break;
+            case FontHelper.FONT_CONDENSED:
+                mTitleTextView.setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
+                mStatusTextView.setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
+                DashboardSummary.setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
+                break;
+            case FontHelper.FONT_CONDENSED_ITALIC:
+                mTitleTextView.setTypeface(Typeface.create("sans-serif-condensed", Typeface.ITALIC));
+                mStatusTextView.setTypeface(Typeface.create("sans-serif-condensed", Typeface.ITALIC));
+                DashboardSummary.setTypeface(Typeface.create("sans-serif-condensed", Typeface.ITALIC));
+                break;
+            case FontHelper.FONT_CONDENSED_LIGHT:
+                mTitleTextView.setTypeface(Typeface.create("sans-serif-condensed-light", Typeface.NORMAL));
+                mStatusTextView.setTypeface(Typeface.create("sans-serif-condensed-light", Typeface.NORMAL));
+                DashboardSummary.setTypeface(Typeface.create("sans-serif-condensed-light", Typeface.NORMAL));
+                break;
+            case FontHelper.FONT_CONDENSED_LIGHT_ITALIC:
+                mTitleTextView.setTypeface(Typeface.create("sans-serif-condensed-light", Typeface.ITALIC));
+                mStatusTextView.setTypeface(Typeface.create("sans-serif-condensed-light", Typeface.ITALIC));
+                DashboardSummary.setTypeface(Typeface.create("sans-serif-condensed-light", Typeface.ITALIC));
+                break;
+            case FontHelper.FONT_CONDENSED_BOLD:
+                mTitleTextView.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD));
+                mStatusTextView.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD));
+                DashboardSummary.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD));
+                break;
+            case FontHelper.FONT_CONDENSED_BOLD_ITALIC:
+                mTitleTextView.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD_ITALIC));
+                mStatusTextView.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD_ITALIC));
+                DashboardSummary.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD_ITALIC));
+                break;
+            case FontHelper.FONT_MEDIUM:
+                mTitleTextView.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+                mStatusTextView.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+                DashboardSummary.setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL));
+                break;
+            case FontHelper.FONT_MEDIUM_ITALIC:
+                mTitleTextView.setTypeface(Typeface.create("sans-serif-medium", Typeface.ITALIC));
+                mStatusTextView.setTypeface(Typeface.create("sans-serif-medium", Typeface.ITALIC));
+                DashboardSummary.setTypeface(Typeface.create("sans-serif-medium", Typeface.ITALIC));
+                break;
+            case FontHelper.FONT_BLACK:
+                mTitleTextView.setTypeface(Typeface.create("sans-serif-black", Typeface.NORMAL));
+                mStatusTextView.setTypeface(Typeface.create("sans-serif-black", Typeface.NORMAL));
+                DashboardSummary.setTypeface(Typeface.create("sans-serif-black", Typeface.NORMAL));
+                break;
+            case FontHelper.FONT_BLACK_ITALIC:
+                mTitleTextView.setTypeface(Typeface.create("sans-serif-black", Typeface.ITALIC));
+                mStatusTextView.setTypeface(Typeface.create("sans-serif-black", Typeface.ITALIC));
+                DashboardSummary.setTypeface(Typeface.create("sans-serif-black", Typeface.ITALIC));
+                break;
+            case FontHelper.FONT_DANCINGSCRIPT:
+                mTitleTextView.setTypeface(Typeface.create("cursive", Typeface.NORMAL));
+                mStatusTextView.setTypeface(Typeface.create("cursive", Typeface.NORMAL));
+                DashboardSummary.setTypeface(Typeface.create("cursive", Typeface.NORMAL));
+                break;
+            case FontHelper.FONT_DANCINGSCRIPT_BOLD:
+                mTitleTextView.setTypeface(Typeface.create("cursive", Typeface.BOLD));
+                mStatusTextView.setTypeface(Typeface.create("cursive", Typeface.BOLD));
+                DashboardSummary.setTypeface(Typeface.create("cursive", Typeface.BOLD));
+                break;
+            case FontHelper.FONT_COMINGSOON:
+                mTitleTextView.setTypeface(Typeface.create("casual", Typeface.NORMAL));
+                mStatusTextView.setTypeface(Typeface.create("casual", Typeface.NORMAL));
+                DashboardSummary.setTypeface(Typeface.create("casual", Typeface.NORMAL));
+                break;
+            case FontHelper.FONT_NOTOSERIF:
+                mTitleTextView.setTypeface(Typeface.create("serif", Typeface.NORMAL));
+                mStatusTextView.setTypeface(Typeface.create("serif", Typeface.NORMAL));
+                DashboardSummary.setTypeface(Typeface.create("serif", Typeface.NORMAL));
+                break;
+            case FontHelper.FONT_NOTOSERIF_ITALIC:
+                mTitleTextView.setTypeface(Typeface.create("serif", Typeface.ITALIC));
+                mStatusTextView.setTypeface(Typeface.create("serif", Typeface.ITALIC));
+                DashboardSummary.setTypeface(Typeface.create("serif", Typeface.ITALIC));
+                break;
+            case FontHelper.FONT_NOTOSERIF_BOLD:
+                mTitleTextView.setTypeface(Typeface.create("serif", Typeface.BOLD));
+                mStatusTextView.setTypeface(Typeface.create("serif", Typeface.BOLD));
+                DashboardSummary.setTypeface(Typeface.create("serif", Typeface.BOLD));
+                break;
+            case FontHelper.FONT_NOTOSERIF_BOLD_ITALIC:
+                mTitleTextView.setTypeface(Typeface.create("serif", Typeface.BOLD_ITALIC));
+                mStatusTextView.setTypeface(Typeface.create("serif", Typeface.BOLD_ITALIC));
+                DashboardSummary.setTypeface(Typeface.create("serif", Typeface.BOLD_ITALIC));
+                break;
         }
     }
 }

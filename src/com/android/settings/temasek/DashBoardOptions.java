@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2016 RR
+* Copyright (C) 2016 Temasek
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -53,22 +53,25 @@ import com.android.settings.temasek.SeekBarPreference;
 import java.util.List;
 import java.util.ArrayList;
 
-public class DashBoardColors extends SettingsPreferenceFragment  implements Preference.OnPreferenceChangeListener ,Indexable {
+public class DashBoardOptions extends SettingsPreferenceFragment  implements Preference.OnPreferenceChangeListener ,Indexable {
 
  private static final String DASHBOARD_ICON_COLOR = "db_icon_color";
  private static final String DASHBOARD_TEXT_COLOR = "db_text_color";
- private static final String PREF_BG_COLOR =
-            "settings_bg_color";
- private static final String PREF_CAT_TEXT_COLOR =
-            "settings_category_text_color";
+ private static final String PREF_BG_COLOR = "settings_bg_color";
+ private static final String PREF_CAT_TEXT_COLOR = "settings_category_text_color";
+ private static final String SETTINGS_TOOLBAR_TEXT_COLOR = "settings_toolbar_text_color";
+ private static final String SETTINGS_TOOLBAR_BG_COLOR = "settings_toolbar_bg_color";
+ private static final String SETTINGS_CAT_SPACE_COLOR  = "settings_cat_space_color";
  private static final String SETTINGS_TITLE_TEXT_SIZE  = "settings_title_text_size";
- private static final String SETTINGS_CATEGORY_TEXT_SIZE  = "settings_category_text_size";         
+ private static final String SETTINGS_CATEGORY_TEXT_SIZE  = "settings_category_text_size";
+ private static final String DASHBOARD_FONT_STYLE = "dashboard_font_style";
  private static final String DASHBOARD_COLUMNS = "dashboard_columns";
  private static final String DASHBOARD_SWITCHES = "dashboard_switches";
 
  static final int TEXT = 0x8a000000;
  static final int ICON = 0xff009688;
  static final int BG = 0xffffffff;
+ static final int BG_HEADER = 0xff263238;
 
  private static final int MENU_RESET = Menu.FIRST;
 
@@ -76,19 +79,23 @@ public class DashBoardColors extends SettingsPreferenceFragment  implements Pref
     private ColorPickerPreference mTextColor;
     private ColorPickerPreference mBgColor;
     private ColorPickerPreference mCatTextColor;
+    private ColorPickerPreference mToolbarTextColor;
+    private ColorPickerPreference mHeaderColor;
+    private ColorPickerPreference mSpaceColor;
     private SeekBarPreference mDashTitleTextSize;
     private SeekBarPreference mDashCategoryTextSize;
+    private ListPreference mDashFontStyle;
     private ListPreference mDashboardColumns;
     private ListPreference mDashboardSwitches;	
 
- @Override
+    @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        addPreferencesFromResource(R.xml.dashboard_colors);
+        addPreferencesFromResource(R.xml.dashboard_options);
         PreferenceScreen prefSet = getPreferenceScreen();
         final ContentResolver resolver = getActivity().getContentResolver();
 
-   	int intColor;
+   	    int intColor;
         String hexColor;
 
         mIconColor = (ColorPickerPreference) findPreference(DASHBOARD_ICON_COLOR);
@@ -117,7 +124,7 @@ public class DashBoardColors extends SettingsPreferenceFragment  implements Pref
         mBgColor.setOnPreferenceChangeListener(this);
 	
 	
-	mCatTextColor =
+	    mCatTextColor =
                 (ColorPickerPreference) findPreference(PREF_CAT_TEXT_COLOR);
         intColor = Settings.System.getInt(getContentResolver(),
                 Settings.System.SETTINGS_CATEGORY_TEXT_COLOR, ICON);
@@ -125,6 +132,39 @@ public class DashBoardColors extends SettingsPreferenceFragment  implements Pref
         mCatTextColor.setNewPreviewColor(intColor);
         mCatTextColor.setSummary(hexColor);
         mCatTextColor.setOnPreferenceChangeListener(this);
+
+        mToolbarTextColor =
+                (ColorPickerPreference) findPreference(SETTINGS_TOOLBAR_TEXT_COLOR);
+        intColor = Settings.System.getInt(getContentResolver(),
+                Settings.System.SETTINGS_TOOLBAR_TEXT_COLOR, BG);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mToolbarTextColor.setNewPreviewColor(intColor);
+        mToolbarTextColor.setSummary(hexColor);
+        mToolbarTextColor.setOnPreferenceChangeListener(this);
+
+        mHeaderColor =
+                (ColorPickerPreference) findPreference(SETTINGS_TOOLBAR_BG_COLOR);
+        intColor = Settings.System.getInt(getContentResolver(),
+                Settings.System.SETTINGS_TOOLBAR_BG_COLOR, BG_HEADER);
+        hexColor = String.format("#%08x", (0xff263238 & intColor));
+        mHeaderColor.setNewPreviewColor(intColor);
+        mHeaderColor.setSummary(hexColor);
+        mHeaderColor.setOnPreferenceChangeListener(this);
+
+        mSpaceColor =
+                (ColorPickerPreference) findPreference(SETTINGS_CAT_SPACE_COLOR);
+        intColor = Settings.System.getInt(getContentResolver(),
+                Settings.System.SETTINGS_CAT_SPACE_COLOR, BG);
+        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        mSpaceColor.setNewPreviewColor(intColor);
+        mSpaceColor.setSummary(hexColor);
+        mSpaceColor.setOnPreferenceChangeListener(this);
+
+        mDashFontStyle = (ListPreference) findPreference(DASHBOARD_FONT_STYLE);
+        mDashFontStyle.setOnPreferenceChangeListener(this);
+        mDashFontStyle.setValue(Integer.toString(Settings.System.getIntForUser(getActivity().getContentResolver(),
+                Settings.System.DASHBOARD_FONT_STYLE, 0, UserHandle.USER_CURRENT)));
+        mDashFontStyle.setSummary(mDashFontStyle.getEntry());
         
         
         mDashTitleTextSize =
@@ -146,15 +186,15 @@ public class DashBoardColors extends SettingsPreferenceFragment  implements Pref
         mDashboardColumns.setSummary(mDashboardColumns.getEntry());
         mDashboardColumns.setOnPreferenceChangeListener(this);
 
- 	mDashboardSwitches = (ListPreference) findPreference(DASHBOARD_SWITCHES);
+ 	    mDashboardSwitches = (ListPreference) findPreference(DASHBOARD_SWITCHES);
         mDashboardSwitches.setValue(String.valueOf(Settings.System.getInt(
-                getContentResolver(), Settings.System.DASHBOARD_SWITCHES, 1)));
+                getContentResolver(), Settings.System.DASHBOARD_SWITCHES, 0)));
         mDashboardSwitches.setSummary(mDashboardSwitches.getEntry());
         mDashboardSwitches.setOnPreferenceChangeListener(this);
         
-	setHasOptionsMenu(true);
+	    setHasOptionsMenu(true);
 
-}
+    }
 
     @Override
     public void onResume() {
@@ -198,6 +238,37 @@ public class DashBoardColors extends SettingsPreferenceFragment  implements Pref
                     Settings.System.SETTINGS_CATEGORY_TEXT_COLOR, intHex);
             preference.setSummary(hex);
             return true;
+         } else if (preference == mToolbarTextColor) {
+             String hex = ColorPickerPreference.convertToARGB(
+                     Integer.valueOf(String.valueOf(newValue)));
+             int intHex = ColorPickerPreference.convertToColorInt(hex);
+             Settings.System.putInt(getActivity().getContentResolver(),
+                     Settings.System.SETTINGS_TOOLBAR_TEXT_COLOR, intHex);
+             preference.setSummary(hex);
+             return true;
+        } else if (preference == mHeaderColor) {
+             String hex = ColorPickerPreference.convertToARGB(
+                     Integer.valueOf(String.valueOf(newValue)));
+             int intHex = ColorPickerPreference.convertToColorInt(hex);
+             Settings.System.putInt(getActivity().getContentResolver(),
+                     Settings.System.SETTINGS_TOOLBAR_BG_COLOR, intHex);
+             preference.setSummary(hex);
+             return true;
+        } else if (preference == mSpaceColor) {
+             String hex = ColorPickerPreference.convertToARGB(
+                     Integer.valueOf(String.valueOf(newValue)));
+             int intHex = ColorPickerPreference.convertToColorInt(hex);
+             Settings.System.putInt(getActivity().getContentResolver(),
+                     Settings.System.SETTINGS_CAT_SPACE_COLOR, intHex);
+             preference.setSummary(hex);
+             return true;
+        } else if (preference == mDashFontStyle) {
+             int val = Integer.parseInt((String) newValue);
+             int index = mDashFontStyle.findIndexOfValue((String) newValue);
+             Settings.System.putIntForUser(getActivity().getContentResolver(),
+                     Settings.System.DASHBOARD_FONT_STYLE, val, UserHandle.USER_CURRENT);
+             mDashFontStyle.setSummary(mDashFontStyle.getEntries()[index]);
+             return true;
         } else if (preference == mDashTitleTextSize) {
             int width = ((Integer)newValue).intValue();
             Settings.System.putInt(getActivity().getContentResolver(),
@@ -221,11 +292,11 @@ public class DashBoardColors extends SettingsPreferenceFragment  implements Pref
              mDashboardColumns.setSummary(mDashboardColumns.getEntry());
              return true;
          } 
-	return false;
+	     return false;
 	}
 
 
- @Override
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.add(0, MENU_RESET, 0, R.string.reset)
                 .setIcon(R.drawable.ic_settings_reset)
@@ -273,6 +344,18 @@ public class DashBoardColors extends SettingsPreferenceFragment  implements Pref
                 Settings.System.SETTINGS_CATEGORY_TEXT_COLOR, ICON);
         mCatTextColor.setNewPreviewColor(ICON);
         mCatTextColor.setSummary(R.string.default_string);
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.SETTINGS_TOOLBAR_TEXT_COLOR, BG);
+        mToolbarTextColor.setNewPreviewColor(BG);
+        mToolbarTextColor.setSummary(R.string.default_string);
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.SETTINGS_TOOLBAR_BG_COLOR, BG_HEADER);
+        mHeaderColor.setNewPreviewColor(BG_HEADER);
+        mHeaderColor.setSummary(R.string.default_string);
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.SETTINGS_CAT_SPACE_COLOR, BG);
+        mSpaceColor.setNewPreviewColor(BG);
+        mSpaceColor.setSummary(R.string.default_string);
 
     }
     
@@ -285,7 +368,7 @@ public class DashBoardColors extends SettingsPreferenceFragment  implements Pref
                              new ArrayList<SearchIndexableResource>();
  
                      SearchIndexableResource sir = new SearchIndexableResource(context);
-                    sir.xmlResId = R.xml.dashboard_colors;
+                    sir.xmlResId = R.xml.dashboard_options;
                      result.add(sir);
  
                      return result;

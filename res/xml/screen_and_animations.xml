@@ -94,9 +94,9 @@
 
         <PreferenceScreen
             android:key="dashboard_colors"
-            android:title="@string/db_colors"
-            android:summary="@string/db_colors_summary"
-	        android:fragment="com.android.settings.temasek.DashBoardColors"/>
+            android:title="@string/db_options"
+            android:summary="@string/db_options_summary"
+	        android:fragment="com.android.settings.temasek.DashBoardOptions"/>
 
         <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
             android:key="disable_torch_on_screen_off"

@@ -327,7 +327,7 @@
     <string name="memory_bar_options_title">Memory bar settings</string>
     <string name="recents_show_membar_title">Memory bar</string>
     <string name="recents_show_membar_summary">Show a bar with the device\'s available memory</string>
-    <string name="mem_text_color">Bar text color</string>
+    <string name="membar_text_color">Bar text color</string>
     <string name="membar_bar_color">Bar free color</string>
     <string name="membar_bar_used_color">Bar used color</string>
     <string name="recents_colors_reset_title">Reset option colors</string>
@@ -1626,15 +1626,21 @@
 
     <string name="db_custom_colors">Dashboard custom styles</string>
     <string name="db_custom_colors_summary">Colorize various elements of dashboard with the options below.</string>
-    <string name="db_colors">Dashboard styles</string>
-    <string name="db_colors_summary">Customize of dashboard settings</string>
-    <string name="db_icon_color">Dashboard icons</string>
+    <string name="db_options">Dashboard options</string>
+    <string name="db_options_summary">Customize of dashboard settings</string>
+    <string name="db_colors_cat">Dashboard colors</string>
+    <string name="db_icon_color">Icons</string>
     <string name="db_text_color">Title text</string>
+    <string name="db_toolbar_text_title">Toolbar text</string>
     <string name="db_sub_text_color">Text</string>
     <string name="db_background_title">Background</string>
-    <string name="text_cat_title">Sub text</string>
+    <string name="db_text_cat_title">Sub text</string>
     <string name="db_colors_reset_title">Reset dashboard color</string>
     <string name="db_colors_reset_message">Reset dashboard color back to default</string>
+    <string name="db_header_title">Dashboard header</string>
+    <string name="db_space_title">Dashboard space</string>
+    <string name="db_font_style_cat">Dashboard font</string>
+    <string name="db_font_style_title">Font style</string>
 
     <!-- Dashboard settings -->
     <string name="dashboard_category">Dashboard settings</string>
@@ -1830,5 +1836,32 @@
     <string name="status_bar_power_menu_off">Disabled</string>
     <string name="status_bar_power_menu_action_screen_off">Screen off - Power menu</string>
     <string name="status_bar_power_menu_action_dialog">Power menu - Screen off</string>
+
+    <!-- Font style -->
+    <string name="font_normal">Normal</string>
+    <string name="font_italic">Italic</string>
+    <string name="font_bold">Bold</string>
+    <string name="font_bold_italic">Bold Italic</string>
+    <string name="font_light">Light</string>
+    <string name="font_light_italic">Light Italic</string>
+    <string name="font_thin">Thin</string>
+    <string name="font_thin_italic">Thin Italic</string>
+    <string name="font_condensed">Condensed</string>
+    <string name="font_condensed_italic">Condensed Italic</string>
+    <string name="font_condensed_light">Condensed Light</string>
+    <string name="font_condensed_light_italic">Condensed Light Italic</string>
+    <string name="font_condensed_bold">Condensed Bold</string>
+    <string name="font_condensed_bold_italic">Condensed Bold Italic</string>
+    <string name="font_medium">Medium</string>
+    <string name="font_medium_italic">Medium Italic</string>
+    <string name="font_black">Black</string>
+    <string name="font_black_italic">Black Italic</string>
+    <string name="font_dancingscript">DancingScript</string>
+    <string name="font_dancingscript_bold">DancingScript Bold</string>
+    <string name="font_comingsoon">ComingSoon</string>
+    <string name="font_notoserif">NotoSerif Normal</string>
+    <string name="font_notoserif_italic">NotoSerif Italic</string>
+    <string name="font_notoserif_bold">NotoSerif Bold</string>
+    <string name="font_notoserif_bold_italic">NotoSerif Bold Italic</string>
 
 </resources>

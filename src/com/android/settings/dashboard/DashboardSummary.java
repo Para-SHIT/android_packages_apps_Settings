@@ -16,6 +16,7 @@
 
 package com.android.settings.dashboard;
 
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -23,8 +24,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.PorterDuff.Mode;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.UserHandle;
@@ -53,6 +56,8 @@ public class DashboardSummary extends Fragment {
     private boolean mCustomColors;
     private int mTextcolor;
     private int mIconColor;
+    private static TextView categoryLabel;
+    private ActionBar mActionBar;
 
     private static final int MSG_REBUILD_UI = 1;
     private Handler mHandler = new Handler() {
@@ -104,6 +109,9 @@ public class DashboardSummary extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.dashboard, container, false);
         mDashboard = (ViewGroup) rootView.findViewById(R.id.dashboard_container);
+        final SettingsActivity activity = (SettingsActivity) getActivity();
+        mActionBar = activity.getActionBar();
+        mActionBar.setElevation(0);
 
         return rootView;
     }
@@ -131,7 +139,7 @@ public class DashboardSummary extends Fragment {
             View categoryView = mLayoutInflater.inflate(R.layout.dashboard_category, mDashboard,
                     false);
 
-            TextView categoryLabel = (TextView) categoryView.findViewById(R.id.category_title);
+            categoryLabel = (TextView) categoryView.findViewById(R.id.category_title);
             categoryLabel.setText(category.getTitle(res));
 
             if(mCustomColors){        
@@ -143,6 +151,10 @@ public class DashboardSummary extends Fragment {
             categoryLabel.setTextSize(Settings.System.getIntForUser(context.getContentResolver(),
                     Settings.System.SETTINGS_CATEGORY_TEXT_SIZE, 14,
                     UserHandle.USER_CURRENT));
+            mDashboard.setBackgroundColor(Settings.System.getInt(context.getContentResolver(),
+                    Settings.System.SETTINGS_CAT_SPACE_COLOR, 0xffffffff));
+            mActionBar.setBackgroundDrawable(new ColorDrawable(Settings.System.getInt(context.getContentResolver(),
+                    Settings.System.SETTINGS_TOOLBAR_BG_COLOR, 0xff263238)));
             }
 
             ViewGroup categoryContent =
@@ -207,7 +219,7 @@ public class DashboardSummary extends Fragment {
 
     private static int getDashboardSwitches(Context context) {
         return Settings.System.getInt(context.getContentResolver(),
-                Settings.System.DASHBOARD_SWITCHES, 1);
+                Settings.System.DASHBOARD_SWITCHES, 0);
     }
 
     private void sendRebuildUI() {
@@ -231,5 +243,9 @@ public class DashboardSummary extends Fragment {
 		tileIcon.setColorFilter(mIconColor, Mode.SRC_ATOP);		
 		}
         }
+    }
+
+    public static void setTypeface(Typeface tf) {
+        categoryLabel.setTypeface(tf);
     }
 }
