@@ -67,7 +67,7 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
     // Intent for launching the hidden recents actvity
     public static Intent INTENT_HIDDEN_RECENTS_SETTINGS = new Intent(Intent.ACTION_MAIN)
     .setClassName(HIDDEN_RECENTS_PACKAGE_NAME,
-    HIDDEN_RECENTS_PACKAGE_NAME + ".temasek.HAFRAppListActivity");
+    HIDDEN_RECENTS_PACKAGE_NAME + ".temasek.recentshidden.HAFRAppListActivity");
 
     private static final int MENU_RESET = Menu.FIRST;
     private static final int RED = 0xffDC4C3C;

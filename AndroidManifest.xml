@@ -1914,7 +1914,7 @@
         </activity-alias>
 
         <!-- Hide Apps from Recents (HAFR) -->
-        <activity android:name=".temasek.HAFRAppListActivity" />
+        <activity android:name=".temasek.recentshidden.HAFRAppListActivity" />
 
         <!-- CyanogenMod activities Start -->
         <activity android:name="Settings$ProfilesSettingsActivity"

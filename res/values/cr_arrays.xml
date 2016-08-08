@@ -1569,8 +1569,8 @@
 
     <!-- Optional Dashboard Switches -->
     <string-array name="dashboard_switches_entries">
-        <item>@string/dashboard_switches_on</item>
         <item>@string/dashboard_switches_off</item>
+        <item>@string/dashboard_switches_on</item>
     </string-array>
  
     <string-array name="dashboard_switches_values" translatable="false">

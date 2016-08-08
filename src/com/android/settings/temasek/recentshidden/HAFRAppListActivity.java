@@ -1,4 +1,4 @@
-package com.android.settings.temasek;
+package com.android.settings.temasek.recentshidden;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-import com.android.settings.temasek.HAFRAppChooserAdapter.AppItem;
+import com.android.settings.temasek.recentshidden.HAFRAppChooserAdapter.AppItem;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

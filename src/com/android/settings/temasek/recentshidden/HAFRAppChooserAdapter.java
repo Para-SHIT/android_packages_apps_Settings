@@ -1,4 +1,4 @@
-package com.android.settings.temasek;
+package com.android.settings.temasek.recentshidden;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -188,7 +188,7 @@ public class DashBoardOptions extends SettingsPreferenceFragment  implements Pre
 
  	    mDashboardSwitches = (ListPreference) findPreference(DASHBOARD_SWITCHES);
         mDashboardSwitches.setValue(String.valueOf(Settings.System.getInt(
-                getContentResolver(), Settings.System.DASHBOARD_SWITCHES, 0)));
+                getContentResolver(), Settings.System.DASHBOARD_SWITCHES, 1)));
         mDashboardSwitches.setSummary(mDashboardSwitches.getEntry());
         mDashboardSwitches.setOnPreferenceChangeListener(this);
         

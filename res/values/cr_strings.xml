@@ -1824,6 +1824,9 @@
     <string name="status_bar_notif_system_icons_settings_title">Notifications &amp; system icons</string>
     <string name="status_bar_notif_system_icons_settings_summary">Customize the notifications &amp; system icons</string>
 
+    <string name="status_bar_ticker_font_size">Font size</string>
+    <string name="status_bar_ticker_font_style">Font style</string>
+
     <!-- Header text shadow and color -->
     <string name="status_bar_custom_header_text_shadow_title">Header text shadow</string>
     <string name="status_bar_custom_header_text_shadow_summary">For better visibility on themed headers</string>

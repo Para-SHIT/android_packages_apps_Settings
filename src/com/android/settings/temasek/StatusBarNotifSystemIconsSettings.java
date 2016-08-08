@@ -21,7 +21,11 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.UserHandle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
@@ -35,6 +39,8 @@ import com.android.internal.util.temasek.DeviceUtils;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
+import com.android.settings.temasek.SeekBarPreference;
+
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class StatusBarNotifSystemIconsSettings extends SettingsPreferenceFragment implements
@@ -48,6 +54,8 @@ public class StatusBarNotifSystemIconsSettings extends SettingsPreferenceFragmen
     private static final String KEY_NOTIF_TEXT_COLOR = "notif_system_icons_notif_text_color";
     private static final String KEY_COUNT_ICON_COLOR = "notif_system_icons_count_icon_color";
     private static final String KEY_COUNT_TEXT_COLOR = "notif_system_icons_count_text_color";
+    private static final String STATUS_BAR_TICKER_FONT_SIZE  = "status_bar_ticker_font_size";
+    private static final String STATUS_BAR_TICKER_FONT_STYLE = "status_bar_ticker_font_style";
 
     private static final int DEFAULT_COLOR = 0xffffffff;
     private static final int DEFAULT_COUNT_ICON_COLOR = 0xffE5350D;
@@ -62,6 +70,8 @@ public class StatusBarNotifSystemIconsSettings extends SettingsPreferenceFragmen
     private ColorPickerPreference mNotifTextColor;
     private ColorPickerPreference mCountIconColor;
     private ColorPickerPreference mCountTextColor;
+    private SeekBarPreference mTickerFontSize;
+    private ListPreference mTickerFontStyle;
 
     private ContentResolver mResolver;
 
@@ -98,7 +108,7 @@ public class StatusBarNotifSystemIconsSettings extends SettingsPreferenceFragmen
 
         mShowTicker = (SwitchPreference) findPreference(KEY_SHOW_TICKER);
         mShowTicker.setChecked(showTicker);
-        mShowTicker.setOnPreferenceChangeListener(this);
+        mShowTicker.setOnPreferenceChangeListener(this); 
 
         mShowCount = (SwitchPreference) findPreference(KEY_SHOW_COUNT);
         mShowCount.setChecked(showCount);
@@ -112,6 +122,18 @@ public class StatusBarNotifSystemIconsSettings extends SettingsPreferenceFragmen
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mIconColor.setSummary(hexColor);
         mIconColor.setOnPreferenceChangeListener(this);
+
+        mTickerFontSize = (SeekBarPreference) findPreference(STATUS_BAR_TICKER_FONT_SIZE);
+        mTickerFontSize.setValue(Settings.System.getInt(mResolver,
+                Settings.System.STATUS_BAR_TICKER_FONT_SIZE, 14));
+        mTickerFontSize.setOnPreferenceChangeListener(this);
+
+        mTickerFontStyle = 
+                (ListPreference) findPreference(STATUS_BAR_TICKER_FONT_STYLE);
+        mTickerFontStyle.setOnPreferenceChangeListener(this);
+        mTickerFontStyle.setValue(Integer.toString(Settings.System.getInt(getActivity()
+                .getContentResolver(), Settings.System.STATUS_BAR_TICKER_FONT_STYLE, 0)));
+        mTickerFontStyle.setSummary(mTickerFontStyle.getEntry());
 
         PreferenceCategory catColors = (PreferenceCategory) findPreference(KEY_CATEGORY_COLORS);
         mNotifTextColor = (ColorPickerPreference) findPreference(KEY_NOTIF_TEXT_COLOR);
@@ -228,8 +250,19 @@ public class StatusBarNotifSystemIconsSettings extends SettingsPreferenceFragmen
                     Settings.System.STATUS_BAR_NOTIF_COUNT_TEXT_COLOR, intHex);
             preference.setSummary(hex);
             return true;
+        } else if (preference == mTickerFontSize) {
+            int width = ((Integer)newValue).intValue();
+            Settings.System.putInt(mResolver,
+                    Settings.System.STATUS_BAR_TICKER_FONT_SIZE, width);
+            return true;
+        } else if (preference == mTickerFontStyle) {
+            int val = Integer.parseInt((String) newValue);
+            int index = mTickerFontStyle.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.STATUS_BAR_TICKER_FONT_STYLE, val);
+            mTickerFontStyle.setSummary(mTickerFontStyle.getEntries()[index]);
+            return true;
         }
-
         return false;
     }
 
@@ -275,6 +308,8 @@ public class StatusBarNotifSystemIconsSettings extends SettingsPreferenceFragmen
                                     Settings.System.STATUS_BAR_NOTIF_SYSTEM_ICON_COLOR,
                                     DEFAULT_COLOR);
                             Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_TICKER_FONT_STYLE, 0);
+                            Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_NOTIF_TEXT_COLOR,
                                     DEFAULT_COLOR);
                             Settings.System.putInt(getOwner().mResolver,
@@ -298,6 +333,8 @@ public class StatusBarNotifSystemIconsSettings extends SettingsPreferenceFragmen
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_NOTIF_SYSTEM_ICON_COLOR,
                                     0xff33b5e5);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_TICKER_FONT_STYLE, 24);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_NOTIF_TEXT_COLOR,
                                     0xffff0000);
