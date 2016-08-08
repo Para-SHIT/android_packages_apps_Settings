@@ -27,10 +27,10 @@
     <!-- Font Styles -->
     <ListPreference
         android:key="task_manager_font_style"
-        android:title="@string/status_bar_weather_font_style_title"
-        android:dialogTitle="@string/status_bar_weather_font_style_title"
-        android:entries="@array/clock_font_style_entries"
-        android:entryValues="@array/clock_font_style_values" />
+        android:title="@string/status_bar_ticker_font_style"
+        android:dialogTitle="@string/status_bar_ticker_font_style"
+        android:entries="@array/font_style_entries"
+        android:entryValues="@array/font_style_values" />
 
     <ListPreference
         android:key="task_manager_bar_thickness"
@@ -50,7 +50,7 @@
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="task_manager_kill_all_color"
             android:title="@string/task_manager_kill_all_text_title"
-            android:defaultValue="0xff1976D2" />
+            android:defaultValue="0xfff44235" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="task_manager_memory_text_color"
@@ -60,17 +60,17 @@
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="task_manager_slider_color"
             android:title="@string/task_manager_ram_free_title"
-            android:defaultValue="0xffff0000" />
+            android:defaultValue="0xff009688" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="task_manager_slider_inactive_color"
             android:title="@string/task_manager_ram_used_title"
-            android:defaultValue="0xff00ff00" />
+            android:defaultValue="0xfff44235" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="task_manager_task_kill_button_color"
             android:title="@string/task_manager_task_kill_button_title"
-            android:defaultValue="0xff1976D2" />
+            android:defaultValue="0xffffffff" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="task_manager_task_text_color"

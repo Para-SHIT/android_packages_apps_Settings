@@ -328,8 +328,8 @@
     <string name="recents_show_membar_title">Memory bar</string>
     <string name="recents_show_membar_summary">Show a bar with the device\'s available memory</string>
     <string name="membar_text_color">Bar text color</string>
-    <string name="membar_bar_color">Bar free color</string>
-    <string name="membar_bar_used_color">Bar used color</string>
+    <string name="membar_bar_color">Bar used color</string>
+    <string name="membar_bar_free_color">Bar free color</string>
     <string name="recents_colors_reset_title">Reset option colors</string>
     <string name="recents_colors_reset_message">Are you sure you want to reset these colors to default?</string>
 

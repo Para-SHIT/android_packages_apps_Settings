@@ -57,9 +57,9 @@ public class TaskManagerSettings extends SettingsPreferenceFragment implements
     private static final String TASK_MANAGER_FONT_STYLE = "task_manager_font_style";
     private static final String TASK_MANAGER_BAR_THICKNESS = "task_manager_bar_thickness";
 
+    private static final int TEMASEK_GREEN = 0xff009688;
+    private static final int TEMASEK_RED = 0xfff44235;
     private static final int WHITE = 0xffffffff;
-    private static final int TEMASEK_BLUE = 0xff1976D2;
-    private static final int TRANSLUCENT_BLACK = 0x7a000000;
 
     private static final int MENU_RESET = Menu.FIRST;
     private static final int DLG_RESET = 0;
@@ -131,18 +131,18 @@ public class TaskManagerSettings extends SettingsPreferenceFragment implements
                     (ColorPickerPreference) findPreference(TASK_MANAGER_SLIDER_COLOR);
             intColor = Settings.System.getInt(mResolver,
                     Settings.System.TASK_MANAGER_SLIDER_COLOR,
-                    TEMASEK_BLUE);
+                    TEMASEK_GREEN);
             mSliderColor.setNewPreviewColor(intColor);
-            hexColor = String.format("#%08x", (0xffffffff & intColor));
+            hexColor = String.format("#%08x", (0xff009688 & intColor));
             mSliderColor.setSummary(hexColor);
             mSliderColor.setOnPreferenceChangeListener(this);
 
             mSliderInactiveColor =
                     (ColorPickerPreference) findPreference(TASK_MANAGER_SLIDER_INACTIVE_COLOR);
             intColor = Settings.System.getInt(mResolver,
-                    Settings.System.TASK_MANAGER_SLIDER_INACTIVE_COLOR, WHITE); 
+                    Settings.System.TASK_MANAGER_SLIDER_INACTIVE_COLOR, TEMASEK_RED); 
             mSliderInactiveColor.setNewPreviewColor(intColor);
-            hexColor = String.format("#%08x", (0xffffffff & intColor));
+            hexColor = String.format("#%08x", (0xfff44235 & intColor));
             mSliderInactiveColor.setSummary(hexColor);
             mSliderInactiveColor.setOnPreferenceChangeListener(this);
 
@@ -158,9 +158,9 @@ public class TaskManagerSettings extends SettingsPreferenceFragment implements
             mTaskKillAllColor =
                     (ColorPickerPreference) findPreference(TASK_MANAGER_TASK_KILL_ALL_COLOR);
             intColor = Settings.System.getInt(mResolver,
-                    Settings.System.TASK_MANAGER_TASK_KILL_ALL_COLOR, WHITE); 
+                    Settings.System.TASK_MANAGER_TASK_KILL_ALL_COLOR, TEMASEK_RED); 
             mTaskKillAllColor.setNewPreviewColor(intColor);
-            hexColor = String.format("#%08x", (0xffffffff & intColor));
+            hexColor = String.format("#%08x", (0xfff44235 & intColor));
             mTaskKillAllColor.setSummary(hexColor);
             mTaskKillAllColor.setOnPreferenceChangeListener(this);
 
@@ -358,10 +358,10 @@ public class TaskManagerSettings extends SettingsPreferenceFragment implements
                                     WHITE);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.TASK_MANAGER_SLIDER_COLOR,
-                                    TRANSLUCENT_BLACK);
+                                    TEMASEK_GREEN);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.TASK_MANAGER_SLIDER_INACTIVE_COLOR,
-                                    WHITE);
+                                    TEMASEK_RED);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.TASK_MANAGER_TASK_KILL_BUTTON_COLOR,
                                     WHITE);
@@ -373,7 +373,7 @@ public class TaskManagerSettings extends SettingsPreferenceFragment implements
                                     WHITE);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.TASK_MANAGER_TASK_KILL_ALL_COLOR,
-                                    WHITE);
+                                    TEMASEK_RED);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.TASK_MANAGER_FONT_STYLE,
                                     0);

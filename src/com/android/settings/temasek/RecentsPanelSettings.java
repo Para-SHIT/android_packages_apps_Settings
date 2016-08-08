@@ -57,7 +57,7 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
     private static final String IMMERSIVE_RECENTS = "immersive_recents";	
     private static final String MEM_TEXT_COLOR = "mem_text_color";
     private static final String MEMORY_BAR_COLOR = "memory_bar_color";
-    private static final String MEMORY_BAR_USED_COLOR = "memory_bar_used_color";
+    private static final String MEMORY_BAR_FREE_COLOR = "memory_bar_free_color";
     private static final String RECENTS_DATE_COLOR = "recents_date_color";
     private static final String RECENTS_CLOCK_COLOR = "recents_clock_color";
     private static final String PREF_HIDDEN_RECENTS_APPS_START = "hide_app_from_recents";
@@ -70,6 +70,8 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
     HIDDEN_RECENTS_PACKAGE_NAME + ".temasek.recentshidden.HAFRAppListActivity");
 
     private static final int MENU_RESET = Menu.FIRST;
+    private static final int BLACK = 0xff1b231d;
+    private static final int GREEN = 0xff82d989;
     private static final int RED = 0xffDC4C3C;
     private static final int WHITE = 0xffffffff;
 
@@ -80,7 +82,7 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
     private ColorPickerPreference mClearAllBgColor;
     private ColorPickerPreference mMemTextColor;
     private ColorPickerPreference mMemBarColor;
-    private ColorPickerPreference mMemBarUsedColor;
+    private ColorPickerPreference mMemBarFreeColor;
     private ColorPickerPreference mClockColor;
     private ColorPickerPreference mDateColor;
     private Preference mHiddenRecentsApps;
@@ -143,20 +145,20 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
         mMemBarColor =
                 (ColorPickerPreference) findPreference(MEMORY_BAR_COLOR);
         intColor = Settings.System.getInt(resolver,
-                Settings.System.MEMORY_BAR_COLOR, WHITE); 
+                Settings.System.MEMORY_BAR_COLOR, BLACK); 
         mMemBarColor.setNewPreviewColor(intColor);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        hexColor = String.format("#%08x", (0xff1b231d & intColor));
         mMemBarColor.setSummary(hexColor);
         mMemBarColor.setOnPreferenceChangeListener(this);
 
-        mMemBarUsedColor =
-                (ColorPickerPreference) findPreference(MEMORY_BAR_USED_COLOR);
+        mMemBarFreeColor =
+                (ColorPickerPreference) findPreference(MEMORY_BAR_FREE_COLOR);
         intColor = Settings.System.getInt(resolver,
-                Settings.System.MEMORY_BAR_USED_COLOR, WHITE); 
-        mMemBarUsedColor.setNewPreviewColor(intColor);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mMemBarUsedColor.setSummary(hexColor);
-        mMemBarUsedColor.setOnPreferenceChangeListener(this);
+                Settings.System.MEMORY_BAR_FREE_COLOR, GREEN); 
+        mMemBarFreeColor.setNewPreviewColor(intColor);
+        hexColor = String.format("#%08x", (0xff82d989 & intColor));
+        mMemBarFreeColor.setSummary(hexColor);
+        mMemBarFreeColor.setOnPreferenceChangeListener(this);
 
         mClockColor= (ColorPickerPreference) prefSet.findPreference(RECENTS_CLOCK_COLOR);
         mClockColor.setOnPreferenceChangeListener(this);
@@ -232,12 +234,12 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
                     Settings.System.MEMORY_BAR_COLOR, intHex);
             preference.setSummary(hex);
             return true;
-        } else if (preference == mMemBarUsedColor) {
+        } else if (preference == mMemBarFreeColor) {
             hex = ColorPickerPreference.convertToARGB(
                     Integer.valueOf(String.valueOf(newValue)));
             intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.MEMORY_BAR_USED_COLOR, intHex);
+                    Settings.System.MEMORY_BAR_FREE_COLOR, intHex);
             preference.setSummary(hex);
             return true;
         } else if (preference == mClockColor) {
@@ -315,13 +317,13 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
         mMemTextColor.setNewPreviewColor(WHITE);
         mMemTextColor.setSummary(R.string.default_string);
         Settings.System.putInt(getContentResolver(),
-                Settings.System.MEMORY_BAR_COLOR, WHITE);
-        mMemBarColor.setNewPreviewColor(WHITE);
+                Settings.System.MEMORY_BAR_COLOR, BLACK);
+        mMemBarColor.setNewPreviewColor(BLACK);
         mMemBarColor.setSummary(R.string.default_string);
         Settings.System.putInt(getContentResolver(),
-                Settings.System.MEMORY_BAR_USED_COLOR, WHITE);
-        mMemBarUsedColor.setNewPreviewColor(WHITE);
-        mMemBarUsedColor.setSummary(R.string.default_string);
+                Settings.System.MEMORY_BAR_FREE_COLOR, GREEN);
+        mMemBarFreeColor.setNewPreviewColor(GREEN);
+        mMemBarFreeColor.setSummary(R.string.default_string);
         Settings.System.putInt(getContentResolver(),
                 Settings.System.RECENTS_CLOCK_COLOR, WHITE);
         mClockColor.setNewPreviewColor(WHITE);
