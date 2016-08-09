@@ -40,6 +40,7 @@ import android.view.MenuItem;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
+import com.android.settings.temasek.SeekBarPreference;
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 import java.util.ArrayList;
@@ -60,6 +61,8 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
     private static final String MEMORY_BAR_FREE_COLOR = "memory_bar_free_color";
     private static final String RECENTS_DATE_COLOR = "recents_date_color";
     private static final String RECENTS_CLOCK_COLOR = "recents_clock_color";
+    private static final String RECENTS_FONT_STYLE = "recents_font_style";
+    private static final String RECENTS_FULL_SCREEN_CLOCK_DATE_SIZE = "recents_full_screen_clock_date_size";
     private static final String PREF_HIDDEN_RECENTS_APPS_START = "hide_app_from_recents";
     
     // Package name of the hidden recetns apps activity
@@ -85,6 +88,8 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
     private ColorPickerPreference mMemBarFreeColor;
     private ColorPickerPreference mClockColor;
     private ColorPickerPreference mDateColor;
+    private ListPreference mRecentsFontStyle;
+    private SeekBarPreference mRecentsFontSize;
     private Preference mHiddenRecentsApps;
 
     @Override
@@ -176,13 +181,24 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
         mDateColor.setSummary(hexColor);
         mDateColor.setNewPreviewColor(intColor);
 
+        mRecentsFontStyle = (ListPreference) findPreference(RECENTS_FONT_STYLE);
+        mRecentsFontStyle.setOnPreferenceChangeListener(this);
+        mRecentsFontStyle.setValue(Integer.toString(Settings.System.getInt(getActivity()
+                .getContentResolver(), Settings.System.RECENTS_FONT_STYLE, 0)));
+        mRecentsFontStyle.setSummary(mRecentsFontStyle.getEntry());
+
+        mRecentsFontSize =
+                (SeekBarPreference) findPreference(RECENTS_FULL_SCREEN_CLOCK_DATE_SIZE);
+        mRecentsFontSize.setValue(Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.RECENTS_FULL_SCREEN_CLOCK_DATE_SIZE, 14));
+        mRecentsFontSize.setOnPreferenceChangeListener(this);
+
         setHasOptionsMenu(true);
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         boolean value;
         int intvalue;
-        int index;
         String hex;
         int intHex;
         if (preference == mRecentsClearAll) {
@@ -250,13 +266,25 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.RECENTS_CLOCK_COLOR, intHex);
             return true;
-        }  else if (preference == mDateColor) {
+        } else if (preference == mDateColor) {
             hex = ColorPickerPreference.convertToARGB(
                    Integer.valueOf(String.valueOf(newValue)));
             preference.setSummary(hex);
             intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(getActivity().getContentResolver(),
                    Settings.System.RECENTS_DATE_COLOR, intHex);
+            return true;
+        } else if (preference == mRecentsFontStyle) {
+            int val = Integer.parseInt((String) newValue);
+            int index = mRecentsFontStyle.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.RECENTS_FONT_STYLE, val);
+            mRecentsFontStyle.setSummary(mRecentsFontStyle.getEntries()[index]);
+            return true;
+        } else if (preference == mRecentsFontSize) {
+            int width = ((Integer)newValue).intValue();
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.RECENTS_FULL_SCREEN_CLOCK_DATE_SIZE, width);
             return true;
         }
         return false;

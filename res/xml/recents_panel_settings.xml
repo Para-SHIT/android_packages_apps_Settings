@@ -105,6 +105,22 @@
             android:defaultValue="0xffffffff" 
 	    	android:dependency="immersive_recents" />
 
+        <ListPreference
+            android:key="recents_font_style"
+            android:entries="@array/font_style_entries"
+            android:entryValues="@array/font_style_values"
+            android:summary="@string/recents_font_style_summary"
+            android:title="@string/recents_font_style_title" />
+
+        <com.android.settings.temasek.SeekBarPreference
+            android:key="recents_full_screen_clock_date_size"
+            android:title="@string/recents_font_size_title"
+            android:defaultValue="14"
+            android:max="30"
+            settings:minimum="4"
+            settings:unitsLeft=""
+            settings:unitsRight="dp" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -10,7 +10,7 @@
     <string name="android_version_default">5.1.1 LMY49J Release 37</string>
 
     <!-- temasek spare parts -->
-    <string name="temasek_settings_title">Temasek spare parts</string>
+    <string name="temasek_settings_title">Spare parts</string>
     <string name="recents_panel_title">Recents panel</string>
     <string name="recents_panel_settings">Recents panel settings</string>
     <string name="screen_and_animations_title">Screen and animations</string>
@@ -30,7 +30,7 @@
     <string name="disabled">Disabled</string>
     <string name="ok">Ok</string>
     <string name="reset_message">Reset all entries to default?</string>
-    <string name="extras_temasek_settings">Temasek Extras</string>
+    <string name="extras_temasek_settings">Temasek extras</string>
     <string name="reset_default_message">Reset default</string>
     <string name="additional_options_title">Additional options</string>
     <string name="category_general_title">General options</string>
@@ -1571,7 +1571,7 @@
     <string name="lock_clock_font_notoserif_bold_italic">NotoSerif Bold Italic</string>
 
     <!-- Immersive Recents -->
-    <string name="immersive_recents_title">Immersive Recents</string>
+    <string name="immersive_recents_title">Immersive recents</string>
     <string name="immersive_recents_summary">Change the view of the recents screen</string>
     <string name="immersive_recents_dialog_title">Select recents view</string>
     <string name="immersive_recents_default">Default</string>
@@ -1582,11 +1582,14 @@
     <string name="recents_full_screen_clock_summary">Shows clock at the top while in fullscreen</string>
     <string name="recents_full_screen_date_title">Show date</string>
     <string name="recents_full_screen_date_summary">Shows date at the top while in fullscreen</string>
-    <string name="recents_clock_color">FullScreen Recents Clock Text</string>	
-    <string name="recents_date_color">FullScreen Recents Date Text</string>
+    <string name="recents_clock_color">FullScreen recents clock text</string>	
+    <string name="recents_date_color">FullScreen recents date text</string>
+    <string name="recents_font_style_title">Font style</string>
+    <string name="recents_font_style_summary">Controls clock, date and memory text</string>
+    <string name="recents_font_size_title">Font size</string>
 
     <!-- Power menu and dialogs transparency -->
-    <string name="power_menu_transparency">Power menu Opacity</string>
+    <string name="power_menu_transparency">Power menu opacity</string>
 	
     <!-- Power/reboot dialogs dim amount -->
     <string name="power_menu_dialog_dim">Power dialog dim background amount</string>
@@ -1608,8 +1611,8 @@
     <string name="power_menu_animation_translucent_bottom">Translucent (bottom)</string>
 
     <!-- Hide apps from recents -->
-    <string name="hide_from_recents_add_app">Add App</string>
-    <string name="hide_apps_from_recents_title">Hidden Apps</string>
+    <string name="hide_from_recents_add_app">Add app</string>
+    <string name="hide_apps_from_recents_title">Hidden apps</string>
     <string name="hide_apps_from_recents_summary">Pick which apps to exclude from the recents panel.</string>
 
     <!-- Hide Lockscreen clock & date -->
