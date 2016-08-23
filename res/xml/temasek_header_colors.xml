@@ -18,49 +18,45 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"	
     android:title="@string/header_colors_title">
-<PreferenceCategory
-        android:title="@string/header_color" >
 
-        <net.margaritov.preference.colorpicker.ColorPickerPreference
-            android:key="expanded_header_background_color"
-            android:title="@string/background_header_title"
-            android:defaultValue="0xff384248" />
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+        android:key="expanded_header_background_color"
+        android:title="@string/background_header_title"
+        android:defaultValue="0xff384248" />
 
-        <net.margaritov.preference.colorpicker.ColorPickerPreference
-            android:key="header_icon_color"
-            android:title="@string/header_icon_color"
-            android:defaultValue="0xffffffff" />
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+        android:key="header_icon_color"
+        android:title="@string/header_icon_color"
+        android:defaultValue="0xffffffff" />
 
-        <net.margaritov.preference.colorpicker.ColorPickerPreference
-            android:key="header_clock_color"
-            android:title="@string/header_clock_color"
-            android:defaultValue="0xffffffff" />
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+        android:key="header_clock_color"
+        android:title="@string/header_clock_color"
+        android:defaultValue="0xffffffff" />
 
-        <net.margaritov.preference.colorpicker.ColorPickerPreference
-            android:key="header_detail_color"
-            android:title="@string/header_detail_color"
-            android:defaultValue="0xffffffff" />
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+        android:key="header_detail_color"
+        android:title="@string/header_detail_color"
+        android:defaultValue="0xffffffff" />
 
-        <net.margaritov.preference.colorpicker.ColorPickerPreference
-            android:key="header_weatherone_color"
-            android:title="@string/header_weatherone_color"
-            android:defaultValue="0xffffffff" />
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+        android:key="header_weatherone_color"
+        android:title="@string/header_weatherone_color"
+        android:defaultValue="0xffffffff" />
 
-        <net.margaritov.preference.colorpicker.ColorPickerPreference
-            android:key="header_weathertwo_color"
-            android:title="@string/header_weathertwo_color"
-            android:defaultValue="0xffffffff" />
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+        android:key="header_weathertwo_color"
+        android:title="@string/header_weathertwo_color"
+        android:defaultValue="0xffffffff" />
 
-        <net.margaritov.preference.colorpicker.ColorPickerPreference
-            android:key="header_battery_text_color"
-            android:title="@string/header_battery_text_color"
-            android:defaultValue="0xffffffff" />
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+        android:key="header_battery_text_color"
+        android:title="@string/header_battery_text_color"
+        android:defaultValue="0xffffffff" />
 
-        <net.margaritov.preference.colorpicker.ColorPickerPreference
-            android:key="header_alarm_text_color"
-            android:title="@string/header_alarm_text_color"
-            android:defaultValue="0xffffffff" />
-
-  </PreferenceCategory>
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+        android:key="header_alarm_text_color"
+        android:title="@string/header_alarm_text_color"
+        android:defaultValue="0xffffffff" />
 
 </PreferenceScreen>

@@ -66,6 +66,12 @@
         android:key="general_notification"
         android:title="@string/general_notifications_title" >
 
+        <!-- Notification colors -->
+        <PreferenceScreen
+                android:id="@+id/notification_colors"
+                android:title="@string/notification_color_settings_title"
+                android:fragment="com.android.settings.temasek.NotificationColorSettings" />
+
         <!-- Zen Mode -->
         <PreferenceScreen
                 android:key="zen_mode"

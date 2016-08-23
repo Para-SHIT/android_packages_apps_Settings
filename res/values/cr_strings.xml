@@ -36,6 +36,7 @@
     <string name="category_general_title">General options</string>
     <string name="category_colors_title">Customize colors</string>
     <string name="app_icon_color_title">App Icon</string>
+    <string name="advanced_category">Advanced</string>
 
     <!-- Changelog -->
     <string name="changelog_temasek_title">Changelog</string>
@@ -657,17 +658,16 @@
     <!-- QuickSettings colors -->
     <string name="background_title">Background</string>
     <string name="icon_title">Icon</string>
-    <string name="qs_colors_title">QS panel and notification color</string>
+    <string name="qs_colors_title">QS panel colors</string>
     <string name="qs_colors_summary">Customize background, icon and text colors</string>
     <string name="colors_title">Colors</string>
-    <string name="cat_colors_title">Customize notification colors</string>
     <string name="text_title">Text</string>
     <string name="qs_transparent_shade_title">Shade alpha</string>
     <string name="qs_transparent_shade_summary">Ability to apply color alpha value and make notification shade transparent.</string>
     <string name="qs_color_switch_title">Custom color switch</string>
-    <string name="qs_colors">QS Panel Colors</string>
-    <string name="notification_colors">Notification Colors</string>
     <string name="ripple_title">Ripple effect</string>
+    <string name="brightness_icon_title">Brightness icon </string>
+    <string name="qs_brightness_icon_color">Brightness icon</string>
 
     <!-- Captive Portal -->
     <string name="captive_portal_detection">Captive portal detection</string>
@@ -1358,6 +1358,13 @@
     <string name="status_bar_weather_font_medium_italic">Medium Italic</string>
     <string name="status_bar_weather_font_black">Black</string>
     <string name="status_bar_weather_font_black_italic">Black Italic</string>
+    <string name="status_bar_weather_font_dancingscript">DancingScript</string>
+    <string name="status_bar_weather_font_dancingscript_bold">DancingScript Bold</string>
+    <string name="status_bar_weather_font_comingsoon">ComingSoon</string>
+    <string name="status_bar_weather_font_notoserif">NotoSerif Normal</string>
+    <string name="status_bar_weather_font_notoserif_italic">NotoSerif Italic</string>
+    <string name="status_bar_weather_font_notoserif_bold">NotoSerif Bold</string>
+    <string name="status_bar_weather_font_notoserif_bold_italic">NotoSerif Bold Italic</string>
 
     <!-- Headphones icon switch -->
     <string name="show_headset_icon_title">Headset icon</string>
@@ -1616,9 +1623,6 @@
     <string name="hide_lockscreen_date_summary">Show lockscreen date</string>
     <string name="hide_lockscreen_alarm_title">Alarm</string>
     <string name="hide_lockscreen_alarm_summary">Show lockscreen alarm</string>
-
-    <string name="brightness_icon_title">Brightness icon </string>
-    <string name="qs_brightness_icon_color">Brightness icon</string>
 
     <!-- Optional Dashboard Switches -->
     <string name="dashboard_switches_title">Dashboard switches</string>

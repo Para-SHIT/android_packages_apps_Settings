@@ -35,7 +35,6 @@ import android.view.MenuItem;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import com.android.settings.temasek.SeekBarPreference;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
@@ -62,8 +61,6 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
             "notification_icon_color";
     private static final String PREF_CLEAR_ALL_ICON_COLOR =
             "notification_drawer_clear_all_icon_color";
-    private static final String PREF_TRANSPARENT_POWER_MENU = "transparent_power_menu";
-    private static final String PREF_TRANSPARENT_POWER_DIALOG_DIM = "transparent_power_dialog_dim";
 
     private static final int BLISS_BLUE_GREY = 0xff1b1f23;
     private static final int SYSTEMUI_SECONDARY = 0xff384248;
@@ -85,8 +82,6 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
     private ColorPickerPreference mTextColor;
     private ColorPickerPreference mIconColor;
     private ColorPickerPreference mClearAllIconColor;
-    private SeekBarPreference mPowerMenuAlpha;
-    private SeekBarPreference mPowerDialogDim;
 
     private ContentResolver mResolver;
 
@@ -195,22 +190,6 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
         //mClearAllIconColor.setDefaultColors(WHITE, HOLO_BLUE_LIGHT);
         mClearAllIconColor.setOnPreferenceChangeListener(this);
 
-        // Power menu alpha
-        mPowerMenuAlpha =
-                (SeekBarPreference) findPreference(PREF_TRANSPARENT_POWER_MENU);
-        int powerMenuAlpha = Settings.System.getInt(mResolver,
-                Settings.System.TRANSPARENT_POWER_MENU, 100);
-        mPowerMenuAlpha.setValue(powerMenuAlpha / 1);
-        mPowerMenuAlpha.setOnPreferenceChangeListener(this);
-
-        // Power/reboot dialog dim
-        mPowerDialogDim =
-                (SeekBarPreference) findPreference(PREF_TRANSPARENT_POWER_DIALOG_DIM);
-        int powerDialogDim = Settings.System.getInt(mResolver,
-                Settings.System.TRANSPARENT_POWER_DIALOG_DIM, 50);
-        mPowerDialogDim.setValue(powerDialogDim / 1);
-        mPowerDialogDim.setOnPreferenceChangeListener(this);
-
         setHasOptionsMenu(true);
     }
 
@@ -306,16 +285,6 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
             Settings.System.putInt(mResolver,
                 Settings.System.NOTIFICATION_DRAWER_CLEAR_ALL_ICON_COLOR, intHex);
             preference.setSummary(hex);
-            return true;
-        } else if (preference == mPowerMenuAlpha) {
-            int alpha = (Integer) newValue;
-            Settings.System.putInt(mResolver,
-                Settings.System.TRANSPARENT_POWER_MENU, alpha * 1);
-            return true;
-	} else if (preference == mPowerDialogDim) {
-            int alpha = (Integer) newValue;
-            Settings.System.putInt(mResolver,
-                Settings.System.TRANSPARENT_POWER_DIALOG_DIM, alpha * 1);
             return true;
         }
         return false;

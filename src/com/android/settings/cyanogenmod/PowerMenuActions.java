@@ -40,6 +40,7 @@ import com.android.internal.util.cm.PowerMenuConstants;
 import com.android.internal.util.cm.QSUtils;
 
 import static com.android.internal.util.cm.PowerMenuConstants.*;
+import com.android.settings.temasek.SeekBarPreference;
 import com.android.settings.widget.NumberPickerPreference;
 
 import com.android.internal.widget.LockPatternUtils;
@@ -56,6 +57,9 @@ public class PowerMenuActions extends SettingsPreferenceFragment
     private static final String POWER_MENU_LOCKSCREEN = "lockscreen_enable_power_menu";
     private static final String SCREENSHOT_DELAY = "screenshot_delay";
     private static final String PREF_ON_THE_GO_ALPHA = "on_the_go_alpha";
+    private static final String PM_FONT_STYLES = "pm_font_styles";
+    private static final String PREF_TRANSPARENT_POWER_MENU = "transparent_power_menu";
+    private static final String PREF_TRANSPARENT_POWER_DIALOG_DIM = "transparent_power_dialog_dim";
 
     private SystemSettingSwitchPreference mPowerMenuLockscreen;
 
@@ -70,6 +74,9 @@ public class PowerMenuActions extends SettingsPreferenceFragment
     private SwitchPreference mBugReportPref;
     private SwitchPreference mSilentPref;
     private SlimSeekBarPreference mOnTheGoAlphaPref;
+    private ListPreference mPMFontStyles;
+    private SeekBarPreference mPowerMenuAlpha;
+    private SeekBarPreference mPowerDialogDim;
 
     Context mContext;
     private ArrayList<String> mLocalUserConfig = new ArrayList<String>();
@@ -154,6 +161,29 @@ public class PowerMenuActions extends SettingsPreferenceFragment
         mOnTheGoAlphaPref.setOnPreferenceChangeListener(this);
 
         getUserConfig();
+
+        mPMFontStyles = (ListPreference) findPreference(PM_FONT_STYLES);
+        mPMFontStyles.setOnPreferenceChangeListener(this);
+        mPMFontStyles.setValue(Integer.toString(Settings.System.getInt(getActivity()
+                .getContentResolver(), Settings.System.PM_FONT_STYLES, 0)));
+        mPMFontStyles.setSummary(mPMFontStyles.getEntry());
+
+        // Power menu alpha
+        mPowerMenuAlpha =
+                (SeekBarPreference) findPreference(PREF_TRANSPARENT_POWER_MENU);
+        int powerMenuAlpha = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.TRANSPARENT_POWER_MENU, 100);
+        mPowerMenuAlpha.setValue(powerMenuAlpha / 1);
+        mPowerMenuAlpha.setOnPreferenceChangeListener(this);
+
+        // Power/reboot dialog dim
+        mPowerDialogDim =
+                (SeekBarPreference) findPreference(PREF_TRANSPARENT_POWER_DIALOG_DIM);
+        int powerDialogDim = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.TRANSPARENT_POWER_DIALOG_DIM, 50);
+        mPowerDialogDim.setValue(powerDialogDim / 1);
+        mPowerDialogDim.setOnPreferenceChangeListener(this);
+
     }
 
     @Override
@@ -287,6 +317,23 @@ public class PowerMenuActions extends SettingsPreferenceFragment
             float val = Float.parseFloat((String) newValue);
             Settings.System.putFloat(mCr, Settings.System.ON_THE_GO_ALPHA,
                     val / 100);
+            return true;
+        } else if (preference == mPMFontStyles) {
+            int val = Integer.parseInt((String) newValue);
+            int index = mPMFontStyles.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.PM_FONT_STYLES, val);
+            mPMFontStyles.setSummary(mPMFontStyles.getEntries()[index]);
+            return true;
+        } else if (preference == mPowerMenuAlpha) {
+            int alpha = (Integer) newValue;
+            Settings.System.putInt(getActivity().getContentResolver(),
+                Settings.System.TRANSPARENT_POWER_MENU, alpha * 1);
+            return true;
+	    } else if (preference == mPowerDialogDim) {
+            int alpha = (Integer) newValue;
+            Settings.System.putInt(getActivity().getContentResolver(),
+                Settings.System.TRANSPARENT_POWER_DIALOG_DIM, alpha * 1);
             return true;
         }
         return false;

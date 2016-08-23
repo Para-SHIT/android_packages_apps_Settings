@@ -18,62 +18,57 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"	
     android:title="@string/header_fonts_title">
-    
-    <PreferenceCategory
-        android:title="@string/header_fonts" >
 
-  		<ListPreference
-            android:key="header_clock_font_style"
-            android:entries="@array/clock_font_style_entries"
-            android:entryValues="@array/clock_font_style_values"
-            android:title="@string/status_bar_header_clock_font_style_title" />
+  	<ListPreference
+        android:key="header_clock_font_style"
+        android:entries="@array/clock_font_style_entries"
+        android:entryValues="@array/clock_font_style_values"
+        android:title="@string/status_bar_header_clock_font_style_title" />
 
-  		<ListPreference
-            android:key="header_detail_font_style"
-            android:entries="@array/clock_font_style_entries"
-            android:entryValues="@array/clock_font_style_values"
-            android:title="@string/status_bar_header_detail_font_style_title" />
+  	<ListPreference
+        android:key="header_detail_font_style"
+        android:entries="@array/clock_font_style_entries"
+        android:entryValues="@array/clock_font_style_values"
+        android:title="@string/status_bar_header_detail_font_style_title" />
 
-  		<ListPreference
-            android:key="header_weather_font_style"
-            android:entries="@array/clock_font_style_entries"
-            android:entryValues="@array/clock_font_style_values"
-            android:title="@string/status_bar_header_weather_font_style" />
+  	<ListPreference
+        android:key="header_weather_font_style"
+        android:entries="@array/clock_font_style_entries"
+        android:entryValues="@array/clock_font_style_values"
+        android:title="@string/status_bar_header_weather_font_style" />
 
-  		<ListPreference
-            android:key="status_bar_header_font_style"
-            android:entries="@array/clock_font_style_entries"
-            android:entryValues="@array/clock_font_style_values"
-            android:title="@string/status_bar_header_font_style_title" />
+  	<ListPreference
+        android:key="status_bar_header_font_style"
+        android:entries="@array/clock_font_style_entries"
+        android:entryValues="@array/clock_font_style_values"
+        android:title="@string/status_bar_header_font_style_title" />
 
-  		<ListPreference
-            android:key="header_date_font_style"
-            android:entries="@array/clock_font_style_entries"
-            android:entryValues="@array/clock_font_style_values"
-            android:title="@string/status_bar_header_date_font_style" />
+  	<ListPreference
+        android:key="header_date_font_style"
+        android:entries="@array/clock_font_style_entries"
+        android:entryValues="@array/clock_font_style_values"
+        android:title="@string/status_bar_header_date_font_style" />
 
-  		<ListPreference
-            android:key="header_alarm_font_style"
-            android:entries="@array/clock_font_style_entries"
-            android:entryValues="@array/clock_font_style_values"
-            android:title="@string/status_bar_header_alarm_style_title" />
+  	<ListPreference
+        android:key="header_alarm_font_style"
+        android:entries="@array/clock_font_style_entries"
+        android:entryValues="@array/clock_font_style_values"
+        android:title="@string/status_bar_header_alarm_style_title" />
 
-    	<com.android.settings.temasek.SeekBarPreference
-        	android:key="status_bar_custom_header_text_shadow"
-        	android:title="@string/status_bar_custom_header_text_shadow_title"
-        	android:summary="@string/status_bar_custom_header_text_shadow_summary"
-        	android:defaultValue="0"
-        	android:max="25"
-            settings:min="0"
-            settings:unitsLeft=""
-            settings:unitsRight="@string/unit_percent"
-        	android:persistent="false" />
+    <com.android.settings.temasek.SeekBarPreference
+        android:key="status_bar_custom_header_text_shadow"
+        android:title="@string/status_bar_custom_header_text_shadow_title"
+        android:summary="@string/status_bar_custom_header_text_shadow_summary"
+        android:defaultValue="0"
+        android:max="25"
+        settings:min="0"
+        settings:unitsLeft=""
+        settings:unitsRight="@string/unit_percent"
+        android:persistent="false" />
 
-        <net.margaritov.preference.colorpicker.ColorPickerPreference
-            android:key="status_bar_custom_header_text_shadow_color"
-            android:title="@string/status_bar_custom_header_text_shadow_color_title"
-            android:defaultValue="0xff000000" />
-
-    </PreferenceCategory>
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+        android:key="status_bar_custom_header_text_shadow_color"
+        android:title="@string/status_bar_custom_header_text_shadow_color_title"
+        android:defaultValue="0xff000000" />
 
 </PreferenceScreen>
