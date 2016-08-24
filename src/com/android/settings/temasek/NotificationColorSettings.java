@@ -35,6 +35,7 @@ import android.view.MenuItem;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
+import com.android.settings.temasek.SeekBarPreference;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
@@ -61,6 +62,8 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
             "notification_icon_color";
     private static final String PREF_CLEAR_ALL_ICON_COLOR =
             "notification_drawer_clear_all_icon_color";
+    private static final String PREF_NOTIFICATION_ALPHA =
+            "notification_alpha";
 
     private static final int BLISS_BLUE_GREY = 0xff1b1f23;
     private static final int SYSTEMUI_SECONDARY = 0xff384248;
@@ -82,6 +85,7 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
     private ColorPickerPreference mTextColor;
     private ColorPickerPreference mIconColor;
     private ColorPickerPreference mClearAllIconColor;
+    private SeekBarPreference mNotificationsAlpha;
 
     private ContentResolver mResolver;
 
@@ -190,6 +194,14 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
         //mClearAllIconColor.setDefaultColors(WHITE, HOLO_BLUE_LIGHT);
         mClearAllIconColor.setOnPreferenceChangeListener(this);
 
+        // Notifications alpha
+        mNotificationsAlpha =
+                (SeekBarPreference) findPreference(PREF_NOTIFICATION_ALPHA);
+        int notificationsAlpha = Settings.System.getInt(mResolver,
+                Settings.System.NOTIFICATION_ALPHA, 255);
+        mNotificationsAlpha.setValue(notificationsAlpha / 1);
+        mNotificationsAlpha.setOnPreferenceChangeListener(this);
+
         setHasOptionsMenu(true);
     }
 
@@ -285,6 +297,11 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
             Settings.System.putInt(mResolver,
                 Settings.System.NOTIFICATION_DRAWER_CLEAR_ALL_ICON_COLOR, intHex);
             preference.setSummary(hex);
+            return true;
+        } else if (preference == mNotificationsAlpha) {
+            int alpha = (Integer) newValue;
+            Settings.System.putInt(mResolver,
+                    Settings.System.NOTIFICATION_ALPHA, alpha * 1);
             return true;
         }
         return false;

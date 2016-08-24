@@ -35,6 +35,14 @@
             android:entries="@array/notification_bg_mode_entries"
             android:entryValues="@array/notification_color_mode_values" />
 
+        <com.android.settings.temasek.SeekBarPreference
+            android:key="notification_alpha"
+            android:title="@string/notifications_transparency"
+            android:max="255"
+            settings:minimum="0"
+            settings:unitsLeft=""
+            settings:unitsRight="" />
+
 	</PreferenceCategory>
 
     <PreferenceCategory
