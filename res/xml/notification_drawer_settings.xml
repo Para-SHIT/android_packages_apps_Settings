@@ -69,6 +69,12 @@
             android:summary="@string/qs_colors_summary"
             android:fragment="com.android.settings.temasek.QSColors" />
 
+        <ListPreference
+            android:key="qs_font_styles"
+            android:entries="@array/font_style_entries"
+            android:entryValues="@array/font_style_values"
+            android:title="@string/status_bar_ticker_font_style" />
+
         <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
             android:key="quick_settings_vibrate"
             android:title="@string/quick_settings_vibrate_title"

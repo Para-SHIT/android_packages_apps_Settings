@@ -48,6 +48,7 @@ public class NotificationManagerSettings extends SettingsPreferenceFragment
     private static final String PREF_HEADS_UP_TIME_OUT = "heads_up_time_out";
     private static final String PREF_HEADS_UP_TOUCH_OUTSIDE = "heads_up_touch_outside";
     private static final String PREF_HEADS_UP_DISMISS_ON_REMOVE = "heads_up_dismiss_on_remove";
+    private static final String NOTIFICATION_FONT_STYLES = "notification_font_styles";
 
     private boolean mSecure;
     private int mLockscreenSelectedValue;
@@ -58,6 +59,7 @@ public class NotificationManagerSettings extends SettingsPreferenceFragment
     private SeekBarPreference mHeadsUpTimeOut;
     private SwitchPreference mHeadsUpTouchOutside;
     private SwitchPreference mHeadsUpDismissOnRemove;
+    private ListPreference mNotifsFontStyles;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -106,6 +108,12 @@ public class NotificationManagerSettings extends SettingsPreferenceFragment
         // Heads up dismiss on remove
         mHeadsUpDismissOnRemove = (SwitchPreference) findPreference(PREF_HEADS_UP_DISMISS_ON_REMOVE);
         mHeadsUpDismissOnRemove.setOnPreferenceChangeListener(this);
+ 
+        mNotifsFontStyles = (ListPreference) findPreference(NOTIFICATION_FONT_STYLES);
+        mNotifsFontStyles.setOnPreferenceChangeListener(this);
+        mNotifsFontStyles.setValue(Integer.toString(Settings.System.getInt(getActivity()
+                .getContentResolver(), Settings.System.NOTIFICATION_FONT_STYLES, 0)));
+        mNotifsFontStyles.setSummary(mNotifsFontStyles.getEntry());
     }
 
     @Override
@@ -142,6 +150,13 @@ public class NotificationManagerSettings extends SettingsPreferenceFragment
             Settings.System.putInt(getActivity().getContentResolver(),
                 Settings.System.HEADS_UP_DISMISS_ON_REMOVE,
                     ((Boolean) newValue) ? 1 : 0);
+            return true;
+        } else if (preference == mNotifsFontStyles) {
+            int val = Integer.parseInt((String) newValue);
+            int index = mNotifsFontStyles.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.NOTIFICATION_FONT_STYLES, val);
+            mNotifsFontStyles.setSummary(mNotifsFontStyles.getEntries()[index]);
             return true;
         }
         return false;

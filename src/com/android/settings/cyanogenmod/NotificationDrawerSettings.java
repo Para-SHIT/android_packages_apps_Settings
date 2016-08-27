@@ -46,12 +46,14 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
     private static final String QUICK_PULLDOWN = "quick_pulldown";
     private static final String PREF_SMART_PULLDOWN = "smart_pulldown";
     private static final String PREF_BLOCK_ON_SECURE_KEYGUARD = "block_on_secure_keyguard";
+    private static final String QS_FONT_STYLES = "qs_font_styles";
 
     private ListPreference mQuickPulldown;
     private ListPreference mSmartPulldown;
     private SwitchPreference mBlockOnSecureKeyguard;
     private Preference mQSTiles;
     private ListPreference mNumColumns;
+    private ListPreference mQSFontStyle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -102,6 +104,12 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
         mNumColumns.setOnPreferenceChangeListener(this);
         DraggableGridView.setColumnCount(numColumns);
 
+        mQSFontStyle = (ListPreference) findPreference(QS_FONT_STYLES);
+        mQSFontStyle.setOnPreferenceChangeListener(this);
+        mQSFontStyle.setValue(Integer.toString(Settings.System.getInt(getActivity()
+                .getContentResolver(), Settings.System.QS_FONT_STYLES, 0)));
+        mQSFontStyle.setSummary(mQSFontStyle.getEntry());
+
     }
 
     @Override
@@ -139,6 +147,13 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
                     numColumns, UserHandle.USER_CURRENT);
             updateNumColumnsSummary(numColumns);
             DraggableGridView.setColumnCount(numColumns);
+            return true;
+        } else if (preference == mQSFontStyle) {
+            int val = Integer.parseInt((String) newValue);
+            int index = mQSFontStyle.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.QS_FONT_STYLES, val);
+            mQSFontStyle.setSummary(mQSFontStyle.getEntries()[index]);
             return true;
         }
         return false;

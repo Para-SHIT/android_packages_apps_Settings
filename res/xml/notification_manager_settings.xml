@@ -72,6 +72,12 @@
                 android:title="@string/notification_color_settings_title"
                 android:fragment="com.android.settings.temasek.NotificationColorSettings" />
 
+        <ListPreference
+        		android:key="notification_font_styles"
+        		android:entries="@array/font_style_entries"
+        		android:entryValues="@array/font_style_values"
+        		android:title="@string/status_bar_ticker_font_style" />
+
         <!-- Zen Mode -->
         <PreferenceScreen
                 android:key="zen_mode"
