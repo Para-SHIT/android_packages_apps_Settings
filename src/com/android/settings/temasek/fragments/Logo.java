@@ -16,7 +16,12 @@
 
 package com.android.settings.temasek.fragments;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.os.Bundle;
@@ -25,19 +30,28 @@ import android.os.UserHandle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
+import android.provider.SearchIndexableResource;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
+import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Indexable;
 import com.android.settings.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
-public class Logo extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
+public class Logo extends SettingsPreferenceFragment
+        implements OnPreferenceChangeListener, Indexable {
 
     public static final String TAG = "Logo";
 
@@ -46,19 +60,34 @@ public class Logo extends SettingsPreferenceFragment implements OnPreferenceChan
     private static final String KEY_TEMASEK_LOGO_COLOR = "status_bar_temasek_logo_color";
     private static final String KEY_TEMASEK_LOGO_STYLE = "status_bar_temasek_logo_style";
 
+    private static final int DEFAULT = 0xffffffff;
+
+    private static final int MENU_RESET = Menu.FIRST;
+    private static final int DLG_RESET = 0;
+
     private ColorPickerPreference mCustomLogoColor;
     private ColorPickerPreference mTemasekLogoColor;
     private ListPreference mCustomLogoStyle;
     private ListPreference mTemasekLogoStyle;
 
+    private ContentResolver mResolver;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        refreshSettings();
+    }
+
+   public void refreshSettings() {
+        PreferenceScreen prefs = getPreferenceScreen();
+        if (prefs != null) {
+            prefs.removeAll();
+        }
 
         addPreferencesFromResource(R.xml.temasek_logo);
-
-        ContentResolver resolver = getActivity().getContentResolver();
+        mResolver = getActivity().getContentResolver();
         PreferenceScreen prefSet = getPreferenceScreen();
+
         int intColor;
         String hexColor;
 
@@ -66,14 +95,14 @@ public class Logo extends SettingsPreferenceFragment implements OnPreferenceChan
         mTemasekLogoColor =
             (ColorPickerPreference) prefSet.findPreference(KEY_TEMASEK_LOGO_COLOR);
         mTemasekLogoColor.setOnPreferenceChangeListener(this);
-        intColor = Settings.System.getInt(resolver,
-            Settings.System.STATUS_BAR_TEMASEK_LOGO_COLOR, 0xffffffff);
+        intColor = Settings.System.getInt(mResolver,
+            Settings.System.STATUS_BAR_TEMASEK_LOGO_COLOR, DEFAULT);
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mTemasekLogoColor.setSummary(hexColor);
         mTemasekLogoColor.setNewPreviewColor(intColor);
 
         mTemasekLogoStyle = (ListPreference) findPreference(KEY_TEMASEK_LOGO_STYLE);
-        int temasekLogoStyle = Settings.System.getIntForUser(getContentResolver(),
+        int temasekLogoStyle = Settings.System.getIntForUser(mResolver,
                 Settings.System.STATUS_BAR_TEMASEK_LOGO_STYLE, 0,
                 UserHandle.USER_CURRENT);
         mTemasekLogoStyle.setValue(String.valueOf(temasekLogoStyle));
@@ -84,38 +113,57 @@ public class Logo extends SettingsPreferenceFragment implements OnPreferenceChan
         mCustomLogoColor =
             (ColorPickerPreference) prefSet.findPreference(KEY_CUSTOM_LOGO_COLOR);
         mCustomLogoColor.setOnPreferenceChangeListener(this);
-        intColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.CUSTOM_LOGO_COLOR, 0xffffffff);
+        intColor = Settings.System.getInt(mResolver,
+                Settings.System.CUSTOM_LOGO_COLOR, DEFAULT);
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mCustomLogoColor.setSummary(hexColor);
         mCustomLogoColor.setNewPreviewColor(intColor);
 
         mCustomLogoStyle = (ListPreference) findPreference(KEY_CUSTOM_LOGO_STYLE);
-        int customLogoStyle = Settings.System.getIntForUser(getContentResolver(),
+        int customLogoStyle = Settings.System.getIntForUser(mResolver,
                 Settings.System.CUSTOM_LOGO_STYLE, 0,
                 UserHandle.USER_CURRENT);
         mCustomLogoStyle.setValue(String.valueOf(customLogoStyle));
         mCustomLogoStyle.setSummary(mCustomLogoStyle.getEntry());
         mCustomLogoStyle.setOnPreferenceChangeListener(this);
 
+        setHasOptionsMenu(true);
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.add(0, MENU_RESET, 0, R.string.reset)
+                .setIcon(R.drawable.ic_settings_reset) // use the KitKat backup icon
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MENU_RESET:
+                showDialogInner(DLG_RESET);
+                return true;
+             default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        ContentResolver resolver = getActivity().getContentResolver();
         if (preference == mTemasekLogoColor) {
             String hex = ColorPickerPreference.convertToARGB(
                 Integer.valueOf(String.valueOf(newValue)));
             preference.setSummary(hex);
             int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(resolver,
+            Settings.System.putInt(mResolver,
                 Settings.System.STATUS_BAR_TEMASEK_LOGO_COLOR,
                 intHex);
             return true;
         } else if (preference == mTemasekLogoStyle) {
             int temasekLogoStyle = Integer.valueOf((String) newValue);
             int index = mTemasekLogoStyle.findIndexOfValue((String) newValue);
-            Settings.System.putIntForUser(
-                    getContentResolver(), Settings.System.STATUS_BAR_TEMASEK_LOGO_STYLE, temasekLogoStyle,
+            Settings.System.putIntForUser(mResolver,
+                    Settings.System.STATUS_BAR_TEMASEK_LOGO_STYLE, temasekLogoStyle,
                     UserHandle.USER_CURRENT);
             mTemasekLogoStyle.setSummary(
                     mTemasekLogoStyle.getEntries()[index]);
@@ -125,29 +173,95 @@ public class Logo extends SettingsPreferenceFragment implements OnPreferenceChan
                     Integer.valueOf(String.valueOf(newValue)));
             preference.setSummary(hex);
             int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getContentResolver(),
+            Settings.System.putInt(mResolver,
                     Settings.System.CUSTOM_LOGO_COLOR, intHex);
             return true;
         } else if (preference == mCustomLogoStyle) {
             int customLogoStyle = Integer.valueOf((String) newValue);
             int index = mCustomLogoStyle.findIndexOfValue((String) newValue);
-            Settings.System.putIntForUser(
-                   getContentResolver(), Settings.System.CUSTOM_LOGO_STYLE, customLogoStyle,
+            Settings.System.putIntForUser(mResolver,
+                   Settings.System.CUSTOM_LOGO_STYLE, customLogoStyle,
                    UserHandle.USER_CURRENT);
             mCustomLogoStyle.setSummary(
                         mCustomLogoStyle.getEntries()[index]);
             return true;
-	}
+	    }
         return false;
     }
 
-    @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        return super.onPreferenceTreeClick(preferenceScreen, preference);
+    private void showDialogInner(int id) {
+        DialogFragment newFragment = MyAlertDialogFragment.newInstance(id);
+        newFragment.setTargetFragment(this, 0);
+        newFragment.show(getFragmentManager(), "dialog " + id);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    public static class MyAlertDialogFragment extends DialogFragment {
+
+        public static MyAlertDialogFragment newInstance(int id) {
+            MyAlertDialogFragment frag = new MyAlertDialogFragment();
+            Bundle args = new Bundle();
+            args.putInt("id", id);
+            frag.setArguments(args);
+            return frag;
+        }
+
+        Logo getOwner() {
+            return (Logo) getTargetFragment();
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            int id = getArguments().getInt("id");
+            switch (id) {
+                case DLG_RESET:
+                    return new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.reset)
+                    .setMessage(R.string.reset_message)
+                    .setNegativeButton(R.string.cancel, null)
+                    .setPositiveButton(R.string.dlg_reset_android,
+                        new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_TEMASEK_LOGO_COLOR, DEFAULT);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_TEMASEK_LOGO_STYLE, 0);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.CUSTOM_LOGO_COLOR, DEFAULT);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.CUSTOM_LOGO_STYLE, 0);
+                            getOwner().refreshSettings();
+                        }
+                    })
+                    .create();
+            }
+            throw new IllegalArgumentException("unknown id " + id);
+        }
+
+        @Override
+        public void onCancel(DialogInterface dialog) {
+
+        }
     }
+
+    public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+            new BaseSearchIndexProvider() {
+                @Override
+                public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                                                                            boolean enabled) {
+                    ArrayList<SearchIndexableResource> result =
+                            new ArrayList<SearchIndexableResource>();
+
+                    SearchIndexableResource sir = new SearchIndexableResource(context);
+                    sir.xmlResId = R.xml.temasek_logo;
+                    result.add(sir);
+
+                    return result;
+                }
+
+                @Override
+                public List<String> getNonIndexableKeys(Context context) {
+                    ArrayList<String> result = new ArrayList<String>();
+                    return result;
+                }
+            };
 }

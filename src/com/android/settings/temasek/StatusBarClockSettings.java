@@ -415,13 +415,27 @@ public class StatusBarClockSettings extends SettingsPreferenceFragment
                 case DLG_RESET:
                     return new AlertDialog.Builder(getActivity())
                     .setTitle(R.string.reset)
-                    .setMessage(R.string.status_bar_clock_style_reset_message)
+                    .setMessage(R.string.reset_message)
                     .setNegativeButton(R.string.cancel, null)
-                    .setPositiveButton(R.string.dlg_ok,
+                    .setPositiveButton(R.string.dlg_reset_android,
                         new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             Settings.System.putInt(getActivity().getContentResolver(),
+                                Settings.System.STATUS_BAR_CLOCK, 1);
+                            Settings.System.putInt(getActivity().getContentResolver(),
+                                Settings.System.STATUS_BAR_AM_PM, 2);
+                            Settings.System.putInt(getActivity().getContentResolver(),
+                                Settings.System.STATUS_BAR_DATE, 0);
+                            Settings.System.putInt(getActivity().getContentResolver(),
+                                Settings.System.STATUS_BAR_DATE_STYLE, 0);
+                            Settings.System.putInt(getActivity().getContentResolver(),
+                                Settings.System.STATUSBAR_CLOCK_DATE_POSITION, 0);
+                            Settings.System.putInt(getActivity().getContentResolver(),
                                 Settings.System.STATUSBAR_CLOCK_COLOR, -2);
+                            Settings.System.putInt(getActivity().getContentResolver(),
+                                Settings.System.STATUSBAR_CLOCK_FONT_STYLE, 0);
+                            Settings.System.putInt(getActivity().getContentResolver(),
+                                Settings.System.STATUSBAR_CLOCK_FONT_SIZE, 14);
                             getOwner().createCustomView();
                         }
                     })

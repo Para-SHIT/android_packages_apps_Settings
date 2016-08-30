@@ -27,6 +27,7 @@ import android.preference.ListPreference;
 import android.preference.SwitchPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
+import android.provider.SearchIndexableResource;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,8 +36,11 @@ import android.view.MenuItem;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.cyanogenmod.qs.QSTiles;
-
 import com.android.settings.temasek.SeekBarPreference;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
 public class QSColors extends SettingsPreferenceFragment implements
