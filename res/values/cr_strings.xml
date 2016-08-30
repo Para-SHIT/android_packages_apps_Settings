@@ -37,6 +37,7 @@
     <string name="category_colors_title">Customize colors</string>
     <string name="app_icon_color_title">App Icon</string>
     <string name="advanced_category">Advanced</string>
+    
 
     <!-- Changelog -->
     <string name="changelog_temasek_title">Changelog</string>
@@ -204,10 +205,10 @@
     <string name="shortcuts_icon_picker_youtube">Youtube</string>
 
     <!-- Navigation bar -->
-    <string name="nav_bar_title">Navigation bar</string>
+    <string name="navigation_bar_category">Navigation bar</string>
     <string name="navbar_enable_bar_title">Navigation bar buttons</string>
     <string name="navbar_enable_bar_summary">Enable on-screen nav bar buttons</string>
-    <string name="navbar_style_dimen_title">Nav bar dimensions</string>
+    <string name="navbar_style_dimen_title">Navigation bar dimensions</string>
     <string name="navbar_dimensions_reset_message">Reset all dimensions entries to default?</string>
     <string name="navigation_bar_height_title">Navigation bar height</string>
     <string name="navigation_bar_height_summary">Navigation bar height while in portrait</string>
@@ -224,7 +225,7 @@
     <string name="navigation_bar_size_0_dp">0 dp (off)</string>
 
     <!-- Navigation bar button color -->
-    <string name="navbar_button_tint_title">Navigation button tint</string>
+    <string name="navbar_button_tint_title">Button tint</string>
 
     <!-- Ability to disable hardware keys via nav bar settings -->
     <string name="hw_keys_title">Hardware keys</string>
