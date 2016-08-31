@@ -20,8 +20,7 @@
     android:title="@string/status_bar_title">
 
     <PreferenceCategory
-        android:key="status_bar_settings_category"
-        android:title="@string/status_bar_title" >
+        android:title="@string/general_options_title" >
 
         <PreferenceScreen
             android:key="status_bar_battery_status_settings"
@@ -36,10 +35,10 @@
             android:fragment="com.android.settings.temasek.StatusBarClockSettings" />
 
         <PreferenceScreen
-            android:key="carrier_options"
-            android:title="@string/carrier_options"
-            android:summary="@string/carrier_options_summary"
-            android:fragment="com.android.settings.temasek.CarrierLabel" />
+            android:key="status_bar_signal_settings"
+            android:title="@string/status_bar_signal_settings_title"
+            android:summary="@string/status_bar_signal_settings_summary"
+            android:fragment="com.android.settings.temasek.StatusBarSignalSettings" />
 
         <PreferenceScreen
             android:key="network_traffic_state"
@@ -59,23 +58,11 @@
             android:summary="@string/status_bar_temperature_summary"
             android:fragment="com.android.settings.temasek.StatusBarWeather" />
 
-        <PreferenceScreen
-            android:key="status_bar_signal_settings"
-            android:title="@string/status_bar_signal_settings_title"
-            android:summary="@string/status_bar_signal_settings_summary"
-            android:fragment="com.android.settings.temasek.StatusBarSignalSettings" />
-
-        <PreferenceScreen
-            android:key="status_bar_notif_system_icons_settings"
-            android:title="@string/status_bar_notif_system_icons_settings_title"
-            android:summary="@string/status_bar_notif_system_icons_settings_summary"
-            android:fragment="com.android.settings.temasek.StatusBarNotifSystemIconsSettings" />
-
         <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
-            android:key="status_bar_brightness_control"
-            android:title="@string/status_bar_toggle_brightness"
-            android:summary="@string/status_bar_toggle_brightness_summary"
-            android:defaultValue="false" />
+            android:key="show_bluetooth_icon"
+            android:title="@string/status_bar_bluetooth_icon"
+            android:summary="@string/status_bar_bluetooth_icon_summary"
+            android:defaultValue="true" />
 
         <!-- Headset icon switch -->
         <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
@@ -91,15 +78,59 @@
             android:defaultValue="true" />
 
         <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
-            android:key="show_bluetooth_icon"
-            android:title="@string/status_bar_bluetooth_icon"
-            android:summary="@string/status_bar_bluetooth_icon_summary"
-            android:defaultValue="true" />
+            android:key="status_bar_brightness_control"
+            android:title="@string/status_bar_toggle_brightness"
+            android:summary="@string/status_bar_toggle_brightness_summary"
+            android:defaultValue="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/carrier_options_category_title">
 
         <PreferenceScreen
+            android:key="carrier_options"
+            android:title="@string/carrier_options"
+            android:summary="@string/carrier_options_summary"
+            android:fragment="com.android.settings.temasek.CarrierLabel" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/status_bar_greeting_category_title">
+
+        <SwitchPreference
+            android:key="status_bar_greeting"
+            android:title="@string/status_bar_greeting_title"
+            android:summary="@string/status_bar_greeting_summary"
+            android:defaultValue="true" />
+
+        <com.android.settings.temasek.SeekBarPreference
+            android:key="status_bar_greeting_timeout"
+            android:title="@string/status_bar_greeting_timeout_title"
+            android:max="10000"
+            settings:min="100"
+            settings:unitsLeft=""
+            settings:unitsRight="ms"
+            android:defaultValue="1000"
+            android:dependency="status_bar_greeting"
+            android:persistent="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/notifications_category_title">
+
+    	<PreferenceScreen
             android:key="breathing_notifications"
             android:fragment="com.android.settings.temasek.BreathingNotifications"
             android:title="@string/breathing_notifications_title" />
+
+        <PreferenceScreen
+            android:key="status_bar_notif_system_icons_settings"
+            android:title="@string/status_bar_notif_system_icons_settings_title"
+            android:summary="@string/status_bar_notif_system_icons_settings_summary"
+            android:fragment="com.android.settings.temasek.StatusBarNotifSystemIconsSettings" />
 
     </PreferenceCategory>
 

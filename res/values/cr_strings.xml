@@ -37,7 +37,6 @@
     <string name="category_colors_title">Customize colors</string>
     <string name="app_icon_color_title">App Icon</string>
     <string name="advanced_category">Advanced</string>
-    
 
     <!-- Changelog -->
     <string name="changelog_temasek_title">Changelog</string>
@@ -697,6 +696,7 @@
     <string name="double_tap_sleep_nav_bar_summary">Double tap navigation bar to put the device to sleep</string>
 
     <!-- Show carrier label and custom -->
+    <string name="carrier_options_category_title">Status bar carrier label</string>
     <string name="carrier_options">Carrier label</string>
     <string name="carrier_options_summary">Customize of carrier label</string>
     <string name="show_status_bar_carrier_title">Status bar carrier</string>
@@ -712,7 +712,7 @@
     <string name="status_bar_carrier_font_style_title">Carrier Label Font</string>
 
     <!-- Show bluetooth icon when disconnected -->
-    <string name="status_bar_bluetooth_icon">Show Bluetooth icon</string>
+    <string name="status_bar_bluetooth_icon">Bluetooth icon</string>
     <string name="status_bar_bluetooth_icon_summary">Display the bluetooth icon when it is enabled but not connected</string>
 
     <!-- Force expand notifications -->
@@ -921,16 +921,16 @@
     <string name="battery_status_text_color_title">Text</string>
 
     <!-- Battery Bar -->
-    <string name="battery_bar_location">Battery bar location</string>
-    <string name="battery_bar_color">Battery bar color</string>
-    <string name="battery_bar">Battery bar</string>
-    <string name="battery_bar_summary">Customize of battery bar</string>
-    <string name="battery_bar_style_title">Battery bar style</string>
-    <string name="battery_bar_thickness_title">Battery bar thickness</string>
+    <string name="battery_bar_location">Bar location</string>
+    <string name="battery_bar_color">Bar color</string>
+    <string name="battery_bar">Bar indicator</string>
+    <string name="battery_bar_summary">Customize of bar indicator</string>
+    <string name="battery_bar_style_title">Bar style</string>
+    <string name="battery_bar_thickness_title">Bar thickness</string>
     <string name="battery_bar_animate_title">Charging animation</string>
     <string name="battery_bar_animate_summary">The charging animation may result in a poor user experience. Enable at your own discretion.</string>
-    <string name="battery_bar_charging_color">Battery bar charging color</string>
-    <string name="battery_bar_battery_low_color">Battery bar low battery color</string>
+    <string name="battery_bar_charging_color">Bar charging color</string>
+    <string name="battery_bar_battery_low_color">Bar low battery color</string>
     <string name="battery_bar_style_regular">Regular</string>
     <string name="battery_bar_style_center_mirrored">Center-mirrored</string>
     <string name="battery_bar_style_reversed">Reversed</string>
@@ -1877,5 +1877,13 @@
     <string name="font_notoserif_italic">NotoSerif Italic</string>
     <string name="font_notoserif_bold">NotoSerif Bold</string>
     <string name="font_notoserif_bold_italic">NotoSerif Bold Italic</string>
+
+    <!-- Status bar greeting -->
+    <string name="status_bar_greeting_category_title">Status bar greeting</string>
+    <string name="status_bar_greeting_title">Greeting</string>
+    <string name="status_bar_greeting_summary">Display a custom greeting in the status bar after unlocking the device</string>
+    <string name="status_bar_greeting_dialog">Set your greeting</string>
+    <string name="status_bar_greeting_main">Welcome</string>
+    <string name="status_bar_greeting_timeout_title">Greeting timeout</string>
 
 </resources>

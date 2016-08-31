@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.UserHandle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
@@ -30,17 +31,22 @@ import android.preference.SwitchPreference;
 import android.provider.SearchIndexableResource;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.text.format.DateFormat;
+import android.text.Spannable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
+import com.android.settings.temasek.SeekBarPreference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,9 +57,15 @@ public class StatusBarSettings extends SettingsPreferenceFragment
 
     private static final String TAG = "StatusBar";
 
+    private static final String KEY_STATUS_BAR_GREETING = "status_bar_greeting";
+    private static final String KEY_STATUS_BAR_GREETING_TIMEOUT = "status_bar_greeting_timeout";
     private static final String KEY_CARRIERLABEL_PREFERENCE = "carrier_options";
 
+    private SwitchPreference mStatusBarGreeting;
+    private SeekBarPreference mStatusBarGreetingTimeout;
     private PreferenceScreen mCarrierLabel;
+
+    private String mCustomGreetingText = "";
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -62,6 +74,25 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         PreferenceScreen prefSet = getPreferenceScreen();
 
         ContentResolver resolver = getActivity().getContentResolver();
+
+        // Greeting
+        mStatusBarGreeting =
+            (SwitchPreference) prefSet.findPreference(KEY_STATUS_BAR_GREETING);
+        mCustomGreetingText = Settings.System.getString(resolver,
+            Settings.System.STATUS_BAR_GREETING);
+        boolean greeting = mCustomGreetingText != null
+            && !TextUtils.isEmpty(mCustomGreetingText);
+        mStatusBarGreeting.setChecked(greeting);
+
+        mStatusBarGreetingTimeout =
+            (SeekBarPreference) prefSet.findPreference(KEY_STATUS_BAR_GREETING_TIMEOUT);
+        int statusBarGreetingTimeout = Settings.System.getInt(resolver,
+            Settings.System.STATUS_BAR_GREETING_TIMEOUT, 1000);
+        if (statusBarGreetingTimeout < 100) {
+            statusBarGreetingTimeout = 100;
+        }
+        mStatusBarGreetingTimeout.setValue(statusBarGreetingTimeout / 1);
+        mStatusBarGreetingTimeout.setOnPreferenceChangeListener(this);
 
         mCarrierLabel = (PreferenceScreen) prefSet.findPreference(KEY_CARRIERLABEL_PREFERENCE);
         if (Utils.isWifiOnly(getActivity()) || 
@@ -77,28 +108,85 @@ public class StatusBarSettings extends SettingsPreferenceFragment
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+        ContentResolver resolver = getActivity().getContentResolver();
+        if (preference == mStatusBarGreetingTimeout) {
+            int timeout = (Integer) newValue;
+            if (timeout < 100) {
+              timeout = 100;
+            }
+            Settings.System.putInt(resolver,
+                Settings.System.STATUS_BAR_GREETING_TIMEOUT,
+                timeout * 1);
+            return true;
+        }
         return false;
     }
 
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        if (preference == mStatusBarGreeting) {
+            boolean enabled = mStatusBarGreeting.isChecked();
+            if (enabled) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+
+                alert.setTitle(R.string.status_bar_greeting_title);
+                alert.setMessage(R.string.status_bar_greeting_dialog);
+
+                // Set an EditText view to get user input
+                final EditText input = new EditText(getActivity());
+                input.setText(mCustomGreetingText != null ? mCustomGreetingText :
+                        getResources().getString(R.string.status_bar_greeting_main));
+                alert.setView(input);
+                alert.setPositiveButton(getResources().getString(R.string.ok),
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            String value = ((Spannable) input.getText()).toString();
+                            Settings.System.putString(getActivity().getContentResolver(),
+                                Settings.System.STATUS_BAR_GREETING, value);
+                            updateCheckState(value);
+                        }
+                });
+                alert.setNegativeButton(getResources().getString(R.string.cancel),
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            // Canceled.
+                        }
+                });
+
+                alert.show();
+            } else {
+                Settings.System.putString(getActivity().getContentResolver(),
+                        Settings.System.STATUS_BAR_GREETING, "");
+            }
+        }
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
+    }
+
+    private void updateCheckState(String value) {
+        if (value == null || TextUtils.isEmpty(value)) {
+            mStatusBarGreeting.setChecked(false);
+        }
+    }
+
     public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
-            new BaseSearchIndexProvider() {
-                @Override
-                public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
-                                                                            boolean enabled) {
-                    ArrayList<SearchIndexableResource> result =
-                            new ArrayList<SearchIndexableResource>();
+        new BaseSearchIndexProvider() {
+        @Override
+        public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                                                                    boolean enabled) {
+            ArrayList<SearchIndexableResource> result =
+                new ArrayList<SearchIndexableResource>();
 
-                    SearchIndexableResource sir = new SearchIndexableResource(context);
-                    sir.xmlResId = R.xml.status_bar_settings;
-                    result.add(sir);
+            SearchIndexableResource sir = new SearchIndexableResource(context);
+            sir.xmlResId = R.xml.status_bar_settings;
+            result.add(sir);
 
-                    return result;
-                }
+            return result;
+        }
 
-                @Override
-                public List<String> getNonIndexableKeys(Context context) {
-                    ArrayList<String> result = new ArrayList<String>();
-                    return result;
-                }
-            };
+        @Override
+        public List<String> getNonIndexableKeys(Context context) {
+            ArrayList<String> result = new ArrayList<String>();
+            return result;
+        }
+    };
 }
