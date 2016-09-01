@@ -56,11 +56,8 @@ public class QSColors extends SettingsPreferenceFragment implements
     private static final String PREF_QS_PANEL_LOGO = "qs_panel_logo";
     private static final String PREF_QS_PANEL_LOGO_COLOR = "qs_panel_logo_color";
     private static final String PREF_QS_PANEL_LOGO_ALPHA = "qs_panel_logo_alpha";
-    private ListPreference mQSPanelLogo;
-    private ColorPickerPreference mQSPanelLogoColor;
-    private SeekBarPreference mQSPanelLogoAlpha;
 
-    static final int DEFAULT_QS_PANEL_LOGO_COLOR = 0xFF80CBC4;
+    private static final int DEFAULT_QS_PANEL_LOGO_COLOR = 0xff80cbc4;
 
     private static final int DEFAULT_BACKGROUND_COLOR = 0xff263238;
     private static final int WHITE = 0xffffffff;
@@ -77,6 +74,9 @@ public class QSColors extends SettingsPreferenceFragment implements
     private ColorPickerPreference mQSRippleColor;
     private SwitchPreference mQSShadeTransparency;
     private SwitchPreference mQSSSwitch;
+    private ListPreference mQSPanelLogo;
+    private ColorPickerPreference mQSPanelLogoColor;
+    private SeekBarPreference mQSPanelLogoAlpha;
 
     private ContentResolver mResolver;
 
@@ -149,8 +149,6 @@ public class QSColors extends SettingsPreferenceFragment implements
                 Settings.System.QS_COLOR_SWITCH, 0) == 1));
         mQSSSwitch.setOnPreferenceChangeListener(this);
 
-        setHasOptionsMenu(true);
-
         // QS panel logo
         mQSPanelLogo =
                 (ListPreference) findPreference(PREF_QS_PANEL_LOGO);
@@ -167,7 +165,7 @@ public class QSColors extends SettingsPreferenceFragment implements
         mQSPanelLogoColor.setOnPreferenceChangeListener(this);
         int qSPanelLogoColor = Settings.System.getInt(mResolver,
                 Settings.System.QS_PANEL_LOGO_COLOR, DEFAULT_QS_PANEL_LOGO_COLOR);
-        String qSHexLogoColor = String.format("#%08x", (0xFF80CBC4 & qSPanelLogoColor));
+        String qSHexLogoColor = String.format("#%08x", (0xff80cbc4 & qSPanelLogoColor));
         mQSPanelLogoColor.setSummary(qSHexLogoColor);
         mQSPanelLogoColor.setNewPreviewColor(qSPanelLogoColor);
  
@@ -175,9 +173,11 @@ public class QSColors extends SettingsPreferenceFragment implements
         mQSPanelLogoAlpha =
                 (SeekBarPreference) findPreference(PREF_QS_PANEL_LOGO_ALPHA);
         int qSPanelLogoAlpha = Settings.System.getInt(mResolver,
-                Settings.System.QS_PANEL_LOGO_ALPHA, 51);
+                Settings.System.QS_PANEL_LOGO_ALPHA, 50);
         mQSPanelLogoAlpha.setValue(qSPanelLogoAlpha / 1);
         mQSPanelLogoAlpha.setOnPreferenceChangeListener(this);
+
+        setHasOptionsMenu(true);
 
     }
 
@@ -337,6 +337,13 @@ public class QSColors extends SettingsPreferenceFragment implements
                                     Settings.System.QS_RIPPLE_COLOR, WHITE);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.QS_TRANSPARENT_SHADE, 0);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.QS_PANEL_LOGO, 0);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.QS_PANEL_LOGO_COLOR,
+                                    DEFAULT_QS_PANEL_LOGO_COLOR);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.QS_PANEL_LOGO_ALPHA, 50);
                             getOwner().refreshSettings();
                         }
                     })
