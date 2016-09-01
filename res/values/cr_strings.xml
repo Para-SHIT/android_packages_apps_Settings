@@ -35,6 +35,7 @@
     <string name="category_colors_title">Customize colors</string>
     <string name="app_icon_color_title">App Icon</string>
     <string name="advanced_category">Advanced</string>
+    <string name="status_bar_label_cat">Status bar label</string>
 
     <!-- Changelog -->
     <string name="changelog_temasek_title">Changelog</string>
@@ -698,7 +699,6 @@
     <string name="double_tap_sleep_nav_bar_summary">Double tap navigation bar to put the device to sleep</string>
 
     <!-- Show carrier label and custom -->
-    <string name="carrier_options_category_title">Status bar carrier label</string>
     <string name="carrier_options">Carrier label</string>
     <string name="carrier_options_summary">Customize of carrier label</string>
     <string name="show_status_bar_carrier_title">Status bar carrier</string>
@@ -1891,11 +1891,13 @@
     <string name="font_notoserif_bold_italic">NotoSerif Bold Italic</string>
 
     <!-- Status bar greeting -->
-    <string name="status_bar_greeting_category_title">Status bar greeting</string>
+    <string name="status_bar_greeting_pref">Greeting label</string>
+    <string name="status_bar_greeting_pref_summary">Display a custom greeting in the status bar after unlocking the device</string>
     <string name="status_bar_greeting_title">Greeting</string>
-    <string name="status_bar_greeting_summary">Display a custom greeting in the status bar after unlocking the device</string>
+    <string name="status_bar_greeting_summary">Enable and set your greeting</string>
     <string name="status_bar_greeting_dialog">Set your greeting</string>
     <string name="status_bar_greeting_main">Welcome</string>
     <string name="status_bar_greeting_timeout_title">Greeting timeout</string>
+    <string name="status_bar_greeting_color">Greeting text color</string>
 
 </resources>
