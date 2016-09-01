@@ -55,20 +55,20 @@ public class Logo extends SettingsPreferenceFragment
 
     public static final String TAG = "Logo";
 
-    private static final String KEY_CUSTOM_LOGO_COLOR = "custom_logo_color";
-    private static final String KEY_CUSTOM_LOGO_STYLE = "custom_logo_style";
     private static final String KEY_TEMASEK_LOGO_COLOR = "status_bar_temasek_logo_color";
     private static final String KEY_TEMASEK_LOGO_STYLE = "status_bar_temasek_logo_style";
+    private static final String KEY_CUSTOM_LOGO_COLOR = "custom_logo_color";
+    private static final String KEY_CUSTOM_LOGO_STYLE = "custom_logo_style";
 
     private static final int DEFAULT = 0xffffffff;
 
     private static final int MENU_RESET = Menu.FIRST;
     private static final int DLG_RESET = 0;
 
-    private ColorPickerPreference mCustomLogoColor;
     private ColorPickerPreference mTemasekLogoColor;
-    private ListPreference mCustomLogoStyle;
     private ListPreference mTemasekLogoStyle;
+    private ColorPickerPreference mCustomLogoColor;
+    private ListPreference mCustomLogoStyle;
 
     private ContentResolver mResolver;
 
@@ -121,7 +121,7 @@ public class Logo extends SettingsPreferenceFragment
 
         mCustomLogoStyle = (ListPreference) findPreference(KEY_CUSTOM_LOGO_STYLE);
         int customLogoStyle = Settings.System.getIntForUser(mResolver,
-                Settings.System.CUSTOM_LOGO_STYLE, 0,
+                Settings.System.CUSTOM_LOGO_STYLE, 1,
                 UserHandle.USER_CURRENT);
         mCustomLogoStyle.setValue(String.valueOf(customLogoStyle));
         mCustomLogoStyle.setSummary(mCustomLogoStyle.getEntry());
@@ -183,7 +183,7 @@ public class Logo extends SettingsPreferenceFragment
                    Settings.System.CUSTOM_LOGO_STYLE, customLogoStyle,
                    UserHandle.USER_CURRENT);
             mCustomLogoStyle.setSummary(
-                        mCustomLogoStyle.getEntries()[index]);
+                   mCustomLogoStyle.getEntries()[index]);
             return true;
 	    }
         return false;
@@ -228,7 +228,7 @@ public class Logo extends SettingsPreferenceFragment
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.CUSTOM_LOGO_COLOR, DEFAULT);
                             Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.CUSTOM_LOGO_STYLE, 0);
+                                    Settings.System.CUSTOM_LOGO_STYLE, 1);
                             getOwner().refreshSettings();
                         }
                     })
@@ -244,24 +244,24 @@ public class Logo extends SettingsPreferenceFragment
     }
 
     public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
-            new BaseSearchIndexProvider() {
-                @Override
-                public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
-                                                                            boolean enabled) {
-                    ArrayList<SearchIndexableResource> result =
-                            new ArrayList<SearchIndexableResource>();
+        new BaseSearchIndexProvider() {
+        @Override
+        public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                                                                    boolean enabled) {
+            ArrayList<SearchIndexableResource> result =
+                new ArrayList<SearchIndexableResource>();
 
-                    SearchIndexableResource sir = new SearchIndexableResource(context);
-                    sir.xmlResId = R.xml.temasek_logo;
-                    result.add(sir);
+            SearchIndexableResource sir = new SearchIndexableResource(context);
+            sir.xmlResId = R.xml.temasek_logo;
+            result.add(sir);
 
-                    return result;
-                }
+            return result;
+        }
 
-                @Override
-                public List<String> getNonIndexableKeys(Context context) {
-                    ArrayList<String> result = new ArrayList<String>();
-                    return result;
-                }
-            };
+        @Override
+        public List<String> getNonIndexableKeys(Context context) {
+            ArrayList<String> result = new ArrayList<String>();
+            return result;
+        }
+    };
 }

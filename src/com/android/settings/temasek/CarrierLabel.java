@@ -70,7 +70,8 @@ public class CarrierLabel extends SettingsPreferenceFragment
     private static final String STATUS_BAR_CARRIER_COLOR = "status_bar_carrier_color";
     private static final String STATUS_BAR_CARRIER_FONT_STYLE = "status_bar_carrier_font_style";
 
-    static final int DEFAULT_STATUS_CARRIER_COLOR = 0xffffffff;
+    private static final int DEFAULT_STATUS_CARRIER_COLOR = 0xffffffff;
+    private static final int TEMASEK_BLUE = 0xff33b5e5;
 
     private static final int MENU_RESET = Menu.FIRST;
     private static final int DLG_RESET = 0;
@@ -261,7 +262,7 @@ public class CarrierLabel extends SettingsPreferenceFragment
                     .setTitle(R.string.reset)
                     .setMessage(R.string.reset_message)
                     .setNegativeButton(R.string.cancel, null)
-                    .setPositiveButton(R.string.dlg_reset_android,
+                    .setNeutralButton(R.string.reset_android,
                         new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             Settings.System.putInt(getOwner().mResolver,
@@ -272,6 +273,20 @@ public class CarrierLabel extends SettingsPreferenceFragment
                                     Settings.System.STATUS_BAR_CARRIER_COLOR, DEFAULT_STATUS_CARRIER_COLOR);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_CARRIER_FONT_STYLE, 0);
+                            getOwner().refreshSettings();
+                        }
+                    })
+                    .setPositiveButton(R.string.reset_temasek,
+                        new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_CUSTOM_CARRIER, 3);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_CARRIER_FONT_SIZE, 15);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_CARRIER_COLOR, TEMASEK_BLUE);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_CARRIER_FONT_STYLE, 19);
                             getOwner().refreshSettings();
                         }
                     })

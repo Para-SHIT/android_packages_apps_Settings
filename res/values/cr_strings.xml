@@ -1366,6 +1366,16 @@
     <string name="status_bar_weather_font_notoserif_italic">NotoSerif Italic</string>
     <string name="status_bar_weather_font_notoserif_bold">NotoSerif Bold</string>
     <string name="status_bar_weather_font_notoserif_bold_italic">NotoSerif Bold Italic</string>
+    <string name="status_bar_weather_cat_notification_icons_title">Notification icons</string>
+    <string name="status_bar_weather_hide_weather_title">Hide</string>
+    <string name="status_bar_weather_hide_weather_summary">Enable to choose a number of visible notification icons to hide the weather temp on status bar</string>
+    <string name="status_bar_weather_number_of_notification_icons_title">Number of notification icons</string>
+    <string name="status_bar_weather_number_of_notifications_always_title">Always</string>
+    <string name="status_bar_weather_number_of_notifications_two_title">2</string>
+    <string name="status_bar_weather_number_of_notifications_three_title">3</string>
+    <string name="status_bar_weather_number_of_notifications_four_title">4</string>
+    <string name="status_bar_weather_number_of_notifications_five_title">5</string>
+    <string name="status_bar_weather_number_of_notifications_six_title">6</string>
 
     <!-- Headphones icon switch -->
     <string name="show_headset_icon_title">Headset icon</string>
@@ -1765,7 +1775,7 @@
     <string name="custom_logos">Take your pick</string>
     <string name="show_custom_logo_title">Enable</string>
     <string name="show_custom_logo_summary">Show logos in statusbar from a wide range of icons available in system</string>
-    <string name="custom_logo_color">Color</string>	
+    <string name="custom_logo_color">Color</string>
     <string name="logo0">Tuner</string>	
     <string name="logo1">BugDroid minimal</string>	
     <string name="logo2">Drupal</string>	

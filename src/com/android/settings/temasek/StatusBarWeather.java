@@ -27,8 +27,9 @@ import android.os.Bundle;
 import android.os.UserHandle;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.provider.SearchIndexableResource;
 import android.provider.Settings;
 import android.view.Menu;
@@ -57,17 +58,21 @@ public class StatusBarWeather extends SettingsPreferenceFragment
     private static final String PREF_STATUS_BAR_WEATHER_COLOR = "status_bar_weather_color";
     private static final String PREF_STATUS_BAR_WEATHER_SIZE = "status_bar_weather_size";
     private static final String PREF_STATUS_BAR_WEATHER_FONT_STYLE = "status_bar_weather_font_style";
+    private static final String PREF_STATUS_BAR_WEATHER_HIDE = "status_bar_weather_hide_weather";
+    private static final String PREF_NUMBER_OF_NOTIFICATION_ICONS = "status_bar_weather_number_notification";
 
     private static final int DEFAULT = 0xffffffff;
 
     private static final int MENU_RESET = Menu.FIRST;
     private static final int DLG_RESET = 0;
-    
+
     private ListPreference mStatusBarTemperature;
     private ListPreference mStatusBarTemperatureStyle;
     private ColorPickerPreference mStatusBarTemperatureColor;
     private SeekBarPreference mStatusBarTemperatureSize;
     private ListPreference mStatusBarTemperatureFontStyle;
+    private SwitchPreference mHideWeather;
+    private ListPreference mNumberOfNotificationIcons;
 
     private ContentResolver mResolver;
 
@@ -122,8 +127,23 @@ public class StatusBarWeather extends SettingsPreferenceFragment
                 Settings.System.STATUS_BAR_WEATHER_FONT_STYLE, 0)));
         mStatusBarTemperatureFontStyle.setSummary(mStatusBarTemperatureFontStyle.getEntry());
 
+        mHideWeather =
+                (SwitchPreference) findPreference(PREF_STATUS_BAR_WEATHER_HIDE);
+        mHideWeather.setChecked(Settings.System.getInt(mResolver,
+               Settings.System.STATUS_BAR_WEATHER_HIDE_WEATHER, 0) == 1);
+        mHideWeather.setOnPreferenceChangeListener(this);
+
+        mNumberOfNotificationIcons =
+                (ListPreference) findPreference(PREF_NUMBER_OF_NOTIFICATION_ICONS);
+        int numberOfNotificationIcons = Settings.System.getInt(mResolver,
+               Settings.System.STATUS_BAR_WEATHER_NUMBER_OF_NOTIFICATION_ICONS, 0);
+        mNumberOfNotificationIcons.setValue(String.valueOf(numberOfNotificationIcons));
+        mNumberOfNotificationIcons.setSummary(mNumberOfNotificationIcons.getEntry());
+        mNumberOfNotificationIcons.setOnPreferenceChangeListener(this);
+
         updateWeatherOptions();
         setHasOptionsMenu(true);
+
     }
 
     @Override
@@ -185,6 +205,20 @@ public class StatusBarWeather extends SettingsPreferenceFragment
                     Settings.System.STATUS_BAR_WEATHER_FONT_STYLE, val);
             mStatusBarTemperatureFontStyle.setSummary(mStatusBarTemperatureFontStyle.getEntries()[index]);
             return true;
+        } else if (preference == mHideWeather) {
+            boolean value = (Boolean) newValue;
+            Settings.System.putInt(mResolver,
+                    Settings.System.STATUS_BAR_WEATHER_HIDE_WEATHER,
+                    value ? 1 : 0);
+            return true;
+        } else if (preference == mNumberOfNotificationIcons) {
+            int intValue = Integer.valueOf((String) newValue);
+            int index = mNumberOfNotificationIcons.findIndexOfValue((String) newValue);
+            Settings.System.putInt(mResolver,
+                    Settings.System.STATUS_BAR_WEATHER_NUMBER_OF_NOTIFICATION_ICONS,
+                    intValue);
+            preference.setSummary(mNumberOfNotificationIcons.getEntries()[index]);
+            return true;
         }
         return false;
     }
@@ -196,11 +230,15 @@ public class StatusBarWeather extends SettingsPreferenceFragment
             mStatusBarTemperatureColor.setEnabled(false);
             mStatusBarTemperatureSize.setEnabled(false);
             mStatusBarTemperatureFontStyle.setEnabled(false);
+            mHideWeather.setEnabled(false);
+            mNumberOfNotificationIcons.setEnabled(false);
         } else {
             mStatusBarTemperatureStyle.setEnabled(true);
             mStatusBarTemperatureColor.setEnabled(true);
             mStatusBarTemperatureSize.setEnabled(true);
             mStatusBarTemperatureFontStyle.setEnabled(true);
+            mHideWeather.setEnabled(true);
+            mNumberOfNotificationIcons.setEnabled(true);
         }
     }
 
@@ -246,6 +284,10 @@ public class StatusBarWeather extends SettingsPreferenceFragment
                                     Settings.System.STATUS_BAR_WEATHER_SIZE, 14);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_WEATHER_FONT_STYLE, 0);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_WEATHER_HIDE_WEATHER, 0);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_WEATHER_NUMBER_OF_NOTIFICATION_ICONS, 0);
                             getOwner().refreshSettings();
                         }
                     })
