@@ -62,6 +62,24 @@
             android:defaultValue="0xffffffff" 
 	        android:dependency="qs_color_switch" />
 
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="qs_brightness_slider_icon_color"
+            android:title="@string/brightness_slider_icon_color_title"
+            android:defaultValue="0xffffffff"
+            android:dependency="qs_color_switch" />
+
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="qs_brightness_slider_color"
+            android:title="@string/brightness_slider_color_title"
+            android:defaultValue="0xff80cbc4"
+            android:dependency="qs_color_switch" />
+
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+            android:key="qs_brightness_slider_bg_color"
+            android:title="@string/brightness_slider_bg_color_title"
+            android:defaultValue="0xffffffff"
+            android:dependency="qs_color_switch" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -88,7 +106,7 @@
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="qs_panel_logo_color"
             android:title="@string/qs_panel_logo_color_title"
-            android:defaultValue="0xff80cbc4"/>
+            android:defaultValue="0xff33b5e5"/>
  
     </PreferenceCategory>
 

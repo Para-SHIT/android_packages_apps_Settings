@@ -666,7 +666,10 @@
     <string name="qs_color_switch_title">Custom color switch</string>
     <string name="ripple_title">Ripple effect</string>
     <string name="brightness_icon_title">Show brightness icon </string>
-    <string name="qs_brightness_icon_color">Brightness icon</string>
+    <string name="qs_brightness_icon_color">Automatic icon</string>
+    <string name="brightness_slider_color_title">Brightness slider</string>
+    <string name="brightness_slider_bg_color_title">Brightness slider background</string>
+    <string name="brightness_slider_icon_color_title">Brightness slider icon</string>
 
     <string name="qs_anim_title">QS animations</string>
     <string name="qs_anim_summary">customize quick settings animation</string>
