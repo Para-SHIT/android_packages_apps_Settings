@@ -838,7 +838,7 @@
 
     <!-- Battery Bar -->
     <string-array name="battery_bar_entries">
-        <item>Hide</item>
+        <item>Hidden</item>
         <item>Statusbar</item>
         <item>Top of navbar</item>
         <item>Bottom of navbar</item>

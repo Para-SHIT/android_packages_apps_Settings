@@ -26,6 +26,13 @@
        	android:entryValues="@array/battery_status_style_values" />
 
     <ListPreference
+        android:key="battery_bar_list"
+        android:title="@string/battery_bar"
+        android:dialogTitle="@string/battery_bar"
+        android:entries="@array/battery_bar_entries"
+        android:entryValues="@array/battery_bar_values" />
+
+    <ListPreference
        	android:key="battery_status_percent_style"
        	android:title="@string/battery_status_percent_style_title"
        	android:dialogTitle="@string/battery_status_percent_style_dialog_title"
@@ -38,12 +45,6 @@
        	android:entries="@array/battery_status_charge_animation_speed_entries"
        	android:entryValues="@array/battery_status_charge_animation_speed_values"
        	android:defaultValue="3" />
-
-    <PreferenceScreen
-        android:key="battery_bar"
-        android:fragment="com.android.settings.temasek.BatteryBar"
-        android:title="@string/battery_bar"
-        android:summary="@string/battery_bar_summary" />
 
     <PreferenceCategory
        	android:key="battery_status_cat_circle_options"
@@ -65,6 +66,31 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="battery_status_cat_bar_options"
+        android:title="@string/battery_bar_cat_title">
+
+        <ListPreference
+        	android:key="battery_bar_style"
+        	android:title="@string/battery_bar_style_title"
+        	android:dialogTitle="@string/battery_bar_style_title"
+        	android:entries="@array/battery_bar_style_entries"
+        	android:entryValues="@array/battery_bar_style_values" />
+
+    	<ListPreference
+        	android:key="battery_bar_thickness"
+        	android:title="@string/battery_bar_thickness_title"
+        	android:dialogTitle="@string/battery_bar_thickness_title"
+        	android:entries="@array/battery_bar_thickness_entries"
+        	android:entryValues="@array/battery_bar_thickness_values" />
+
+    	<SwitchPreference
+        	android:key="battery_bar_animate"
+        	android:title="@string/battery_bar_animate_title"
+        	android:summary="@string/battery_bar_animate_summary"
+        	android:defaultValue="false" />
+	</PreferenceCategory>
+
+    <PreferenceCategory
        	android:key="battery_status_cat_colors"
        	android:title="@string/colors_title">
 
@@ -77,6 +103,39 @@
             android:key="battery_status_text_color"
             android:title="@string/battery_status_text_color_title"
             android:defaultValue="0xff000000" />
+
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+        	android:key="battery_bar_color"
+        	android:title="@string/battery_bar_color"
+        	android:defaultValue="0xffffffff" />
+
+        <net.margaritov.preference.colorpicker.ColorPickerPreference
+        	android:key="battery_bar_battery_low_color_warning"
+        	android:title="@string/battery_bar_battery_low_color"
+        	android:defaultValue="0xffff0000" />
+
+    	<net.margaritov.preference.colorpicker.ColorPickerPreference
+        	android:key="battery_bar_charging_color"
+        	android:title="@string/battery_bar_charging_color"
+        	android:defaultValue="0xffffff00" />
+
+    	<SwitchPreference
+        	android:key="statusbar_battery_bar_use_gradient_color"
+        	android:title="@string/battery_bar_use_gradient_color"
+        	android:summary="@string/battery_bar_gradient_color_summary"
+        	android:defaultValue="false" />
+
+    	<net.margaritov.preference.colorpicker.ColorPickerPreference
+        	android:key="statusbar_battery_bar_low_color"
+        	android:title="@string/battery_bar_low_color"
+        	android:defaultValue="0xffff4444"
+        	android:dependency="statusbar_battery_bar_use_gradient_color" />
+
+    	<net.margaritov.preference.colorpicker.ColorPickerPreference
+        	android:key="statusbar_battery_bar_high_color"
+        	android:title="@string/battery_bar_high_color"
+        	android:defaultValue="0xff99cc00"
+        	android:dependency="statusbar_battery_bar_use_gradient_color" />
     </PreferenceCategory>
 
 </PreferenceScreen>
