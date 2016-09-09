@@ -246,29 +246,29 @@
     <string name="screenshot_sound_summary">Plays sound effect when screenshot is taken</string>
 
     <!-- Network traffic -->
-    <string name="network_traffic_title">Network traffic</string>
-    <string name="show_network_traffic_state">Status bar traffic monitor</string>
-    <string name="network_traffic_summary">Enable various network traffic options in statusbar</string>
-    <string name="show_network_traffic_unit">Display unit</string>
-    <string name="show_network_traffic_frequency">Update interval</string>
-    <string name="show_network_traffic_disable">Disabled</string>
-    <string name="show_network_traffic_up">Outgoing</string>
-    <string name="show_network_traffic_down">Incoming</string>
-    <string name="show_network_traffic_all">Outgoing and incoming</string>
-    <string name="show_network_traffic_bit">Bits per second</string>
-    <string name="show_network_traffic_byte">Bytes per second</string>
-    <string name="show_network_traffic_500">500 ms</string>
-    <string name="show_network_traffic_1000">1000 ms</string>
-    <string name="show_network_traffic_1500">1500 ms</string>
-    <string name="show_network_traffic_2000">2000 ms</string>
-    <string name="network_traffic_hide_arrow">Hide arrows</string>
-    <string name="network_traffic_hide_arrow_summary">Hide the traffic arrow indicator</string>
-    <string name="network_traffic_autohide">Auto hide</string>
-    <string name="network_traffic_autohide_summary">Hide the traffic monitor when there is no activity</string>
-    <string name="network_traffic_autohide_threshold">Inactivity threshold</string>
-    <string name="network_traffic_color_style">Color style</string>
-    <string name="network_traffic_color_reset">Reset color</string>
-    <string name="network_traffic_color_reset_message">Reset network traffic color to default?</string>
+	<string name="network_traffic_title">Network traffic</string>
+	<string name="network_traffic_settings_summary">Customize network traffic indicator in statusbar</string>
+	<string name="show_network_traffic_state">Status bar traffic monitor</string>
+	<string name="show_network_traffic_unit">Display unit</string>
+	<string name="show_network_traffic_frequency">Update interval</string>
+	<string name="show_network_traffic_disable">Disabled</string>
+	<string name="show_network_traffic_up">Outgoing</string>
+	<string name="show_network_traffic_down">Incoming</string>
+	<string name="show_network_traffic_all">Outgoing and incoming</string>
+	<string name="show_network_traffic_bit">Bits per second</string>
+	<string name="show_network_traffic_byte">Bytes per second</string>
+	<string name="show_network_traffic_500">500 ms</string>
+	<string name="show_network_traffic_1000">1000 ms</string>
+	<string name="show_network_traffic_1500">1500 ms</string>
+	<string name="show_network_traffic_2000">2000 ms</string>
+	<string name="network_traffic_hidearrow">Hide arrows</string>
+	<string name="network_traffic_hidearrow_summary">Hide the arrows in the traffic indicators</string>
+	<string name="network_traffic_autohide">Auto hide</string>
+	<string name="network_traffic_autohide_summary">Hide the traffic monitor when there is no activity</string>
+	<string name="network_traffic_autohide_threshold">Inactivity threshold</string>
+	<string name="network_traffic_color_style">Color style</string>
+	<string name="network_traffic_color_reset">Reset color</string>
+	<string name="network_traffic_color_reset_message">Reset network traffic color to default?</string>
 
     <!-- Partition Info -->
     <string name="partition_info_title">View partition information</string>
@@ -1902,5 +1902,19 @@
     <string name="status_bar_greeting_main">Welcome</string>
     <string name="status_bar_greeting_timeout_title">Greeting timeout</string>
     <string name="status_bar_greeting_color">Greeting text color</string>
+
+    <!-- Dynamic System Bars -->
+    <string name="dynamic_system_bars_category_title">Dynamic system bars</string>
+    <string name="dynamic_system_bars_summary">Customize of background system bars</string>
+    <string name="dynamic_status_bar_title">Dynamic status bar</string>
+    <string name="dynamic_status_bar_summary">Automatically update the Background of the status bar</string>
+    <string name="dynamic_navigation_bar_title">Dynamic navigation bar</string>
+    <string name="dynamic_navigation_bar_summary">Automatically update the background of the navigation bar</string>
+    <string name="dynamic_system_bars_gradient_title">System bar gradient</string>
+    <string name="dynamic_system_bars_gradient_summary">Overlay a gradient on the system bars</string>
+    <string name="dynamic_status_bar_filter_title">Darker status bar</string>
+    <string name="dynamic_status_bar_filter_summary">Overlay a darkening filter on the status bar</string>
+    <string name="dynamic_status_bar_color_tint">Statusbar color tint</string>
+    <string name="dynamic_status_bar_color_tint_summary">Use statusbar dynamic color as navigation bar icon tint</string>
 
 </resources>

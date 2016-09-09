@@ -1,5 +1,11 @@
 /*
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * Copyright (C) 2016 RR
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -7,15 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.android.settings.temasek;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.ContentResolver;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.database.ContentObserver;
+import android.os.Bundle;
 import android.net.TrafficStats;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -29,6 +38,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
@@ -36,29 +46,22 @@ import com.android.settings.temasek.SeekBarPreference;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
-public class NetworkTraffic extends SettingsPreferenceFragment
-    implements OnPreferenceChangeListener {
+public class NetworkTrafficSettings extends SettingsPreferenceFragment
+            implements OnPreferenceChangeListener  {
 
-    private static final String TAG = "NetworkTraffic";
+    private static final String TAG = "NetworkTrafficSettings";
 
     private static final String NETWORK_TRAFFIC_STATE = "network_traffic_state";
-    private static final String NETWORK_TRAFFIC_COLOR = "network_traffic_color";
     private static final String NETWORK_TRAFFIC_UNIT = "network_traffic_unit";
+    private static final String PREF_COLOR_PICKER = "clock_color";	
+    private static final String NETWORK_TRAFFIC_COLOR = "network_traffic_color";
     private static final String NETWORK_TRAFFIC_PERIOD = "network_traffic_period";
-    private static final String NETWORK_TRAFFIC_HIDE_ARROW = "network_traffic_hide_arrow";
     private static final String NETWORK_TRAFFIC_AUTOHIDE = "network_traffic_autohide";
+    private static final String NETWORK_TRAFFIC_HIDEARROW = "network_traffic_hidearrow";
     private static final String NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD = "network_traffic_autohide_threshold";
+    private static final int MENU_RESET = Menu.FIRST;	
 
-    private ListPreference mNetTrafficState;
-    private ColorPickerPreference mNetTrafficColor;
-    private ListPreference mNetTrafficUnit;
-    private ListPreference mNetTrafficPeriod;
-    private SwitchPreference mNetTrafficHideArrow;
-    private SwitchPreference mNetTrafficAutohide;
-    private SeekBarPreference mNetTrafficAutohideThreshold;
-
-    private static final int MENU_RESET = Menu.FIRST;
-    private static final int DEFAULT_TRAFFIC_COLOR = 0xffffffff;
+    private static final int DLG_RESET = 0;
 
     private int mNetTrafficVal;
     private int MASK_UP;
@@ -66,41 +69,58 @@ public class NetworkTraffic extends SettingsPreferenceFragment
     private int MASK_UNIT;
     private int MASK_PERIOD;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private ListPreference mNetTrafficState;
+    private ListPreference mNetTrafficUnit;
+    private ListPreference mNetTrafficPeriod;
+    private SwitchPreference mNetTrafficAutohide;
+    private SwitchPreference mNetTrafficHidearrow;
+    private SeekBarPreference mNetTrafficAutohideThreshold;
+    private ColorPickerPreference mNetTrafficColor;
+    private ColorPickerPreference mColorPicker;		
 
-        addPreferencesFromResource(R.xml.network_traffic);
+    private static final int DEFAULT_TRAFFIC_COLOR = 0xffffffff;
+
+    @Override
+    public void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
+        addPreferencesFromResource(R.xml.network_traffic_settings);
+        ContentResolver resolver = getActivity().getContentResolver();
+        PreferenceScreen prefSet = getPreferenceScreen();
+
+  	PackageManager pm = getPackageManager();
+        Resources systemUiResources;
+        try {
+            systemUiResources = pm.getResourcesForApplication("com.android.systemui");
+        } catch (Exception e) {
+            Log.e(TAG, "can't access systemui resources",e);
+        }
 
         loadResources();
-
-        PreferenceScreen prefSet = getPreferenceScreen();
-	ContentResolver resolver = getActivity().getContentResolver();
 
         mNetTrafficState = (ListPreference) prefSet.findPreference(NETWORK_TRAFFIC_STATE);
         mNetTrafficUnit = (ListPreference) prefSet.findPreference(NETWORK_TRAFFIC_UNIT);
         mNetTrafficPeriod = (ListPreference) prefSet.findPreference(NETWORK_TRAFFIC_PERIOD);
 
-        mNetTrafficHideArrow =
-            (SwitchPreference) prefSet.findPreference(NETWORK_TRAFFIC_HIDE_ARROW);
-        mNetTrafficHideArrow.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.NETWORK_TRAFFIC_HIDE_ARROW, 0) == 1));
-        mNetTrafficHideArrow.setOnPreferenceChangeListener(this);
-
         mNetTrafficAutohide =
-                (SwitchPreference) prefSet.findPreference(NETWORK_TRAFFIC_AUTOHIDE);
+            (SwitchPreference) prefSet.findPreference(NETWORK_TRAFFIC_AUTOHIDE);
         mNetTrafficAutohide.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.NETWORK_TRAFFIC_AUTOHIDE, 0) == 1));
+                            Settings.System.NETWORK_TRAFFIC_AUTOHIDE, 0) == 1));
         mNetTrafficAutohide.setOnPreferenceChangeListener(this);
 
-        mNetTrafficAutohideThreshold =
-                (SeekBarPreference) prefSet.findPreference(NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD);
-        int netTrafficAutohideThreshold = Settings.System.getInt(getContentResolver(),
-                Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD, 10);
-        mNetTrafficAutohideThreshold.setValue(netTrafficAutohideThreshold / 1);
-        mNetTrafficAutohideThreshold.setOnPreferenceChangeListener(this);
+        mNetTrafficHidearrow =
+            (SwitchPreference) prefSet.findPreference(NETWORK_TRAFFIC_HIDEARROW);
+        mNetTrafficHidearrow.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.NETWORK_TRAFFIC_HIDEARROW, 0) == 1));
+        mNetTrafficHidearrow.setOnPreferenceChangeListener(this);
 
-        mNetTrafficColor =
+        mNetTrafficAutohideThreshold = (SeekBarPreference) prefSet.findPreference(NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD);
+        int netTrafficAutohideThreshold = Settings.System.getInt(resolver,
+                    Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD, 10);
+            mNetTrafficAutohideThreshold.setValue(netTrafficAutohideThreshold / 1);
+            mNetTrafficAutohideThreshold.setOnPreferenceChangeListener(this);
+
+	mColorPicker = (ColorPickerPreference) findPreference(PREF_COLOR_PICKER);
+ 	mNetTrafficColor =
                 (ColorPickerPreference) prefSet.findPreference(NETWORK_TRAFFIC_COLOR);
         mNetTrafficColor.setOnPreferenceChangeListener(this);
         int intColor = Settings.System.getInt(getContentResolver(),
@@ -109,15 +129,19 @@ public class NetworkTraffic extends SettingsPreferenceFragment
         mNetTrafficColor.setSummary(hexColor);
         mNetTrafficColor.setNewPreviewColor(intColor);
 
- 	// TrafficStats will return UNSUPPORTED if the device does not support it.
+        // TrafficStats will return UNSUPPORTED if the device does not support it.
         if (TrafficStats.getTotalTxBytes() != TrafficStats.UNSUPPORTED &&
                 TrafficStats.getTotalRxBytes() != TrafficStats.UNSUPPORTED) {
-            mNetTrafficVal = Settings.System.getInt(getContentResolver(),
-                    Settings.System.NETWORK_TRAFFIC_STATE, 0);
+            mNetTrafficVal = Settings.System.getInt(resolver, Settings.System.NETWORK_TRAFFIC_STATE, 0);
             int intIndex = mNetTrafficVal & (MASK_UP + MASK_DOWN);
             intIndex = mNetTrafficState.findIndexOfValue(String.valueOf(intIndex));
-            updateNetworkTrafficState(intIndex);
-
+            if (intIndex <= 0) {
+                mNetTrafficUnit.setEnabled(false);
+                mNetTrafficPeriod.setEnabled(false);
+                mNetTrafficAutohide.setEnabled(false);
+                mNetTrafficHidearrow.setEnabled(false);
+                mNetTrafficAutohideThreshold.setEnabled(false);
+            }
             mNetTrafficState.setValueIndex(intIndex >= 0 ? intIndex : 0);
             mNetTrafficState.setSummary(mNetTrafficState.getEntry());
             mNetTrafficState.setOnPreferenceChangeListener(this);
@@ -131,70 +155,40 @@ public class NetworkTraffic extends SettingsPreferenceFragment
             mNetTrafficPeriod.setValueIndex(intIndex >= 0 ? intIndex : 1);
             mNetTrafficPeriod.setSummary(mNetTrafficPeriod.getEntry());
             mNetTrafficPeriod.setOnPreferenceChangeListener(this);
+        } else {
+            prefSet.removePreference(findPreference(NETWORK_TRAFFIC_STATE));
+            prefSet.removePreference(findPreference(NETWORK_TRAFFIC_UNIT));
+            prefSet.removePreference(findPreference(NETWORK_TRAFFIC_PERIOD));
+            prefSet.removePreference(findPreference(NETWORK_TRAFFIC_AUTOHIDE));
+            prefSet.removePreference(findPreference(NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD));
         }
-        
-        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     private void updateNetworkTrafficState(int mIndex) {
         if (mIndex <= 0) {
             mNetTrafficUnit.setEnabled(false);
-            mNetTrafficColor.setEnabled(false);
             mNetTrafficPeriod.setEnabled(false);
-            mNetTrafficHideArrow.setEnabled(false);
             mNetTrafficAutohide.setEnabled(false);
+            mNetTrafficColor.setEnabled(false);
+            mNetTrafficHidearrow.setEnabled(false);
             mNetTrafficAutohideThreshold.setEnabled(false);
         } else {
             mNetTrafficUnit.setEnabled(true);
-            mNetTrafficColor.setEnabled(true);
             mNetTrafficPeriod.setEnabled(true);
-            mNetTrafficHideArrow.setEnabled(true);
             mNetTrafficAutohide.setEnabled(true);
+            mNetTrafficColor.setEnabled(true);
+            mNetTrafficHidearrow.setEnabled(true);
             mNetTrafficAutohideThreshold.setEnabled(true);
         }
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.add(0, MENU_RESET, 0, R.string.network_traffic_color_reset)
-                .setIcon(R.drawable.ic_settings_reset)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case MENU_RESET:
-                resetToDefault();
-                return true;
-            default:
-                return super.onContextItemSelected(item);
-        }
-    }
-
-    private void resetToDefault() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-        alertDialog.setTitle(R.string.network_traffic_color_reset);
-        alertDialog.setMessage(R.string.network_traffic_color_reset_message);
-        alertDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                NetworkTrafficColorReset();
-            }
-        });
-        alertDialog.setNegativeButton(R.string.cancel, null);
-        alertDialog.create().show();
-    }
-
-    private void NetworkTrafficColorReset() {
-        Settings.System.putInt(getContentResolver(),
-                Settings.System.NETWORK_TRAFFIC_COLOR, DEFAULT_TRAFFIC_COLOR);
-
-        mNetTrafficColor.setNewPreviewColor(DEFAULT_TRAFFIC_COLOR);
-        String hexColor = String.format("#%08x", (0xffffffff & DEFAULT_TRAFFIC_COLOR));
-        mNetTrafficColor.setSummary(hexColor);
-    }
-   
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+	ContentResolver resolver = getActivity().getContentResolver();
         if (preference == mNetTrafficState) {
             int intState = Integer.valueOf((String)newValue);
             mNetTrafficVal = setBit(mNetTrafficVal, MASK_UP, getBit(intState, MASK_UP));
@@ -204,14 +198,6 @@ public class NetworkTraffic extends SettingsPreferenceFragment
             int index = mNetTrafficState.findIndexOfValue((String) newValue);
             mNetTrafficState.setSummary(mNetTrafficState.getEntries()[index]);
             updateNetworkTrafficState(index);
-            return true;
-        } else if (preference == mNetTrafficColor) {
-            String hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.NETWORK_TRAFFIC_COLOR, intHex);
             return true;
         } else if (preference == mNetTrafficUnit) {
             mNetTrafficVal = setBit(mNetTrafficVal, MASK_UNIT, ((String)newValue).equals("1"));
@@ -228,22 +214,30 @@ public class NetworkTraffic extends SettingsPreferenceFragment
             int index = mNetTrafficPeriod.findIndexOfValue((String) newValue);
             mNetTrafficPeriod.setSummary(mNetTrafficPeriod.getEntries()[index]);
             return true;
-        } else if (preference == mNetTrafficHideArrow) {
-            boolean value = (Boolean) newValue;
-            Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.NETWORK_TRAFFIC_HIDE_ARROW, value ? 1 : 0);
-            return true;
         } else if (preference == mNetTrafficAutohide) {
             boolean value = (Boolean) newValue;
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.NETWORK_TRAFFIC_AUTOHIDE, value ? 1 : 0);
+            return true;
+        } else if (preference == mNetTrafficHidearrow) {
+            boolean value = (Boolean) newValue;
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.NETWORK_TRAFFIC_HIDEARROW, value ? 1 : 0);
             return true;
         } else if (preference == mNetTrafficAutohideThreshold) {
             int threshold = (Integer) newValue;
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD, threshold * 1);
             return true;
-        }
+	    } else if (preference == mNetTrafficColor) {
+            String hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.NETWORK_TRAFFIC_COLOR, intHex);
+            return true;
+	    }
         return false;
     }
 
@@ -255,6 +249,7 @@ public class NetworkTraffic extends SettingsPreferenceFragment
         MASK_PERIOD = resources.getInteger(R.integer.maskPeriod);
     }
 
+    // intMask should only have the desired bit(s) set
     private int setBit(int intNumber, int intMask, boolean blnState) {
         if (blnState) {
             return (intNumber | intMask);
@@ -265,4 +260,6 @@ public class NetworkTraffic extends SettingsPreferenceFragment
     private boolean getBit(int intNumber, int intMask) {
         return (intNumber & intMask) == intMask;
     }
-}
+
+  	
+  }
