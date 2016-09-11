@@ -893,6 +893,8 @@
     <!-- Status bar ticker -->
     <string name="status_bar_ticker_title">Notification Ticker</string>
     <string name="status_bar_ticker_summary">Notification text animation in the statusbar</string>
+    <string name="status_bar_ticker_font_size">Font size</string>
+    <string name="status_bar_ticker_font_style">Font style</string>
 
     <!-- Unaccounted and overcounted battery stats -->
     <string name="show_unac_and_overcounted_stats_title">Show unaccounted/overcounted stats</string>
@@ -1447,6 +1449,10 @@
     <string name="lockscreen_see_through_summary">Blurs and displays the content behind your lockscreen.</string>
     <string name="lockscreen_blur_radius">Blur effect intensity</string>
 
+    <!-- Status Bar Activity Indicators -->
+    <string name="status_bar_network_activity_title">Activity indicators</string>
+    <string name="status_bar_network_activity_summary">Show indicators in signal bars</string>
+
     <!-- Media art -->
     <string name="media_art_title">Media cover art</string>
     <string name="media_art_summary">Enable media cover art on the lockscreen</string>
@@ -1799,35 +1805,6 @@
     <!-- Navbar buttons rotating icons -->
     <string name="nav_buttons_rotation_title">Rotation animation for icons</string>
     <string name="nav_buttons_rotation_summary">Enable for icons to rotate when screen is rotated or navbar recreated</string>
-
-    <!-- Status bar signals icon settings  -->
-    <string name="status_bar_signal_settings_title">Mobile &amp; Wi-Fi network icons</string>
-    <string name="status_bar_signal_settings_summary">Customize the status bar mobile and wi-fi network icons</string>
-    <string name="signal_wifi_show_activity_title">Show network activity</string>
-    <string name="signal_wifi_show_activity_summary">Enable to show the network activity</string>
-    <string name="cat_network_icons_title">Network icons</string>
-    <string name="cat_network_activity_icons_title">Activity icons</string>
-    <string name="cat_airplane_mode_icon_title">Airplane mode icon</string>
-    <string name="cat_vpn_icon_title">VPN icon</string>
-    <string name="color_normal_title">Normal</string>
-    <string name="color_fully_title">Fully connected</string>
-
-    <!-- Status bar notifications and system icons -->
-    <string name="notif_system_icons_colorize_notif_icons_title">Colorize notification icons</string>
-    <string name="notif_system_icons_colorize_notif_icons_summary">Enable to colorize the notification icons color</string>
-    <string name="notif_system_icons_show_count_title">Show notification count</string>
-    <string name="notif_system_icons_show_count_summary">Display the number of pending notifications</string>
-    <string name="notif_system_icons_icon_color_title">Icons</string>
-    <string name="notif_system_icons_notif_text_color_title">Ticker text</string>
-    <string name="notif_system_icons_count_icon_color_title">Notification count icon</string>
-    <string name="notif_system_icons_count_text_color_title">Notification count Text</string>
-    <string name="notif_system_icons_show_ticker_title">Notification ticker</string>
-    <string name="notif_system_icons_show_ticker_summary">Notification text animation in the status bar</string>
-    <string name="status_bar_notif_system_icons_settings_title">Notifications &amp; system icons</string>
-    <string name="status_bar_notif_system_icons_settings_summary">Customize the notifications &amp; system icons</string>
-
-    <string name="status_bar_ticker_font_size">Font size</string>
-    <string name="status_bar_ticker_font_style">Font style</string>
 
     <!-- Header text shadow and color -->
     <string name="status_bar_custom_header_text_shadow_title">Header text shadow</string>
