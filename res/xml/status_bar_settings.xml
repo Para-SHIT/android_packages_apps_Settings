@@ -100,11 +100,12 @@
             android:summary="@string/carrier_options_summary"
             android:fragment="com.android.settings.temasek.CarrierLabel" />
 
-		<PreferenceScreen
-			android:key="status_bar_greeting"
-			android:title="@string/status_bar_greeting_pref"
-			android:summary="@string/status_bar_greeting_pref_summary"	
-			android:fragment="com.android.settings.temasek.Greeting" />
+		<!-- Greeting -->
+        <PreferenceScreen
+            android:key="status_bar_greeting_settings"
+            android:title="@string/status_bar_greeting_settings_title"
+            android:summary="@string/status_bar_greeting_settings_summary"
+            android:fragment="com.android.settings.temasek.StatusBarGreetingSettings" />
 
     </PreferenceCategory>
 

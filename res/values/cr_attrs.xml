@@ -18,6 +18,7 @@
         <attr name="unitsLeft" format="string" />
         <attr name="unitsRight" format="string" />
         <attr name="interval" format="integer" />
+        <attr name="isSeconds" format="boolean" />
     </declare-styleable>
 
     <!-- Minimum prediction score required to pass a gesture as recognized -->

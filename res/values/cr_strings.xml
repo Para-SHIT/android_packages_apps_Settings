@@ -36,6 +36,9 @@
     <string name="app_icon_color_title">App Icon</string>
     <string name="advanced_category">Advanced</string>
     <string name="status_bar_label_cat">Status bar label</string>
+    <string name="always_title">Always</string>
+    <string name="never_title">Never</string>
+    <string name="show_title">Show</string>
 
     <!-- Changelog -->
     <string name="changelog_temasek_title">Changelog</string>
@@ -1847,14 +1850,18 @@
     <string name="font_notoserif_bold_italic">NotoSerif Bold Italic</string>
 
     <!-- Status bar greeting -->
-    <string name="status_bar_greeting_pref">Greeting label</string>
-    <string name="status_bar_greeting_pref_summary">Display a custom greeting in the status bar after unlocking the device</string>
-    <string name="status_bar_greeting_title">Greeting</string>
-    <string name="status_bar_greeting_summary">Enable and set your greeting</string>
-    <string name="status_bar_greeting_dialog">Set your greeting</string>
-    <string name="status_bar_greeting_main">Welcome</string>
-    <string name="status_bar_greeting_timeout_title">Greeting timeout</string>
-    <string name="status_bar_greeting_color">Greeting text color</string>
+    <string name="status_bar_greeting_settings_title">Greeting</string>
+    <string name="status_bar_greeting_settings_summary">Customize greeting text, color and timeout</string>
+    <string name="greeting_show_label_always_summary">The greeting will be shown after the device gets unlocked</string>
+    <string name="greeting_show_label_once_summary">The greeting will be shown only the first time the device gets unlocked after the boot</string>
+    <string name="greeting_show_label_never_summary">The greeting will never be shown</string>
+    <string name="greeting_show_label_once_title">Once after boot</string>
+    <string name="greeting_custom_label_title">Custom Text</string>
+    <string name="greeting_custom_label_dlg_message">Enter a new text, which will be shown as greeting. An empty field will revert the text to:\n\'%s\'</string>
+    <string name="greeting_timeout_title">Time Out</string>
+    <string name="greeting_label_font_size">Greeting Label Text Size</string>
+    <string name="greeting_show_label_preview_title">Show Label Preview</string>
+    <string name="greeting_show_label_preview_summary">Show a preview of the current used greeting text, which will be shown as greeting</string>
 
     <!-- Dynamic System Bars -->
     <string name="dynamic_system_bars_category_title">Dynamic system bars</string>
