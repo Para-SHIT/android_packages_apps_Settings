@@ -121,7 +121,7 @@ public class Logo extends SettingsPreferenceFragment
 
         mCustomLogoStyle = (ListPreference) findPreference(KEY_CUSTOM_LOGO_STYLE);
         int customLogoStyle = Settings.System.getIntForUser(mResolver,
-                Settings.System.CUSTOM_LOGO_STYLE, 1,
+                Settings.System.CUSTOM_LOGO_STYLE, 0,
                 UserHandle.USER_CURRENT);
         mCustomLogoStyle.setValue(String.valueOf(customLogoStyle));
         mCustomLogoStyle.setSummary(mCustomLogoStyle.getEntry());
