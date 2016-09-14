@@ -22,6 +22,7 @@ import android.app.DialogFragment;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.UserHandle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -53,6 +54,8 @@ public class StatusBarGreetingSettings extends SettingsPreferenceFragment implem
             "status_bar_greeting_show_label_preview";
     private static final String PREF_FONT_SIZE  =
             "status_bar_greeting_font_size";
+    private static final String PREF_FONT_STYLE  =
+            "status_bar_greeting_font_style";
     private static final String PREF_COLOR =
             "greeting_color";
 
@@ -69,6 +72,7 @@ public class StatusBarGreetingSettings extends SettingsPreferenceFragment implem
     private SeekBarPreference mTimeOut;
     SwitchPreference mPreviewLabel;
     private SeekBarPreference mGreetingFontSize;
+    private ListPreference mGreetingFontStyle;
     private ColorPickerPreference mColor;
 
     private ContentResolver mResolver;
@@ -123,8 +127,16 @@ public class StatusBarGreetingSettings extends SettingsPreferenceFragment implem
                 mGreetingFontSize.setValue(Settings.System.getInt(mResolver,
                         Settings.System.STATUS_BAR_GREETING_FONT_SIZE, 12));
                 mGreetingFontSize.setOnPreferenceChangeListener(this);
+
+                mGreetingFontStyle =
+                        (ListPreference) findPreference(PREF_FONT_STYLE);
+                mGreetingFontStyle.setValue(Integer.toString(Settings.System.getIntForUser(mResolver,
+                        Settings.System.STATUS_BAR_GREETING_FONT_STYLE , 0, UserHandle.USER_CURRENT)));
+                mGreetingFontStyle.setSummary(mGreetingFontStyle.getEntry());
+                mGreetingFontStyle.setOnPreferenceChangeListener(this);
             } else {
                 removePreference(PREF_FONT_SIZE);
+                removePreference(PREF_FONT_STYLE);
             }
 
             mColor =
@@ -143,6 +155,7 @@ public class StatusBarGreetingSettings extends SettingsPreferenceFragment implem
             removePreference(PREF_CUSTOM_LABEL);
             removePreference(PREF_TIMEOUT);
             removePreference(PREF_FONT_SIZE);
+            removePreference(PREF_FONT_STYLE);
             removePreference(PREF_COLOR);
         }
 
@@ -197,6 +210,13 @@ public class StatusBarGreetingSettings extends SettingsPreferenceFragment implem
             int width = ((Integer)newValue).intValue();
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.STATUS_BAR_GREETING_FONT_SIZE, width);
+            return true;
+        } else if (preference == mGreetingFontStyle) {
+            int val = Integer.parseInt((String) newValue);
+            int index = mGreetingFontStyle.findIndexOfValue((String) newValue);
+            Settings.System.putIntForUser(mResolver,
+                    Settings.System.STATUS_BAR_GREETING_FONT_STYLE, val, UserHandle.USER_CURRENT);
+            mGreetingFontStyle.setSummary(mGreetingFontStyle.getEntries()[index]);
             return true;
         } else if (preference == mColor) {
             String hex = ColorPickerPreference.convertToARGB(
@@ -277,7 +297,9 @@ public class StatusBarGreetingSettings extends SettingsPreferenceFragment implem
                                     Settings.System.STATUS_BAR_GREETING_TIMEOUT,
                                     400);
                             Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.STATUS_BAR_GREETING_FONT_SIZE, 14);
+                                    Settings.System.STATUS_BAR_GREETING_FONT_SIZE, 12);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_GREETING_FONT_STYLE, 0);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_GREETING_COLOR,
                                     WHITE);
@@ -293,7 +315,9 @@ public class StatusBarGreetingSettings extends SettingsPreferenceFragment implem
                                     Settings.System.STATUS_BAR_GREETING_TIMEOUT,
                                     1000);
                             Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.STATUS_BAR_GREETING_FONT_SIZE, 14);
+                                    Settings.System.STATUS_BAR_GREETING_FONT_SIZE, 12);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_GREETING_FONT_STYLE, 12);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_GREETING_COLOR,
                                     TEMASEK_BLUE);

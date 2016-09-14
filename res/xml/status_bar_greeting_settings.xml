@@ -56,6 +56,12 @@
         settings:unitsLeft=""
         settings:unitsRight="dp" />
 
+    <ListPreference
+        android:key="status_bar_greeting_font_style"
+        android:entries="@array/font_style_entries"
+        android:entryValues="@array/font_style_values"
+        android:title="@string/greeting_label_font_style" />
+
     <net.margaritov.preference.colorpicker.ColorPickerPreference
         android:key="greeting_color"
         android:title="@string/color_title"
