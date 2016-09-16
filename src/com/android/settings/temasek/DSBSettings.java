@@ -38,12 +38,14 @@ import java.util.List;
 public class DSBSettings extends SettingsPreferenceFragment implements OnPreferenceChangeListener, Indexable {
 
 private static final String KEY_DYNAMIC_STATUS_BAR = "dynamic_status_bar" ;
+private static final String KEY_DYNAMIC_HEADER = "dynamic_header" ;
 private static final String KEY_DYNAMIC_NAVIGATION_BAR = "dynamic_navigation_bar" ;
 private static final String KEY_DYNAMIC_SYSTEM_BARS_GRADIENT = "dynamic_system_bars_gradient" ;
 private static final String KEY_DYNAMIC_STATUS_BAR_FILTER = "dynamic_status_bar_filter" ;
 private static final String KEY_DYNAMIC_ICON_TINT = "dynamic_icon_tint" ;
 	
 private CheckBoxPreference mDynamicStatusBar;
+private CheckBoxPreference mDynamicHeader;
 private CheckBoxPreference mDynamicNavigationBar;
 private CheckBoxPreference mDynamicSystemBarsGradient;
 private CheckBoxPreference mDynamicStatusBarFilter;
@@ -58,12 +60,12 @@ private ContentResolver mResolver;
 
         	mDynamicStatusBar = (CheckBoxPreference) findPreference( KEY_DYNAMIC_STATUS_BAR );
 		     mDynamicStatusBar . setPersistent( false );
+
+            mDynamicHeader = (CheckBoxPreference) findPreference( KEY_DYNAMIC_HEADER );
+		     mDynamicHeader . setPersistent( false );
 		
 			      mDynamicNavigationBar = (CheckBoxPreference) findPreference( KEY_DYNAMIC_NAVIGATION_BAR );
 		      mDynamicNavigationBar . setPersistent( false );
-
-                      mDynamicIconTint = (CheckBoxPreference) findPreference( KEY_DYNAMIC_ICON_TINT );
-                      mDynamicIconTint . setPersistent(false);
 		
 		       mDynamicSystemBarsGradient =
 		              (CheckBoxPreference) findPreference( KEY_DYNAMIC_SYSTEM_BARS_GRADIENT );
@@ -72,6 +74,9 @@ private ContentResolver mResolver;
 			     mDynamicStatusBarFilter =
 			                (CheckBoxPreference) findPreference( KEY_DYNAMIC_STATUS_BAR_FILTER );
 		       mDynamicStatusBarFilter . setPersistent( false );
+
+				mDynamicIconTint = (CheckBoxPreference) findPreference( KEY_DYNAMIC_ICON_TINT );
+                      mDynamicIconTint . setPersistent(false);
 		
 			
 		updateDynamicSystemBarsCheckboxes();
@@ -89,28 +94,31 @@ private ContentResolver mResolver;
 		
 		 final boolean isStatusBarDynamic = Settings .System. getInt(getActivity().getContentResolver(),
 																	                "DYNAMIC_STATUS_BAR_STATE" , 0 ) == 1 ;
+
+		final boolean isHeaderDynamic = Settings .System. getInt(getActivity().getContentResolver(),
+																	                "DYNAMIC_HEADER_STATE" , 0 ) == 1 ;
 		
 		 final boolean hasNavigationBar = res . getDimensionPixelSize(res .getIdentifier(
 																		  "navigation_bar_height" , "dimen" , "android" )) > 0 ;
 		final boolean isNavigationBarDynamic = hasNavigationBar && Settings . System. getInt(
 			              getActivity().getContentResolver(), "DYNAMIC_NAVIGATION_BAR_STATE" , 0) == 1 ;
-
-                 final boolean isStatusBarColor = Settings .System. getInt(getActivity().getContentResolver(),
-																	                "DYNAMIC_ICON_TINT_STATE" , 0 ) == 1 ;
 		
 		 final boolean isAnyBarDynamic = isStatusBarDynamic || isNavigationBarDynamic;
 		
 			       mDynamicStatusBar . setChecked(isStatusBarDynamic);
+
+					mDynamicHeader . setChecked(isHeaderDynamic);
 		
 			       mDynamicNavigationBar . setEnabled(hasNavigationBar);
 		        mDynamicNavigationBar . setChecked(isNavigationBarDynamic);
-
-                               mDynamicIconTint . setChecked(isStatusBarColor);
 		
 		final boolean areSystemBarsGradient = isAnyBarDynamic && Settings . System.getInt(
 			               getActivity().getContentResolver(), "DYNAMIC_SYSTEM_BARS_GRADIENT_STATE" , 0) == 1 ;
 		 final boolean isStatusBarFilter = isStatusBarDynamic && Settings . System. getInt(
 			               getActivity().getContentResolver(), "DYNAMIC_STATUS_BAR_FILTER_STATE" , 0 ) == 1;
+
+		final boolean isStatusBarColor = Settings .System. getInt(getActivity().getContentResolver(),
+																	                "DYNAMIC_ICON_TINT_STATE" , 0 ) == 1 ;
 		
 			      mDynamicSystemBarsGradient . setEnabled(isAnyBarDynamic &&
 															               (areSystemBarsGradient || ! isStatusBarFilter));
@@ -119,6 +127,8 @@ private ContentResolver mResolver;
 			      mDynamicStatusBarFilter . setEnabled(isStatusBarDynamic &&
 														                 (isStatusBarFilter || ! areSystemBarsGradient));
 		        mDynamicStatusBarFilter . setChecked(isStatusBarFilter);
+
+				mDynamicIconTint . setChecked(isStatusBarColor);
 				
 	 }
 
@@ -132,10 +142,16 @@ private ContentResolver mResolver;
 	 public boolean onPreferenceTreeClick(PreferenceScreen p1, Preference preference)
 	 {
 		
-	  if (preference == mDynamicStatusBar) {
+	  	   if (preference == mDynamicStatusBar) {
 		            Settings . System. putInt(getActivity().getContentResolver(),
 											                    "DYNAMIC_STATUS_BAR_STATE" ,
 											                     mDynamicStatusBar . isChecked() ? 1 : 0 );
+		           updateDynamicSystemBarsCheckboxes();
+	       } 
+					else if (preference == mDynamicHeader) {
+		            Settings . System. putInt(getActivity().getContentResolver(),
+											                    "DYNAMIC_HEADER_STATE" ,
+											                     mDynamicHeader . isChecked() ? 1 : 0 );
 		           updateDynamicSystemBarsCheckboxes();
 	       }
                    else if (preference == mDynamicNavigationBar) {
@@ -143,11 +159,6 @@ private ContentResolver mResolver;
 		          Settings . System. putInt(getActivity().getContentResolver(),"DYNAMIC_NAVIGATION_BAR_STATE" ,
 											                  mDynamicNavigationBar . isChecked() && res . getDimensionPixelSize(res . getIdentifier( "navigation_bar_height" , "dimen" , "android" )) > 0 ? 1 : 0 );
 		            updateDynamicSystemBarsCheckboxes();
-	       } else if (preference == mDynamicIconTint) {
-		 Settings . System. putInt(getActivity().getContentResolver(),
-											                    "DYNAMIC_ICON_TINT_STATE" ,
-											                     mDynamicIconTint . isChecked() ? 1 : 0 );
-		           updateDynamicSystemBarsCheckboxes();
 	       } else if (preference == mDynamicSystemBarsGradient) {
 		final boolean enableGradient = mDynamicSystemBarsGradient .isChecked();
 		            Settings . System. putInt(getActivity().getContentResolver(),"DYNAMIC_SYSTEM_BARS_GRADIENT_STATE" , enableGradient ? 1 : 0);
@@ -162,9 +173,14 @@ private ContentResolver mResolver;
 		               Settings . System. putInt(getActivity().getContentResolver(),"DYNAMIC_SYSTEM_BARS_GRADIENT_STATE" , 0 );
 		         }
 		          updateDynamicSystemBarsCheckboxes();
-	}
+		  } else if (preference == mDynamicIconTint) {
+		 			Settings . System. putInt(getActivity().getContentResolver(),
+											                    "DYNAMIC_ICON_TINT_STATE" ,
+											                     mDynamicIconTint . isChecked() ? 1 : 0 );
+		           updateDynamicSystemBarsCheckboxes();
+		  }
 
-return super.onPreferenceTreeClick(p1,preference);
+		return super.onPreferenceTreeClick(p1,preference);
     }
 
          public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =

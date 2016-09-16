@@ -22,6 +22,11 @@
         android:summary="@string/dynamic_status_bar_summary" />
 
     <CheckBoxPreference
+        android:key="dynamic_header"
+        android:title="@string/dynamic_header_title"
+        android:summary="@string/dynamic_header_summary" />
+
+    <CheckBoxPreference
         android:key="dynamic_navigation_bar"
         android:title="@string/dynamic_navigation_bar_title"
         android:summary="@string/dynamic_navigation_bar_summary" />

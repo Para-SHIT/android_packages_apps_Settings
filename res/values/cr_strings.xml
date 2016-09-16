@@ -1868,7 +1868,9 @@
     <string name="dynamic_system_bars_category_title">Dynamic system bars</string>
     <string name="dynamic_system_bars_summary">Customize of background system bars</string>
     <string name="dynamic_status_bar_title">Dynamic status bar</string>
-    <string name="dynamic_status_bar_summary">Automatically update the Background of the status bar</string>
+    <string name="dynamic_status_bar_summary">Automatically update the background of the status bar</string>
+    <string name="dynamic_header_title">Dynamic header</string>
+    <string name="dynamic_header_summary">Automatically update the background of the header</string>
     <string name="dynamic_navigation_bar_title">Dynamic navigation bar</string>
     <string name="dynamic_navigation_bar_summary">Automatically update the background of the navigation bar</string>
     <string name="dynamic_system_bars_gradient_title">System bar gradient</string>
