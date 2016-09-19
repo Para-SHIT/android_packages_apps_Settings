@@ -16,69 +16,61 @@
     android:title="@string/qs_colors_title"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
+    <SwitchPreference
+        android:key="qs_color_switch"
+        android:title="@string/qs_color_switch_title"
+        android:defaultValue="false" />
+
+    <SwitchPreference
+        android:key="qs_transparent_shade"
+        android:title="@string/qs_transparent_shade_title"
+        android:summary="@string/qs_transparent_shade_summary"
+        android:defaultValue="false"
+        android:dependency="qs_color_switch" />
+
     <PreferenceCategory
         android:key="qs_cat_colors"
         android:title="@string/qs_colors_title">
 
-        <SwitchPreference
-            android:key="qs_color_switch"
-            android:title="@string/qs_color_switch_title"
-            android:defaultValue="false" />
-
-        <SwitchPreference
-            android:key="qs_transparent_shade"
-            android:title="@string/qs_transparent_shade_title"
-            android:summary="@string/qs_transparent_shade_summary"
-            android:defaultValue="false"
-            android:dependency="qs_color_switch" />
-
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="qs_background_color"
             android:title="@string/background_title"
-            android:defaultValue="0xff263238"
-            android:dependency="qs_color_switch" />
+            android:defaultValue="0xff263238" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="qs_icon_color"
             android:title="@string/icon_title"
-            android:defaultValue="0xffffffff"
-            android:dependency="qs_color_switch" />
+            android:defaultValue="0xffffffff" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="qs_text_color"
             android:title="@string/text_title"
-            android:defaultValue="0xffffffff"
-            android:dependency="qs_color_switch" />
+            android:defaultValue="0xffffffff" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="qs_ripple_color"
             android:title="@string/ripple_title"
-            android:defaultValue="0xffffffff"
-            android:dependency="qs_color_switch" />
+            android:defaultValue="0xffffffff" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="qs_brightness_icon_color"
             android:title="@string/qs_brightness_icon_color"
-            android:defaultValue="0xffffffff" 
-	        android:dependency="qs_color_switch" />
+            android:defaultValue="0xffffffff" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="qs_brightness_slider_icon_color"
             android:title="@string/brightness_slider_icon_color_title"
-            android:defaultValue="0xffffffff"
-            android:dependency="qs_color_switch" />
+            android:defaultValue="0xffffffff" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="qs_brightness_slider_color"
             android:title="@string/brightness_slider_color_title"
-            android:defaultValue="0xff80cbc4"
-            android:dependency="qs_color_switch" />
+            android:defaultValue="0xff80cbc4" />
 
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="qs_brightness_slider_bg_color"
             android:title="@string/brightness_slider_bg_color_title"
-            android:defaultValue="0xffffffff"
-            android:dependency="qs_color_switch" />
+            android:defaultValue="0xffffffff" />
 
     </PreferenceCategory>
 

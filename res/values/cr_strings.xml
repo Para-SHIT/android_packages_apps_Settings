@@ -39,6 +39,8 @@
     <string name="always_title">Always</string>
     <string name="never_title">Never</string>
     <string name="show_title">Show</string>
+    <string name="gesture_title">Gesture</string>
+    <string name="shake_title">Shake</string>
 
     <!-- Changelog -->
     <string name="changelog_temasek_title">Changelog</string>
@@ -333,8 +335,6 @@
     <string name="membar_text_color">Bar text color</string>
     <string name="membar_bar_color">Bar used color</string>
     <string name="membar_bar_free_color">Bar free color</string>
-    <string name="recents_colors_reset_title">Reset option colors</string>
-    <string name="recents_colors_reset_message">Are you sure you want to reset these colors to default?</string>
 
     <!-- Toast animations -->
     <string name="toast_animation_title">Toast animations</string>
@@ -539,6 +539,9 @@
     <string name="animation_duration_title">Animation duration</string>
     <string name="animation_duration_default">Default</string>
 
+    <string name="expanded_animation_title">Expanded animations</string>
+    <string name="expanded_animation_summary">customize animation on expanded</string>
+
     <!-- Lock clock -->
     <string name="lock_clock_title">Clock widget</string>
     <string name="lock_clock_summary">View or change how the \'cLock\' Home  widget will display</string>
@@ -674,10 +677,6 @@
     <string name="brightness_slider_bg_color_title">Brightness slider background</string>
     <string name="brightness_slider_icon_color_title">Brightness slider icon</string>
 
-    <string name="qs_anim_title">QS animations</string>
-    <string name="qs_anim_summary">customize quick settings animation</string>
-    <string name="qs_font_style_title">QS font style</string>
-
     <!-- Captive Portal -->
     <string name="captive_portal_detection">Captive portal detection</string>
     <string name="captive_portal_detection_summary">If disabled, a connection to google servers is not required in order to detect data connection.</string>
@@ -784,6 +783,7 @@
     <string name="qs_panel_logo_custom">Custom color</string>
     <string name="qs_panel_logo_color_title">QS panel logo color</string>
     <string name="qs_panel_logo_alpha_title">QS panel logo transparency</string>
+    <string name="qs_font_style_title">QS font style</string>
 
     <!-- Safe headset volume restore checkbox -->
     <string name="safe_headset_volume_title">Safe headset volume</string>
@@ -983,7 +983,7 @@
     <string name="clock_date_left">Left of time</string>
 
     <!-- Pie control -->
-    <string name="pie_control_title">SlimPIE</string>
+    <string name="pie_control_title">Slim PIE</string>
     <string name="pie_control_summary">Enable pie on screen navigation</string>
     <string name="pie_control_size">Navigation size</string>
     <string name="pie_control_trigger_positions">Trigger options</string>
@@ -1201,38 +1201,32 @@
     <string name="header_colors_reset_message">Reset Header Color Back to Default</string>
 
     <!-- Task Manager -->
-    <string name="enable_task_manager_title">Task Manager</string>
-    <string name="enable_task_manager_summary">Enable/Disable action for the task manager button in the expanded statusbar area.</string>
-    <string name="expansion_view_animation_title">Task Manager Animation</string>
-    <string name="expansion_view_animation_summary">Change the enter/exit animation of the panel change</string>
-    <string name="expansion_view_animation_dialog_title">Select your animation</string>
-    <string name="expansion_view_animation_down">Down (Default)</string>
-    <string name="expansion_view_animation_enter">Enter</string>
-    <string name="expansion_view_animation_left">Left</string>
-    <string name="expansion_view_animation_right">Right</string>
-    <string name="expansion_view_animation_rotate">Rotate</string>
-    <string name="expansion_view_animation_turn">Turn</string>
-    <string name="expansion_view_animation_up">Up</string>
-    <string name="expansion_view_recents_enter">Recents Enter</string>
-    <string name="expansion_view_fade">Fade</string>
-    <string name="expansion_view_slide_out">Slide</string>
-    <string name="expansion_view_last_app">Last App</string>
-    <string name="expansion_view_rotate">Reverse Rotate</string>
-    <string name="expansion_view_task_open">Task Open</string>
-    <string name="expansion_view_xylon_toast">Toast</string>
-    <string name="expansion_view_search_bar">SearchBar Animation</string>
-    <string name="expansion_view_toko_toast">Toko Toast</string>
-    <string name="task_manager_title">Task Manager</string>
+    <string name="task_manager_title">Task manager</string>
     <string name="task_manager_summary">Fully customize the task manager</string>
-    <string name="task_manager_show_summary">Show/hide the task manager button in the expanded header</string>
-    <string name="task_manager_memory_text_title">Memory Text</string>
-    <string name="task_manager_task_kill_button_title">Task Kill Button</string>
-    <string name="task_manager_task_text_title">Task Text</string>
-    <string name="task_manager_title_text_title">Title Text</string>
-    <string name="task_manager_kill_all_text_title">Kill All Text</string>
-    <string name="task_manager_ram_used_title">RAM Used</string>
-    <string name="task_manager_ram_free_title">RAM Free</string>
+    <string name="task_manager_enable_title">Task manager</string>
+    <string name="task_manager_enable_summary">Enable/disable action for the task manager button in the expanded header</string>
+    <string name="task_manager_memory_text_title">Memory text</string>
+    <string name="task_manager_task_kill_button_title">Task kill button</string>
+    <string name="task_manager_task_text_title">Task text</string>
+    <string name="task_manager_title_text_title">Title text</string>
+    <string name="task_manager_kill_all_text_title">Kill all text</string>
+    <string name="task_manager_ram_used_title">RAM used</string>
+    <string name="task_manager_ram_free_title">RAM free</string>
     <string name="task_manager_memory_bar_title">Memory bar thickness</string>
+    <string name="task_manager_animation_cat">Task manager animation options</string>
+    <string name="task_manager_animation_title">Task manager animation style</string>
+    <string name="task_manager_animation_down">Down</string>
+    <string name="task_manager_animation_enter">Enter</string>
+    <string name="task_manager_animation_left">Left</string>
+    <string name="task_manager_animation_right">Right</string>
+    <string name="task_manager_animation_rotate">Rotate</string>
+    <string name="task_manager_animation_turn">Turn</string>
+    <string name="task_manager_animation_up">Up</string>
+    <string name="task_manager_animation_recents_enter">Recents enter</string>
+    <string name="task_manager_animation_fade">Fade (default)</string>
+    <string name="task_manager_animation_last_app">Last app</string>
+    <string name="task_manager_animation_search_bar">Search bar</string>
+    <string name="task_manager_animation_toko_toast">Toko toast</string>
 
     <!-- Disable torch when screen goes off -->
     <string name="disable_torch_screen_off_title">Disable torch on screen off</string>
@@ -1576,8 +1570,9 @@
     <string name="lock_clock_font_notoserif_bold_italic">NotoSerif Bold Italic</string>
 
     <!-- Immersive Recents -->
+    <string name="immersive_recents_cat">Immersive settings</string>
     <string name="immersive_recents_title">Immersive recents</string>
-    <string name="immersive_recents_summary">Change the view of the recents screen</string>
+    <string name="immersive_recents_summary">Customize of recents view</string>
     <string name="immersive_recents_dialog_title">Select recents view</string>
     <string name="immersive_recents_default">Default</string>
     <string name="immersive_recents_fullscreen">Fullscreen</string>
