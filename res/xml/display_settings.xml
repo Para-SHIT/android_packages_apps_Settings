@@ -139,6 +139,10 @@
                 android:title="@string/screen_zoom_title"
                 settings:keywords="@string/screen_zoom_keywords" />
 
+        <com.android.settings.display.DensityPreference
+                android:key="density"
+                android:title="@string/developer_smallest_width" />
+
         <cyanogenmod.preference.CMSystemSettingSwitchPreference
                 android:key="systemui_burnin_protection"
                 android:title="@string/burnin_protection_title"
