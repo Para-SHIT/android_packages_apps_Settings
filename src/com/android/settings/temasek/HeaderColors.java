@@ -44,8 +44,6 @@ import java.util.List;
 
 public class HeaderColors extends SettingsPreferenceFragment  implements Preference.OnPreferenceChangeListener ,Indexable {
  
- private static final String PREF_BG_COLOR = 
-            "expanded_header_background_color";
  private static final String HEADER_ICON_COLOR = "header_icon_color";
  private static final String HEADER_CLOCK_COLOR = "header_clock_color";
  private static final String HEADER_DETAIL_COLOR = "header_detail_color";
@@ -55,10 +53,8 @@ public class HeaderColors extends SettingsPreferenceFragment  implements Prefere
  private static final String HEADER_ALARM_COLOR = "header_alarm_text_color";
 
     static final int DEFAULT = 0xffffffff;
-    private static final int DEFAULT_BG_COLOR = 0xff384248;
     private static final int MENU_RESET = Menu.FIRST;
-	
-    private ColorPickerPreference mBackgroundColor;
+
     private ColorPickerPreference mHeaderIconColor;
     private ColorPickerPreference mHeaderCLockColor;
     private ColorPickerPreference mHeaderDetailColor;
@@ -77,16 +73,6 @@ public class HeaderColors extends SettingsPreferenceFragment  implements Prefere
 
    	int intColor;
         String hexColor;
-
-        mBackgroundColor =
-                (ColorPickerPreference) findPreference(PREF_BG_COLOR);
-        intColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.STATUS_BAR_EXPANDED_HEADER_BG_COLOR,
-                DEFAULT_BG_COLOR); 
-        mBackgroundColor.setNewPreviewColor(intColor);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mBackgroundColor.setSummary(hexColor);
-        mBackgroundColor.setOnPreferenceChangeListener(this);
 
         mHeaderIconColor = (ColorPickerPreference) findPreference(HEADER_ICON_COLOR);
         mHeaderIconColor.setOnPreferenceChangeListener(this);
@@ -158,15 +144,7 @@ public class HeaderColors extends SettingsPreferenceFragment  implements Prefere
 	public boolean onPreferenceChange(Preference preference, Object newValue) {
 	ContentResolver resolver = getActivity().getContentResolver();
 	Resources res = getResources();
-          if (preference == mBackgroundColor) {
-            String hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.STATUS_BAR_EXPANDED_HEADER_BG_COLOR, intHex);
-            preference.setSummary(hex);
-            return true;
-         } else if (preference == mHeaderIconColor) {
+         if (preference == mHeaderIconColor) {
             String hex = ColorPickerPreference.convertToARGB(
                     Integer.valueOf(String.valueOf(newValue)));
             preference.setSummary(hex);
@@ -174,7 +152,7 @@ public class HeaderColors extends SettingsPreferenceFragment  implements Prefere
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.HEADER_ICON_COLOR, intHex);
             return true;
-	 	} else if (preference == mHeaderCLockColor) {
+	 	 } else if (preference == mHeaderCLockColor) {
             String hex = ColorPickerPreference.convertToARGB(
                     Integer.valueOf(String.valueOf(newValue)));
             preference.setSummary(hex);
@@ -259,11 +237,6 @@ public class HeaderColors extends SettingsPreferenceFragment  implements Prefere
     }
 
     private void resetValues() {
-        Settings.System.putInt(getContentResolver(),
-                 Settings.System.STATUS_BAR_EXPANDED_HEADER_BG_COLOR,
-                 DEFAULT_BG_COLOR);
-        mBackgroundColor.setNewPreviewColor(DEFAULT_BG_COLOR);
-        mBackgroundColor.setSummary(R.string.default_string);
         Settings.System.putInt(getContentResolver(),
                  Settings.System.HEADER_ICON_COLOR, DEFAULT);
         mHeaderIconColor.setNewPreviewColor(DEFAULT);

@@ -1188,7 +1188,6 @@
     <string name="notification_drawer_clear_all_icon_color_title">Clear all icon</string>
 
     <!-- Status bar expanded header: Custom background color -->
-    <string name="background_header_title">Header background color</string>
     <string name="header_icon_color">Header icon color</string>
     <string name="header_clock_color">Header clock color</string>
     <string name="header_detail_color">Header date color</string>
@@ -1409,7 +1408,8 @@
     <string name="status_bar_custom_header_default_title">Select your images</string>
     <string name="custom_header_image_0">Default</string>
     <string name="custom_header_image_1">Modern</string>
-    <string name="custom_header_image_2">Poly HD</string>
+    <string name="custom_header_image_2">Flat</string>
+    <string name="custom_header_image_3">Poly HD</string>
 
     <!-- Device policy override -->
     <string name="device_policy_override_title">Device policy override</string>
