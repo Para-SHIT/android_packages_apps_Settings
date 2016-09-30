@@ -112,27 +112,27 @@ public class ImmersiveRecents extends SettingsPreferenceFragment implements
                 (ColorPickerPreference) findPreference(RECENTS_DATE_COLOR);
 
         if (immersiveRecentsVisible && !isSbOnly) {
-        	mShowRecentsClock.setChecked(Settings.System.getInt(mResolver,
-            	Settings.System.RECENTS_FULL_SCREEN_CLOCK, 0) == 1);
-        	mShowRecentsClock.setOnPreferenceChangeListener(this);
+            mShowRecentsClock.setChecked(Settings.System.getInt(mResolver,
+                Settings.System.RECENTS_FULL_SCREEN_CLOCK, 0) == 1);
+            mShowRecentsClock.setOnPreferenceChangeListener(this);
 
-        	mShowRecentsDate.setChecked(Settings.System.getInt(mResolver,
-            	Settings.System.RECENTS_FULL_SCREEN_DATE, 0) == 1);
-        	mShowRecentsDate.setOnPreferenceChangeListener(this);
+            mShowRecentsDate.setChecked(Settings.System.getInt(mResolver,
+                Settings.System.RECENTS_FULL_SCREEN_DATE, 0) == 1);
+            mShowRecentsDate.setOnPreferenceChangeListener(this);
 
-        	mClockColor.setOnPreferenceChangeListener(this);
-        	intColor = Settings.System.getInt(mResolver,
-            	Settings.System.RECENTS_CLOCK_COLOR, WHITE);
-        	hexColor = String.format("#%08x", (0xffffffff & intColor));
-        	mClockColor.setSummary(hexColor);
-        	mClockColor.setNewPreviewColor(intColor);
+            mClockColor.setOnPreferenceChangeListener(this);
+            intColor = Settings.System.getInt(mResolver,
+                Settings.System.RECENTS_CLOCK_COLOR, WHITE);
+            hexColor = String.format("#%08x", (0xffffffff & intColor));
+            mClockColor.setSummary(hexColor);
+            mClockColor.setNewPreviewColor(intColor);
 
-        	mDateColor.setOnPreferenceChangeListener(this);
-        	intColor = Settings.System.getInt(mResolver,
-            	Settings.System.RECENTS_DATE_COLOR, WHITE);
-        	hexColor = String.format("#%08x", (0xffffffff & intColor));
-        	mDateColor.setSummary(hexColor);
-        	mDateColor.setNewPreviewColor(intColor);
+            mDateColor.setOnPreferenceChangeListener(this);
+            intColor = Settings.System.getInt(mResolver,
+                Settings.System.RECENTS_DATE_COLOR, WHITE);
+            hexColor = String.format("#%08x", (0xffffffff & intColor));
+            mDateColor.setSummary(hexColor);
+            mDateColor.setNewPreviewColor(intColor);
         } else {
             catImmersive.removePreference(mShowRecentsClock);
             catImmersive.removePreference(mShowRecentsDate);
@@ -240,11 +240,11 @@ public class ImmersiveRecents extends SettingsPreferenceFragment implements
                                     Settings.System.IMMERSIVE_RECENTS, 0);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.RECENTS_FULL_SCREEN_CLOCK, 0);
-        	                Settings.System.putInt(getOwner().mResolver,
+                            Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.RECENTS_FULL_SCREEN_DATE, 0);
-        	                Settings.System.putInt(getOwner().mResolver,
+                            Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.RECENTS_CLOCK_COLOR, WHITE);
-        	                Settings.System.putInt(getOwner().mResolver,
+                            Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.RECENTS_DATE_COLOR, WHITE);
                             getOwner().refreshSettings();
                         }

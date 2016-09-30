@@ -56,12 +56,12 @@ public class LockScreenWeatherSettings extends SettingsPreferenceFragment implem
     private static final String PREF_NUMBER_OF_NOTIFICATIONS =
             "weather_number_of_notifications";
     private static final String PREF_TEXT_COLOR = 
-	        "weather_text_color";
+            "weather_text_color";
     private static final String PREF_ICON_COLOR = 
-	        "weather_icon_color";
+            "weather_icon_color";
 
     private static final int MONOCHROME_ICON = 0;
-	private static final int DEFAULT_COLOR = 0xffffffff;
+    private static final int DEFAULT_COLOR = 0xffffffff;
 
     private static final int MENU_RESET = Menu.FIRST;
     private static final int DLG_RESET = 0;

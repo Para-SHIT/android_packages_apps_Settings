@@ -63,7 +63,7 @@ public class SeekBarPreference extends Preference implements SeekBar.OnSeekBarCh
 
         mMaxValue = attrs.getAttributeIntValue(ANDROIDNS, "max", 100);
         mMinValue = attrs.getAttributeIntValue(SETTINGS, "minimum", 0);
-	mDefaultValue = attrs.getAttributeIntValue(SETTINGS, "defaultVal", -1);
+        mDefaultValue = attrs.getAttributeIntValue(SETTINGS, "defaultVal", -1);
         mUnitsLeft = getAttributeStringValue(attrs, SETTINGS, "unitsLeft", "");
         String units = getAttributeStringValue(attrs, SETTINGS, "units", "");
         mUnitsRight = getAttributeStringValue(attrs, SETTINGS, "unitsRight", units);
@@ -111,7 +111,7 @@ public class SeekBarPreference extends Preference implements SeekBar.OnSeekBarCh
 
     @Override
     protected View onCreateView(ViewGroup parent){
-	super.onCreateView(parent);
+        super.onCreateView(parent);
 
         RelativeLayout layout =  null;
         try {
@@ -146,8 +146,8 @@ public class SeekBarPreference extends Preference implements SeekBar.OnSeekBarCh
                     return true;
                 }
             });
-	    mProgressThumb = mSeekBar.getThumb();
-	}
+        mProgressThumb = mSeekBar.getThumb();
+    }
         catch(Exception e)
         {
             Log.e(TAG, "Error creating seek bar preference", e);
@@ -219,19 +219,19 @@ public class SeekBarPreference extends Preference implements SeekBar.OnSeekBarCh
             seekBar.setProgress(mCurrentValue - mMinValue);
             return;
         }
-   	// change accepted, store it
+        // change accepted, store it
         mCurrentValue = newValue;
         if (mCurrentValue == mDefaultValue && mDefaultValue != -1) {
             mStatusText.setText(R.string.default_string);
             int redColor = getContext().getResources().getColor(R.color.seekbar_dot_color);
-	    if (mProgressThumb !=null) {
+        if (mProgressThumb !=null) {
             mProgressThumb.setColorFilter(redColor, PorterDuff.Mode.SRC_IN);
-	    }
+        }
         } else {
             mStatusText.setText(String.valueOf(newValue));
-	    if (mProgressThumb !=null) {
+        if (mProgressThumb !=null) {
             mProgressThumb.clearColorFilter();
-	    }
+        }
         }
         persistInt(newValue);
     }

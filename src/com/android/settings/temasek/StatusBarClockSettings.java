@@ -96,7 +96,7 @@ public class StatusBarClockSettings extends SettingsPreferenceFragment
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-	createCustomView();
+    createCustomView();
     }
 
     private PreferenceScreen createCustomView() {

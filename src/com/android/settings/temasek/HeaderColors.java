@@ -44,13 +44,13 @@ import java.util.List;
 
 public class HeaderColors extends SettingsPreferenceFragment  implements Preference.OnPreferenceChangeListener ,Indexable {
  
- private static final String HEADER_ICON_COLOR = "header_icon_color";
- private static final String HEADER_CLOCK_COLOR = "header_clock_color";
- private static final String HEADER_DETAIL_COLOR = "header_detail_color";
- private static final String HEADER_WEATHERONE_COLOR = "header_weatherone_color";
- private static final String HEADER_WEATHERTWO_COLOR = "header_weathertwo_color";
- private static final String HEADER_BATTERY_COLOR = "header_battery_text_color";
- private static final String HEADER_ALARM_COLOR = "header_alarm_text_color";
+    private static final String HEADER_ICON_COLOR = "header_icon_color";
+    private static final String HEADER_CLOCK_COLOR = "header_clock_color";
+    private static final String HEADER_DETAIL_COLOR = "header_detail_color";
+    private static final String HEADER_WEATHERONE_COLOR = "header_weatherone_color";
+    private static final String HEADER_WEATHERTWO_COLOR = "header_weathertwo_color";
+    private static final String HEADER_BATTERY_COLOR = "header_battery_text_color";
+    private static final String HEADER_ALARM_COLOR = "header_alarm_text_color";
 
     static final int DEFAULT = 0xffffffff;
     private static final int MENU_RESET = Menu.FIRST;
@@ -59,19 +59,19 @@ public class HeaderColors extends SettingsPreferenceFragment  implements Prefere
     private ColorPickerPreference mHeaderCLockColor;
     private ColorPickerPreference mHeaderDetailColor;
     private ColorPickerPreference mHeaderWeatheroneColor;
-    private ColorPickerPreference mHeaderWeathertwoColor;	
+    private ColorPickerPreference mHeaderWeathertwoColor;
     private ColorPickerPreference mBatteryColor;
     private ColorPickerPreference mAlarmColor;
  
 
- @Override
+    @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.temasek_header_colors);
         PreferenceScreen prefSet = getPreferenceScreen();
         final ContentResolver resolver = getActivity().getContentResolver();
 
-   	int intColor;
+        int intColor;
         String hexColor;
 
         mHeaderIconColor = (ColorPickerPreference) findPreference(HEADER_ICON_COLOR);
@@ -114,7 +114,7 @@ public class HeaderColors extends SettingsPreferenceFragment  implements Prefere
         mHeaderWeathertwoColor.setSummary(hexColor);
         mHeaderWeathertwoColor.setNewPreviewColor(intColor);
 
-       	mBatteryColor = (ColorPickerPreference) findPreference(HEADER_BATTERY_COLOR);
+        mBatteryColor = (ColorPickerPreference) findPreference(HEADER_BATTERY_COLOR);
         mBatteryColor.setOnPreferenceChangeListener(this);
         intColor = Settings.System.getInt(getContentResolver(),
                     Settings.System.HEADER_BATTERY_TEXT_COLOR, DEFAULT);
@@ -129,10 +129,10 @@ public class HeaderColors extends SettingsPreferenceFragment  implements Prefere
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mAlarmColor.setSummary(hexColor);
         mAlarmColor.setNewPreviewColor(intColor);
-	
-	setHasOptionsMenu(true);
 
-}
+        setHasOptionsMenu(true);
+
+    }
 
     @Override
     public void onResume() {
@@ -140,70 +140,69 @@ public class HeaderColors extends SettingsPreferenceFragment  implements Prefere
     }
 
 
-	@Override
-	public boolean onPreferenceChange(Preference preference, Object newValue) {
-	ContentResolver resolver = getActivity().getContentResolver();
-	Resources res = getResources();
-         if (preference == mHeaderIconColor) {
-            String hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.HEADER_ICON_COLOR, intHex);
-            return true;
-	 	 } else if (preference == mHeaderCLockColor) {
-            String hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.HEADER_CLOCK_COLOR, intHex);
-            return true;
-         } else if (preference == mHeaderDetailColor) {
-            String hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.HEADER_DETAIL_COLOR, intHex);
-            return true;
-         } else if (preference == mHeaderWeatheroneColor) {
-            String hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.HEADER_WEATHERONE_COLOR, intHex);
-            return true;
-         } else if (preference == mHeaderWeathertwoColor) {
-            String hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.HEADER_WEATHERTWO_COLOR, intHex);
-            return true;
-         }  else if (preference == mBatteryColor) {
-            String hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.HEADER_BATTERY_TEXT_COLOR, intHex);
-            return true;
-         }  else if (preference == mAlarmColor) {
-            String hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.HEADER_ALARM_TEXT_COLOR, intHex);
-            return true;
-	}
-	return false;
-	}
-
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        ContentResolver resolver = getActivity().getContentResolver();
+        Resources res = getResources();
+        if (preference == mHeaderIconColor) {
+           String hex = ColorPickerPreference.convertToARGB(
+                   Integer.valueOf(String.valueOf(newValue)));
+           preference.setSummary(hex);
+           int intHex = ColorPickerPreference.convertToColorInt(hex);
+           Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                   Settings.System.HEADER_ICON_COLOR, intHex);
+           return true;
+        } else if (preference == mHeaderCLockColor) {
+           String hex = ColorPickerPreference.convertToARGB(
+                   Integer.valueOf(String.valueOf(newValue)));
+           preference.setSummary(hex);
+           int intHex = ColorPickerPreference.convertToColorInt(hex);
+           Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                   Settings.System.HEADER_CLOCK_COLOR, intHex);
+           return true;
+        } else if (preference == mHeaderDetailColor) {
+           String hex = ColorPickerPreference.convertToARGB(
+                   Integer.valueOf(String.valueOf(newValue)));
+           preference.setSummary(hex);
+           int intHex = ColorPickerPreference.convertToColorInt(hex);
+           Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                   Settings.System.HEADER_DETAIL_COLOR, intHex);
+           return true;
+        } else if (preference == mHeaderWeatheroneColor) {
+           String hex = ColorPickerPreference.convertToARGB(
+                   Integer.valueOf(String.valueOf(newValue)));
+           preference.setSummary(hex);
+           int intHex = ColorPickerPreference.convertToColorInt(hex);
+           Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                   Settings.System.HEADER_WEATHERONE_COLOR, intHex);
+           return true;
+        } else if (preference == mHeaderWeathertwoColor) {
+           String hex = ColorPickerPreference.convertToARGB(
+                   Integer.valueOf(String.valueOf(newValue)));
+           preference.setSummary(hex);
+           int intHex = ColorPickerPreference.convertToColorInt(hex);
+           Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                   Settings.System.HEADER_WEATHERTWO_COLOR, intHex);
+           return true;
+        } else if (preference == mBatteryColor) {
+           String hex = ColorPickerPreference.convertToARGB(
+                   Integer.valueOf(String.valueOf(newValue)));
+           preference.setSummary(hex);
+           int intHex = ColorPickerPreference.convertToColorInt(hex);
+           Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                   Settings.System.HEADER_BATTERY_TEXT_COLOR, intHex);
+           return true;
+        } else if (preference == mAlarmColor) {
+           String hex = ColorPickerPreference.convertToARGB(
+                   Integer.valueOf(String.valueOf(newValue)));
+           preference.setSummary(hex);
+           int intHex = ColorPickerPreference.convertToColorInt(hex);
+           Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                   Settings.System.HEADER_ALARM_TEXT_COLOR, intHex);
+           return true;
+        }
+        return false;
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -255,7 +254,7 @@ public class HeaderColors extends SettingsPreferenceFragment  implements Prefere
         mHeaderWeatheroneColor.setSummary(R.string.default_string);
         Settings.System.putInt(getContentResolver(),
                 Settings.System.HEADER_WEATHERTWO_COLOR, DEFAULT);
-		mHeaderWeathertwoColor.setNewPreviewColor(DEFAULT);
+        mHeaderWeathertwoColor.setNewPreviewColor(DEFAULT);
         mHeaderWeathertwoColor.setSummary(R.string.default_string);
         Settings.System.putInt(getContentResolver(),
                 Settings.System.HEADER_BATTERY_TEXT_COLOR, DEFAULT);
@@ -263,7 +262,7 @@ public class HeaderColors extends SettingsPreferenceFragment  implements Prefere
         mBatteryColor.setSummary(R.string.default_string);
         Settings.System.putInt(getContentResolver(),
                 Settings.System.HEADER_ALARM_TEXT_COLOR, DEFAULT);
-	        mAlarmColor.setNewPreviewColor(DEFAULT);
+        mAlarmColor.setNewPreviewColor(DEFAULT);
         mAlarmColor.setSummary(R.string.default_string);
 
     }

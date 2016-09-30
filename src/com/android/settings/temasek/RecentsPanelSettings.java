@@ -148,29 +148,29 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
                 (ColorPickerPreference) findPreference(MEM_TEXT_COLOR);
 
         if (recentsClearAll) {
-        	mRecentsClearAllDismiss.setChecked(Settings.System.getInt(mResolver,
-            	Settings.System.RECENTS_CLEAR_ALL_DISMISS_ALL, 0) == 1);
-        	mRecentsClearAllDismiss.setOnPreferenceChangeListener(this);
+            mRecentsClearAllDismiss.setChecked(Settings.System.getInt(mResolver,
+                Settings.System.RECENTS_CLEAR_ALL_DISMISS_ALL, 0) == 1);
+            mRecentsClearAllDismiss.setOnPreferenceChangeListener(this);
 
-        	int location = Settings.System.getIntForUser(mResolver,
-                	Settings.System.RECENTS_CLEAR_ALL_LOCATION, 4, UserHandle.USER_CURRENT);
-        	mRecentsClearAllLocation.setValue(String.valueOf(location));
-        	mRecentsClearAllLocation.setOnPreferenceChangeListener(this);
-        	updateRecentsLocation(location);
+            int location = Settings.System.getIntForUser(mResolver,
+                    Settings.System.RECENTS_CLEAR_ALL_LOCATION, 4, UserHandle.USER_CURRENT);
+            mRecentsClearAllLocation.setValue(String.valueOf(location));
+            mRecentsClearAllLocation.setOnPreferenceChangeListener(this);
+            updateRecentsLocation(location);
 
-        	intColor = Settings.System.getInt(mResolver,
-            	Settings.System.RECENT_APPS_CLEAR_ALL_BG_COLOR, RED);
-        	hexColor = String.format("#%08x", (0xffdc4c3c & intColor));
-        	mClearAllBgColor.setSummary(hexColor);
-        	mClearAllBgColor.setNewPreviewColor(intColor);
-        	mClearAllBgColor.setOnPreferenceChangeListener(this);
+            intColor = Settings.System.getInt(mResolver,
+                Settings.System.RECENT_APPS_CLEAR_ALL_BG_COLOR, RED);
+            hexColor = String.format("#%08x", (0xffdc4c3c & intColor));
+            mClearAllBgColor.setSummary(hexColor);
+            mClearAllBgColor.setNewPreviewColor(intColor);
+            mClearAllBgColor.setOnPreferenceChangeListener(this);
 
-        	intColor = Settings.System.getInt(mResolver,
-            	Settings.System.RECENT_APPS_CLEAR_ALL_ICON_COLOR, WHITE);
-        	hexColor = String.format("#%08x", (0xffffffff & intColor));
-        	mClearAllIconColor.setSummary(hexColor);
-        	mClearAllIconColor.setNewPreviewColor(intColor);
-        	mClearAllIconColor.setOnPreferenceChangeListener(this);
+            intColor = Settings.System.getInt(mResolver,
+                Settings.System.RECENT_APPS_CLEAR_ALL_ICON_COLOR, WHITE);
+            hexColor = String.format("#%08x", (0xffffffff & intColor));
+            mClearAllIconColor.setSummary(hexColor);
+            mClearAllIconColor.setNewPreviewColor(intColor);
+            mClearAllIconColor.setOnPreferenceChangeListener(this);
         } else {
             catRecents.removePreference(mRecentsClearAllDismiss);
             catRecents.removePreference(mRecentsClearAllLocation);
@@ -180,26 +180,26 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
         }
 
         if (showMemBar) {
-        	intColor = Settings.System.getInt(mResolver,
-                	Settings.System.MEMORY_BAR_COLOR, BLACK); 
-        	mMemBarColor.setNewPreviewColor(intColor);
-        	hexColor = String.format("#%08x", (0xff1b231d & intColor));
-        	mMemBarColor.setSummary(hexColor);
-        	mMemBarColor.setOnPreferenceChangeListener(this);
+            intColor = Settings.System.getInt(mResolver,
+                    Settings.System.MEMORY_BAR_COLOR, BLACK); 
+            mMemBarColor.setNewPreviewColor(intColor);
+            hexColor = String.format("#%08x", (0xff1b231d & intColor));
+            mMemBarColor.setSummary(hexColor);
+            mMemBarColor.setOnPreferenceChangeListener(this);
 
-        	intColor = Settings.System.getInt(mResolver,
-                	Settings.System.MEMORY_BAR_FREE_COLOR, GREEN); 
-        	mMemBarFreeColor.setNewPreviewColor(intColor);
-        	hexColor = String.format("#%08x", (0xff82d989 & intColor));
-        	mMemBarFreeColor.setSummary(hexColor);
-        	mMemBarFreeColor.setOnPreferenceChangeListener(this);
+            intColor = Settings.System.getInt(mResolver,
+                    Settings.System.MEMORY_BAR_FREE_COLOR, GREEN); 
+            mMemBarFreeColor.setNewPreviewColor(intColor);
+            hexColor = String.format("#%08x", (0xff82d989 & intColor));
+            mMemBarFreeColor.setSummary(hexColor);
+            mMemBarFreeColor.setOnPreferenceChangeListener(this);
 
-        	intColor = Settings.System.getInt(mResolver,
-        	    Settings.System.MEM_TEXT_COLOR, WHITE);
-        	hexColor = String.format("#%08x", (0xffffffff & intColor));
-        	mMemTextColor.setSummary(hexColor);
-        	mMemTextColor.setNewPreviewColor(intColor);
-        	mMemTextColor.setOnPreferenceChangeListener(this);
+            intColor = Settings.System.getInt(mResolver,
+                Settings.System.MEM_TEXT_COLOR, WHITE);
+            hexColor = String.format("#%08x", (0xffffffff & intColor));
+            mMemTextColor.setSummary(hexColor);
+            mMemTextColor.setNewPreviewColor(intColor);
+            mMemTextColor.setOnPreferenceChangeListener(this);
         } else {
             catMembar.removePreference(mMemBarColor);
             catMembar.removePreference(mMemBarFreeColor);
@@ -386,9 +386,9 @@ public class RecentsPanelSettings extends SettingsPreferenceFragment implements
                                     Settings.System.MEMORY_BAR_FREE_COLOR, GREEN);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.MEM_TEXT_COLOR, WHITE);
-        	                Settings.System.putInt(getOwner().mResolver,
+                            Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.RECENTS_FULL_SCREEN_CLOCK_DATE_SIZE, 14);
-        	                Settings.System.putInt(getOwner().mResolver,
+                            Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.RECENTS_FONT_STYLE, 0);
                             getOwner().refreshSettings();
                         }

@@ -242,8 +242,8 @@ public class KeyboardAnimationInterfaceSettings extends SettingsPreferenceFragme
     }
 
     private String getListInterpolatorName(int index) {
-    	String[] str = getActivity().getResources().getStringArray(R.array.listview_interpolator_entries);
-    	return str[index];
+        String[] str = getActivity().getResources().getStringArray(R.array.listview_interpolator_entries);
+        return str[index];
     }
 
 }

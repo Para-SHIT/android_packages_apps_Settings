@@ -104,15 +104,15 @@ public class ExpandedAnimation extends SettingsPreferenceFragment implements Ind
                     Settings.System.ANIM_TILE_DURATION, 1500,
                     UserHandle.USER_CURRENT);
             mTileAnimationDuration.setValue(String.valueOf(tileAnimationDuration));
-        	mTileAnimationDuration.setSummary(mTileAnimationDuration.getEntry());
-        	mTileAnimationDuration.setOnPreferenceChangeListener(this);
+            mTileAnimationDuration.setSummary(mTileAnimationDuration.getEntry());
+            mTileAnimationDuration.setOnPreferenceChangeListener(this);
          
             int tileAnimationInterpolator = Settings.System.getIntForUser(mResolver,
                     Settings.System.ANIM_TILE_INTERPOLATOR, 0,
                     UserHandle.USER_CURRENT);
             mTileAnimationInterpolator.setValue(String.valueOf(tileAnimationInterpolator));
-        	mTileAnimationInterpolator.setSummary(mTileAnimationInterpolator.getEntry());
-        	mTileAnimationInterpolator.setOnPreferenceChangeListener(this);
+            mTileAnimationInterpolator.setSummary(mTileAnimationInterpolator.getEntry());
+            mTileAnimationInterpolator.setOnPreferenceChangeListener(this);
         } else {
             catTileAnimation.removePreference(mTileAnimationDuration);
             catTileAnimation.removePreference(mTileAnimationInterpolator);

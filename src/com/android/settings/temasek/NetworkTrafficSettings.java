@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 RR
+ * Copyright (C) 2015 Temasek
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,14 +53,16 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
 
     private static final String NETWORK_TRAFFIC_STATE = "network_traffic_state";
     private static final String NETWORK_TRAFFIC_UNIT = "network_traffic_unit";
-    private static final String PREF_COLOR_PICKER = "clock_color";	
+    private static final String PREF_COLOR_PICKER = "clock_color";
     private static final String NETWORK_TRAFFIC_COLOR = "network_traffic_color";
     private static final String NETWORK_TRAFFIC_PERIOD = "network_traffic_period";
     private static final String NETWORK_TRAFFIC_AUTOHIDE = "network_traffic_autohide";
     private static final String NETWORK_TRAFFIC_HIDEARROW = "network_traffic_hidearrow";
     private static final String NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD = "network_traffic_autohide_threshold";
-    private static final int MENU_RESET = Menu.FIRST;	
 
+    private static final int DEFAULT_TRAFFIC_COLOR = 0xffffffff;
+
+    private static final int MENU_RESET = Menu.FIRST;
     private static final int DLG_RESET = 0;
 
     private int mNetTrafficVal;
@@ -76,9 +78,7 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
     private SwitchPreference mNetTrafficHidearrow;
     private SeekBarPreference mNetTrafficAutohideThreshold;
     private ColorPickerPreference mNetTrafficColor;
-    private ColorPickerPreference mColorPicker;		
-
-    private static final int DEFAULT_TRAFFIC_COLOR = 0xffffffff;
+    private ColorPickerPreference mColorPicker;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -87,7 +87,7 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
         ContentResolver resolver = getActivity().getContentResolver();
         PreferenceScreen prefSet = getPreferenceScreen();
 
-  	PackageManager pm = getPackageManager();
+        PackageManager pm = getPackageManager();
         Resources systemUiResources;
         try {
             systemUiResources = pm.getResourcesForApplication("com.android.systemui");
@@ -119,8 +119,8 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
             mNetTrafficAutohideThreshold.setValue(netTrafficAutohideThreshold / 1);
             mNetTrafficAutohideThreshold.setOnPreferenceChangeListener(this);
 
-	mColorPicker = (ColorPickerPreference) findPreference(PREF_COLOR_PICKER);
- 	mNetTrafficColor =
+        mColorPicker = (ColorPickerPreference) findPreference(PREF_COLOR_PICKER);
+        mNetTrafficColor =
                 (ColorPickerPreference) prefSet.findPreference(NETWORK_TRAFFIC_COLOR);
         mNetTrafficColor.setOnPreferenceChangeListener(this);
         int intColor = Settings.System.getInt(getContentResolver(),
@@ -188,7 +188,7 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-	ContentResolver resolver = getActivity().getContentResolver();
+        ContentResolver resolver = getActivity().getContentResolver();
         if (preference == mNetTrafficState) {
             int intState = Integer.valueOf((String)newValue);
             mNetTrafficVal = setBit(mNetTrafficVal, MASK_UP, getBit(intState, MASK_UP));
@@ -229,7 +229,7 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD, threshold * 1);
             return true;
-	    } else if (preference == mNetTrafficColor) {
+        } else if (preference == mNetTrafficColor) {
             String hex = ColorPickerPreference.convertToARGB(
                     Integer.valueOf(String.valueOf(newValue)));
             preference.setSummary(hex);
@@ -237,7 +237,7 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.NETWORK_TRAFFIC_COLOR, intHex);
             return true;
-	    }
+        }
         return false;
     }
 
@@ -261,5 +261,4 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
         return (intNumber & intMask) == intMask;
     }
 
-  	
-  }
+}

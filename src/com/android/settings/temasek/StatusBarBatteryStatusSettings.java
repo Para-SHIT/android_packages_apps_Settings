@@ -56,7 +56,7 @@ public class StatusBarBatteryStatusSettings extends SettingsPreferenceFragment i
             "status_bar_battery_style";
     private static final String PREF_BATT_BAR =
             "battery_bar_list";
-	private static final String STATUS_BAR_SHOW_BATTERY_PERCENT =
+    private static final String STATUS_BAR_SHOW_BATTERY_PERCENT =
             "status_bar_show_battery_percent";
     private static final String PREF_BATT_BAR_STYLE =
             "battery_bar_style";
@@ -168,68 +168,68 @@ public class StatusBarBatteryStatusSettings extends SettingsPreferenceFragment i
                 (ListPreference) findPreference(STATUS_BAR_SHOW_BATTERY_PERCENT);
             int batteryShowPercent = Settings.System.getInt(mResolver,
                 Settings.System.STATUS_BAR_SHOW_BATTERY_PERCENT, 0);
-        	mStatusBarBatteryShowPercent.setValue(String.valueOf(batteryShowPercent));
-        	mStatusBarBatteryShowPercent.setSummary(mStatusBarBatteryShowPercent.getEntry());
-        	mStatusBarBatteryShowPercent.setOnPreferenceChangeListener(this);
+            mStatusBarBatteryShowPercent.setValue(String.valueOf(batteryShowPercent));
+            mStatusBarBatteryShowPercent.setSummary(mStatusBarBatteryShowPercent.getEntry());
+            mStatusBarBatteryShowPercent.setOnPreferenceChangeListener(this);
         } else {
             removePreference(STATUS_BAR_SHOW_BATTERY_PERCENT);
         }
 
         if (batteryStatusBarVisible) {
-        	int batteryBarStyle = Settings.System.getIntForUser(mResolver,
-                	Settings.System.STATUSBAR_BATTERY_BAR_STYLE, 0,
-                	UserHandle.USER_CURRENT);
-        	mBatteryBarStyle.setValue(String.valueOf(batteryBarStyle));
-        	mBatteryBarStyle.setSummary(mBatteryBarStyle.getEntry());
-        	mBatteryBarStyle.setOnPreferenceChangeListener(this);
+            int batteryBarStyle = Settings.System.getIntForUser(mResolver,
+                    Settings.System.STATUSBAR_BATTERY_BAR_STYLE, 0,
+                    UserHandle.USER_CURRENT);
+            mBatteryBarStyle.setValue(String.valueOf(batteryBarStyle));
+            mBatteryBarStyle.setSummary(mBatteryBarStyle.getEntry());
+            mBatteryBarStyle.setOnPreferenceChangeListener(this);
 
-        	int batteryBarThickness = Settings.System.getIntForUser(mResolver,
-                	Settings.System.STATUSBAR_BATTERY_BAR_THICKNESS, 1,
-                	UserHandle.USER_CURRENT);
-        	mBatteryBarThickness.setValue(String.valueOf(batteryBarThickness));
-        	mBatteryBarThickness.setSummary(mBatteryBarThickness.getEntry());
-        	mBatteryBarThickness.setOnPreferenceChangeListener(this);
+            int batteryBarThickness = Settings.System.getIntForUser(mResolver,
+                    Settings.System.STATUSBAR_BATTERY_BAR_THICKNESS, 1,
+                    UserHandle.USER_CURRENT);
+            mBatteryBarThickness.setValue(String.valueOf(batteryBarThickness));
+            mBatteryBarThickness.setSummary(mBatteryBarThickness.getEntry());
+            mBatteryBarThickness.setOnPreferenceChangeListener(this);
 
-        	mBatteryBarChargingAnimation.setChecked(Settings.System.getInt(mResolver,
-                	Settings.System.STATUSBAR_BATTERY_BAR_ANIMATE, 0) == 1);
+            mBatteryBarChargingAnimation.setChecked(Settings.System.getInt(mResolver,
+                    Settings.System.STATUSBAR_BATTERY_BAR_ANIMATE, 0) == 1);
 
             intColor = Settings.System.getInt(mResolver,
-                	Settings.System.STATUSBAR_BATTERY_BAR_COLOR, BATTERY_BAR_DEFAULT);
-        	mBatteryBarColor.setNewPreviewColor(intColor);
-        	hexColor = String.format("#%08x", (0xffffffff & intColor));
-        	mBatteryBarColor.setSummary(hexColor);
-        	mBatteryBarColor.setOnPreferenceChangeListener(this);
+                    Settings.System.STATUSBAR_BATTERY_BAR_COLOR, BATTERY_BAR_DEFAULT);
+            mBatteryBarColor.setNewPreviewColor(intColor);
+            hexColor = String.format("#%08x", (0xffffffff & intColor));
+            mBatteryBarColor.setSummary(hexColor);
+            mBatteryBarColor.setOnPreferenceChangeListener(this);
 
-        	intColor = Settings.System.getInt(mResolver,
-                	Settings.System.STATUSBAR_BATTERY_BAR_BATTERY_LOW_COLOR_WARNING, BATTERY_BAR_LOW_WARNING);
-        	mBatteryBarBatteryLowColorWarn.setNewPreviewColor(intColor);
-        	hexColor = String.format("#%08x", (0xffff0000 & intColor));
-        	mBatteryBarBatteryLowColorWarn.setSummary(hexColor);
-        	mBatteryBarBatteryLowColorWarn.setOnPreferenceChangeListener(this);
+            intColor = Settings.System.getInt(mResolver,
+                    Settings.System.STATUSBAR_BATTERY_BAR_BATTERY_LOW_COLOR_WARNING, BATTERY_BAR_LOW_WARNING);
+            mBatteryBarBatteryLowColorWarn.setNewPreviewColor(intColor);
+            hexColor = String.format("#%08x", (0xffff0000 & intColor));
+            mBatteryBarBatteryLowColorWarn.setSummary(hexColor);
+            mBatteryBarBatteryLowColorWarn.setOnPreferenceChangeListener(this);
 
-        	intColor = Settings.System.getInt(mResolver,
-                	Settings.System.STATUSBAR_BATTERY_BAR_CHARGING_COLOR, BATTERY_BAR_CHARGING);
-        	mBatteryBarChargingColor.setNewPreviewColor(intColor);
-        	hexColor = String.format("#%08x", (0xffffff00 & intColor));
-        	mBatteryBarChargingColor.setSummary(hexColor);
-        	mBatteryBarChargingColor.setOnPreferenceChangeListener(this);
+            intColor = Settings.System.getInt(mResolver,
+                    Settings.System.STATUSBAR_BATTERY_BAR_CHARGING_COLOR, BATTERY_BAR_CHARGING);
+            mBatteryBarChargingColor.setNewPreviewColor(intColor);
+            hexColor = String.format("#%08x", (0xffffff00 & intColor));
+            mBatteryBarChargingColor.setSummary(hexColor);
+            mBatteryBarChargingColor.setOnPreferenceChangeListener(this);
 
-        	mBatteryBarUseGradient.setChecked(Settings.System.getInt(mResolver,
-                	Settings.System.STATUSBAR_BATTERY_BAR_USE_GRADIENT_COLOR, 0) == 1);
+            mBatteryBarUseGradient.setChecked(Settings.System.getInt(mResolver,
+                    Settings.System.STATUSBAR_BATTERY_BAR_USE_GRADIENT_COLOR, 0) == 1);
 
-        	intColor = Settings.System.getInt(mResolver,
-                	Settings.System.STATUSBAR_BATTERY_BAR_LOW_COLOR, BATTERY_BAR_LOW);
-        	mBatteryBarBatteryLowColor.setNewPreviewColor(intColor);
-        	hexColor = String.format("#%08x", (0xffff4444 & intColor));
-        	mBatteryBarBatteryLowColor.setSummary(hexColor);
-        	mBatteryBarBatteryLowColor.setOnPreferenceChangeListener(this);
+            intColor = Settings.System.getInt(mResolver,
+                    Settings.System.STATUSBAR_BATTERY_BAR_LOW_COLOR, BATTERY_BAR_LOW);
+            mBatteryBarBatteryLowColor.setNewPreviewColor(intColor);
+            hexColor = String.format("#%08x", (0xffff4444 & intColor));
+            mBatteryBarBatteryLowColor.setSummary(hexColor);
+            mBatteryBarBatteryLowColor.setOnPreferenceChangeListener(this);
  
-        	intColor = Settings.System.getInt(mResolver,
-                	Settings.System.STATUSBAR_BATTERY_BAR_HIGH_COLOR, BATTERY_BAR_HIGH);
-        	mBatteryBarBatteryHighColor.setNewPreviewColor(intColor);
-        	hexColor = String.format("#%08x", (0xff99cc00 & intColor));
-        	mBatteryBarBatteryHighColor.setSummary(hexColor);
-        	mBatteryBarBatteryHighColor.setOnPreferenceChangeListener(this);
+            intColor = Settings.System.getInt(mResolver,
+                    Settings.System.STATUSBAR_BATTERY_BAR_HIGH_COLOR, BATTERY_BAR_HIGH);
+            mBatteryBarBatteryHighColor.setNewPreviewColor(intColor);
+            hexColor = String.format("#%08x", (0xff99cc00 & intColor));
+            mBatteryBarBatteryHighColor.setSummary(hexColor);
+            mBatteryBarBatteryHighColor.setOnPreferenceChangeListener(this);
         } else {
             catBarOptions.removePreference(mBatteryBarStyle);
             catBarOptions.removePreference(mBatteryBarThickness);

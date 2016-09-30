@@ -49,20 +49,20 @@ public class HeaderFonts extends SettingsPreferenceFragment  implements Preferen
  private static final String CUSTOM_HEADER_TEXT_SHADOW = "status_bar_custom_header_text_shadow";
  private static final String CUSTOM_HEADER_TEXT_SHADOW_COLOR = "status_bar_custom_header_text_shadow_color";
  private static final String PREF_STATUS_BAR_CLOCK_FONT_STYLE = "header_clock_font_style";
- private static final String PREF_STATUS_BAR_WEATHER_FONT_STYLE = "header_weather_font_style";	
+ private static final String PREF_STATUS_BAR_WEATHER_FONT_STYLE = "header_weather_font_style";
  private static final String PREF_STATUS_BAR_HEADER_FONT_STYLE = "status_bar_header_font_style";
  private static final String PREF_STATUS_BAR_DETAIL_FONT_STYLE = "header_detail_font_style";
- private static final String PREF_STATUS_BAR_DATE_FONT_STYLE = "header_date_font_style";	
+ private static final String PREF_STATUS_BAR_DATE_FONT_STYLE = "header_date_font_style";
  private static final String PREF_STATUS_BAR_ALARM_FONT_STYLE = "header_alarm_font_style";
 
     static final int DEFAULT_HEADER_SHADOW_COLOR = 0xff000000;
     private static final int MENU_RESET = Menu.FIRST;
     private static final int DLG_RESET = 0;
-	
-    private ListPreference mStatusBarClockFontStyle;	
+
+    private ListPreference mStatusBarClockFontStyle;
     private ListPreference mStatusBarWeatherFontStyle;
-    private ListPreference mStatusBarHeaderFontStyle;	
-    private ListPreference mStatusBarDateFontStyle;	
+    private ListPreference mStatusBarHeaderFontStyle;
+    private ListPreference mStatusBarDateFontStyle;
     private ListPreference mStatusBarDetailFontStyle;
     private ListPreference mStatusBarAlarmFontStyle;
     private SeekBarPreference mTextShadow;
@@ -74,7 +74,7 @@ public class HeaderFonts extends SettingsPreferenceFragment  implements Preferen
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         refreshSettings();
-    }	
+    }
 
     public void refreshSettings() {
         PreferenceScreen prefs = getPreferenceScreen();
@@ -92,28 +92,28 @@ public class HeaderFonts extends SettingsPreferenceFragment  implements Preferen
                 Settings.System.HEADER_CLOCK_FONT_STYLE , 0, UserHandle.USER_CURRENT)));
         mStatusBarClockFontStyle.setSummary(mStatusBarClockFontStyle.getEntry());
 
-  		// Status bar header Weather font style
+        // Status bar header Weather font style
         mStatusBarWeatherFontStyle = (ListPreference) findPreference(PREF_STATUS_BAR_WEATHER_FONT_STYLE);
         mStatusBarWeatherFontStyle .setOnPreferenceChangeListener(this);
         mStatusBarWeatherFontStyle.setValue(Integer.toString(Settings.System.getIntForUser(mResolver,
                 Settings.System.HEADER_WEATHER_FONT_STYLE, 0, UserHandle.USER_CURRENT)));
         mStatusBarWeatherFontStyle .setSummary(mStatusBarWeatherFontStyle.getEntry());
 
- 		// Status bar header font style
+        // Status bar header font style
         mStatusBarHeaderFontStyle = (ListPreference) findPreference(PREF_STATUS_BAR_HEADER_FONT_STYLE);
         mStatusBarHeaderFontStyle.setOnPreferenceChangeListener(this);
         mStatusBarHeaderFontStyle.setValue(Integer.toString(Settings.System.getIntForUser(mResolver,
                 Settings.System.STATUS_BAR_HEADER_FONT_STYLE, 0, UserHandle.USER_CURRENT)));
         mStatusBarHeaderFontStyle.setSummary(mStatusBarHeaderFontStyle.getEntry());
 
-  		// Status bar Detail font style
+        // Status bar Detail font style
         mStatusBarDetailFontStyle = (ListPreference) findPreference(PREF_STATUS_BAR_DETAIL_FONT_STYLE);
         mStatusBarDetailFontStyle.setOnPreferenceChangeListener(this);
         mStatusBarDetailFontStyle.setValue(Integer.toString(Settings.System.getIntForUser(mResolver,
                 Settings.System.HEADER_DETAIL_FONT_STYLE, 0, UserHandle.USER_CURRENT)));
         mStatusBarDetailFontStyle.setSummary(mStatusBarDetailFontStyle.getEntry());
 
- 		// Status bar header Date  font style
+        // Status bar header Date  font style
         mStatusBarDateFontStyle = (ListPreference) findPreference(PREF_STATUS_BAR_DATE_FONT_STYLE);
         mStatusBarDateFontStyle .setOnPreferenceChangeListener(this);
         mStatusBarDateFontStyle .setValue(Integer.toString(Settings.System.getIntForUser(mResolver,
@@ -167,66 +167,66 @@ public class HeaderFonts extends SettingsPreferenceFragment  implements Preferen
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-    ContentResolver resolver = getActivity().getContentResolver();
-    Resources res = getResources();
-	if (preference == mStatusBarClockFontStyle) {
-                int val = Integer.parseInt((String) newValue);
-                int index = mStatusBarClockFontStyle.findIndexOfValue((String) newValue);
-                Settings.System.putIntForUser(mResolver,
-                        Settings.System.HEADER_CLOCK_FONT_STYLE, val, UserHandle.USER_CURRENT);
-                mStatusBarClockFontStyle.setSummary(mStatusBarClockFontStyle.getEntries()[index]);
-                return true;
-	} else if (preference == mStatusBarWeatherFontStyle) {
-                int val = Integer.parseInt((String) newValue);
-                int index = mStatusBarWeatherFontStyle.findIndexOfValue((String) newValue);
-                Settings.System.putIntForUser(mResolver,
-                        Settings.System.HEADER_WEATHER_FONT_STYLE, val, UserHandle.USER_CURRENT);
-                mStatusBarWeatherFontStyle.setSummary(mStatusBarWeatherFontStyle.getEntries()[index]);
-                return true;
-	} else if (preference == mStatusBarHeaderFontStyle) {
-                int val = Integer.parseInt((String) newValue);
-                int index = mStatusBarHeaderFontStyle.findIndexOfValue((String) newValue);
-                Settings.System.putIntForUser(mResolver,
-                        Settings.System.STATUS_BAR_HEADER_FONT_STYLE, val, UserHandle.USER_CURRENT);
-                mStatusBarHeaderFontStyle.setSummary(mStatusBarHeaderFontStyle.getEntries()[index]);
-                return true;
-	} else if (preference == mStatusBarDateFontStyle) {
-                int val = Integer.parseInt((String) newValue);
-                int index = mStatusBarDateFontStyle.findIndexOfValue((String) newValue);
-                Settings.System.putIntForUser(mResolver,
-                        Settings.System.HEADER_DATE_FONT_STYLE, val, UserHandle.USER_CURRENT);
-                mStatusBarDateFontStyle.setSummary(mStatusBarDateFontStyle.getEntries()[index]);
-                return true;
-	} else if (preference == mStatusBarDetailFontStyle) {
-                int val = Integer.parseInt((String) newValue);
-                int index = mStatusBarDetailFontStyle.findIndexOfValue((String) newValue);
-                Settings.System.putIntForUser(mResolver,
-                        Settings.System.HEADER_DETAIL_FONT_STYLE, val, UserHandle.USER_CURRENT);
-                mStatusBarDetailFontStyle.setSummary(mStatusBarDetailFontStyle.getEntries()[index]);
-                return true;
-	} else if (preference == mStatusBarAlarmFontStyle) {
-                int val = Integer.parseInt((String) newValue);
-                int index = mStatusBarAlarmFontStyle.findIndexOfValue((String) newValue);
-                Settings.System.putIntForUser(mResolver,
-                        Settings.System.HEADER_ALARM_FONT_STYLE, val, UserHandle.USER_CURRENT);
-                mStatusBarAlarmFontStyle.setSummary(mStatusBarAlarmFontStyle.getEntries()[index]);
-                return true;
-	} else if (preference == mTextShadow) {
-            	float textShadow = (Integer) newValue;
-            	float realHeaderValue = (float) ((double) textShadow);
-            	Settings.System.putFloat(resolver,
-              		    Settings.System.STATUS_BAR_CUSTOM_HEADER_TEXT_SHADOW, realHeaderValue);
-             	return true;
-    } else if (preference == mTShadowColor) {
-            	String hex = ColorPickerPreference.convertToARGB(
-                		Integer.valueOf(String.valueOf(newValue)));
-            	preference.setSummary(hex);
-            	int intHex = ColorPickerPreference.convertToColorInt(hex);
-            	Settings.System.putInt(resolver,
-                	    Settings.System.STATUS_BAR_CUSTOM_HEADER_TEXT_SHADOW_COLOR, intHex);
-            	return true;
-    }
-	return false;
+        ContentResolver resolver = getActivity().getContentResolver();
+        Resources res = getResources();
+        if (preference == mStatusBarClockFontStyle) {
+           int val = Integer.parseInt((String) newValue);
+           int index = mStatusBarClockFontStyle.findIndexOfValue((String) newValue);
+           Settings.System.putIntForUser(mResolver,
+                   Settings.System.HEADER_CLOCK_FONT_STYLE, val, UserHandle.USER_CURRENT);
+           mStatusBarClockFontStyle.setSummary(mStatusBarClockFontStyle.getEntries()[index]);
+           return true;
+        } else if (preference == mStatusBarWeatherFontStyle) {
+           int val = Integer.parseInt((String) newValue);
+           int index = mStatusBarWeatherFontStyle.findIndexOfValue((String) newValue);
+           Settings.System.putIntForUser(mResolver,
+                   Settings.System.HEADER_WEATHER_FONT_STYLE, val, UserHandle.USER_CURRENT);
+           mStatusBarWeatherFontStyle.setSummary(mStatusBarWeatherFontStyle.getEntries()[index]);
+           return true;
+        } else if (preference == mStatusBarHeaderFontStyle) {
+           int val = Integer.parseInt((String) newValue);
+           int index = mStatusBarHeaderFontStyle.findIndexOfValue((String) newValue);
+           Settings.System.putIntForUser(mResolver,
+                   Settings.System.STATUS_BAR_HEADER_FONT_STYLE, val, UserHandle.USER_CURRENT);
+           mStatusBarHeaderFontStyle.setSummary(mStatusBarHeaderFontStyle.getEntries()[index]);
+           return true;
+        } else if (preference == mStatusBarDateFontStyle) {
+           int val = Integer.parseInt((String) newValue);
+           int index = mStatusBarDateFontStyle.findIndexOfValue((String) newValue);
+           Settings.System.putIntForUser(mResolver,
+                   Settings.System.HEADER_DATE_FONT_STYLE, val, UserHandle.USER_CURRENT);
+           mStatusBarDateFontStyle.setSummary(mStatusBarDateFontStyle.getEntries()[index]);
+           return true;
+        } else if (preference == mStatusBarDetailFontStyle) {
+           int val = Integer.parseInt((String) newValue);
+           int index = mStatusBarDetailFontStyle.findIndexOfValue((String) newValue);
+           Settings.System.putIntForUser(mResolver,
+                   Settings.System.HEADER_DETAIL_FONT_STYLE, val, UserHandle.USER_CURRENT);
+           mStatusBarDetailFontStyle.setSummary(mStatusBarDetailFontStyle.getEntries()[index]);
+           return true;
+        } else if (preference == mStatusBarAlarmFontStyle) {
+           int val = Integer.parseInt((String) newValue);
+           int index = mStatusBarAlarmFontStyle.findIndexOfValue((String) newValue);
+           Settings.System.putIntForUser(mResolver,
+                   Settings.System.HEADER_ALARM_FONT_STYLE, val, UserHandle.USER_CURRENT);
+           mStatusBarAlarmFontStyle.setSummary(mStatusBarAlarmFontStyle.getEntries()[index]);
+           return true;
+        } else if (preference == mTextShadow) {
+           float textShadow = (Integer) newValue;
+           float realHeaderValue = (float) ((double) textShadow);
+           Settings.System.putFloat(resolver,
+                   Settings.System.STATUS_BAR_CUSTOM_HEADER_TEXT_SHADOW, realHeaderValue);
+           return true;
+        } else if (preference == mTShadowColor) {
+           String hex = ColorPickerPreference.convertToARGB(
+                   Integer.valueOf(String.valueOf(newValue)));
+           preference.setSummary(hex);
+           int intHex = ColorPickerPreference.convertToColorInt(hex);
+           Settings.System.putInt(resolver,
+                   Settings.System.STATUS_BAR_CUSTOM_HEADER_TEXT_SHADOW_COLOR, intHex);
+           return true;
+        }
+        return false;
     }
 
     private void showDialogInner(int id) {
@@ -265,11 +265,11 @@ public class HeaderFonts extends SettingsPreferenceFragment  implements Preferen
                                    Settings.System.HEADER_CLOCK_FONT_STYLE , 0);
                             Settings.System.putInt(getOwner().mResolver,
                                    Settings.System.HEADER_WEATHER_FONT_STYLE, 0);
- 	                    	Settings.System.putInt(getOwner().mResolver,
+                            Settings.System.putInt(getOwner().mResolver,
                                    Settings.System.STATUS_BAR_HEADER_FONT_STYLE, 0);
-  	                    	Settings.System.putInt(getOwner().mResolver,
+                            Settings.System.putInt(getOwner().mResolver,
                                    Settings.System.HEADER_DETAIL_FONT_STYLE, 0);
- 	                    	Settings.System.putInt(getOwner().mResolver,
+                            Settings.System.putInt(getOwner().mResolver,
                                    Settings.System.HEADER_DATE_FONT_STYLE, 0);
                             Settings.System.putInt(getOwner().mResolver,
                                    Settings.System.HEADER_ALARM_FONT_STYLE, 0);
@@ -288,7 +288,7 @@ public class HeaderFonts extends SettingsPreferenceFragment  implements Preferen
 
         }
     }
-	
+
     public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
             new BaseSearchIndexProvider() {
                 @Override

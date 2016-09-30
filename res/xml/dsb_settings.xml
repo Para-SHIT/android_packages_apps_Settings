@@ -32,14 +32,19 @@
         android:summary="@string/dynamic_navigation_bar_summary" />
 
     <CheckBoxPreference
-        android:key="dynamic_status_bar_filter"
-        android:title="@string/dynamic_status_bar_filter_title"
-        android:summary="@string/dynamic_status_bar_filter_summary" />
+        android:key="dynamic_header_gradient"
+        android:title="@string/dynamic_header_gradient_title"
+        android:summary="@string/dynamic_header_gradient_summary" />
 
     <CheckBoxPreference
         android:key="dynamic_system_bars_gradient"
         android:title="@string/dynamic_system_bars_gradient_title"
         android:summary="@string/dynamic_system_bars_gradient_summary" />
+
+    <CheckBoxPreference
+        android:key="dynamic_status_bar_filter"
+        android:title="@string/dynamic_status_bar_filter_title"
+        android:summary="@string/dynamic_status_bar_filter_summary" />
 
     <CheckBoxPreference
         android:key="dynamic_icon_tint"

@@ -185,7 +185,7 @@ public class Logo extends SettingsPreferenceFragment
             mCustomLogoStyle.setSummary(
                    mCustomLogoStyle.getEntries()[index]);
             return true;
-	    }
+        }
         return false;
     }
 

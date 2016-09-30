@@ -53,7 +53,7 @@ import java.util.Map;
 import java.util.List;
 
 public class SmartControl extends SettingsPreferenceFragment
-		implements Indexable  {
+        implements Indexable  {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class SmartControl extends SettingsPreferenceFragment
     public void onResume() {
         super.onResume();
     }
-	
+
     public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
             new BaseSearchIndexProvider() {
                 @Override

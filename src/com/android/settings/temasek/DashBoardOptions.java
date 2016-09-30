@@ -86,7 +86,7 @@ public class DashBoardOptions extends SettingsPreferenceFragment  implements Pre
     private SeekBarPreference mDashCategoryTextSize;
     private ListPreference mDashFontStyle;
     private ListPreference mDashboardColumns;
-    private ListPreference mDashboardSwitches;	
+    private ListPreference mDashboardSwitches;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -95,7 +95,7 @@ public class DashBoardOptions extends SettingsPreferenceFragment  implements Pre
         PreferenceScreen prefSet = getPreferenceScreen();
         final ContentResolver resolver = getActivity().getContentResolver();
 
-   	    int intColor;
+        int intColor;
         String hexColor;
 
         mIconColor = (ColorPickerPreference) findPreference(DASHBOARD_ICON_COLOR);
@@ -122,9 +122,9 @@ public class DashBoardOptions extends SettingsPreferenceFragment  implements Pre
         mBgColor.setNewPreviewColor(intColor);
         mBgColor.setSummary(hexColor);
         mBgColor.setOnPreferenceChangeListener(this);
-	
-	
-	    mCatTextColor =
+
+
+        mCatTextColor =
                 (ColorPickerPreference) findPreference(PREF_CAT_TEXT_COLOR);
         intColor = Settings.System.getInt(getContentResolver(),
                 Settings.System.SETTINGS_CATEGORY_TEXT_COLOR, ICON);
@@ -186,13 +186,13 @@ public class DashBoardOptions extends SettingsPreferenceFragment  implements Pre
         mDashboardColumns.setSummary(mDashboardColumns.getEntry());
         mDashboardColumns.setOnPreferenceChangeListener(this);
 
- 	    mDashboardSwitches = (ListPreference) findPreference(DASHBOARD_SWITCHES);
+        mDashboardSwitches = (ListPreference) findPreference(DASHBOARD_SWITCHES);
         mDashboardSwitches.setValue(String.valueOf(Settings.System.getInt(
                 getContentResolver(), Settings.System.DASHBOARD_SWITCHES, 1)));
         mDashboardSwitches.setSummary(mDashboardSwitches.getEntry());
         mDashboardSwitches.setOnPreferenceChangeListener(this);
         
-	    setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
 
     }
 
@@ -202,11 +202,11 @@ public class DashBoardOptions extends SettingsPreferenceFragment  implements Pre
     }
 
 
-	@Override
-	public boolean onPreferenceChange(Preference preference, Object newValue) {
-	ContentResolver resolver = getActivity().getContentResolver();
-	Resources res = getResources();
-	  if (preference == mIconColor) {
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+    ContentResolver resolver = getActivity().getContentResolver();
+    Resources res = getResources();
+      if (preference == mIconColor) {
             String hex = ColorPickerPreference.convertToARGB(
                     Integer.valueOf(String.valueOf(newValue)));
             preference.setSummary(hex);
@@ -292,8 +292,8 @@ public class DashBoardOptions extends SettingsPreferenceFragment  implements Pre
              mDashboardColumns.setSummary(mDashboardColumns.getEntry());
              return true;
          } 
-	     return false;
-	}
+         return false;
+    }
 
 
     @Override

@@ -49,11 +49,11 @@ public class LockScreenSettings extends SettingsPreferenceFragment implements On
     private static final String KEY_WALLPAPER_SET = "lockscreen_wallpaper_set";
     private static final String KEY_WALLPAPER_CLEAR = "lockscreen_wallpaper_clear";
     private static final String KEY_LOCKSCREEN_BLUR_RADIUS = "lockscreen_blur_radius";
-    private static final String LOCK_CLOCK_FONTS = "lock_clock_fonts";	
+    private static final String LOCK_CLOCK_FONTS = "lock_clock_fonts";
     private static final String LOCK_DATE_FONTS = "lock_date_fonts";
     private static final String CLOCK_FONT_SIZE  = "lockclock_font_size";
     private static final String DATE_FONT_SIZE  = "lockdate_font_size";
-	
+
     private ListPreference mLockClockFonts;
     private ListPreference mDateFonts;
     private ListPreference mClockFontSize;
@@ -89,18 +89,16 @@ public class LockScreenSettings extends SettingsPreferenceFragment implements On
         mDateFonts.setOnPreferenceChangeListener(this);
             
         mClockFontSize = (ListPreference) findPreference(CLOCK_FONT_SIZE);
-	mClockFontSize.setOnPreferenceChangeListener(this);
-	mClockFontSize.setValue(Integer.toString(Settings.System.getInt(getActivity()
-            .getContentResolver(), Settings.System.LOCKCLOCK_FONT_SIZE, 
-            14)));
-	mClockFontSize.setSummary(mClockFontSize.getEntry());
-	    
-	mDateFontSize = (ListPreference) findPreference(DATE_FONT_SIZE);
+        mClockFontSize.setOnPreferenceChangeListener(this);
+        mClockFontSize.setValue(Integer.toString(Settings.System.getInt(getActivity()
+            .getContentResolver(), Settings.System.LOCKCLOCK_FONT_SIZE, 14)));
+        mClockFontSize.setSummary(mClockFontSize.getEntry());
+
+        mDateFontSize = (ListPreference) findPreference(DATE_FONT_SIZE);
         mDateFontSize.setOnPreferenceChangeListener(this);
         mDateFontSize.setValue(Integer.toString(Settings.System.getInt(getActivity()
-            .getContentResolver(), Settings.System.LOCKDATE_FONT_SIZE, 
-            14)));
-	mDateFontSize.setSummary(mDateFontSize.getEntry());
+            .getContentResolver(), Settings.System.LOCKDATE_FONT_SIZE, 14)));
+        mDateFontSize.setSummary(mDateFontSize.getEntry());
     }
 
     @Override
@@ -122,33 +120,33 @@ public class LockScreenSettings extends SettingsPreferenceFragment implements On
                     Settings.System.LOCKSCREEN_BLUR_RADIUS, width);
             return true;
         } else if (preference == mLockClockFonts) {
-              Settings.System.putInt(resolver, Settings.System.LOCK_CLOCK_FONTS,
-                      Integer.valueOf((String) newValue));
-              mLockClockFonts.setValue(String.valueOf(newValue));
-              mLockClockFonts.setSummary(mLockClockFonts.getEntry());
-              return true;
-	} else if (preference == mDateFonts) {
-              Settings.System.putInt(resolver, Settings.System.LOCK_DATE_FONTS,
-                     Integer.valueOf((String) newValue));
-              mDateFonts.setValue(String.valueOf(newValue));
-              mDateFonts.setSummary(mDateFonts.getEntry());
-              return true;
+            Settings.System.putInt(resolver, Settings.System.LOCK_CLOCK_FONTS,
+                    Integer.valueOf((String) newValue));
+            mLockClockFonts.setValue(String.valueOf(newValue));
+            mLockClockFonts.setSummary(mLockClockFonts.getEntry());
+            return true;
+        } else if (preference == mDateFonts) {
+            Settings.System.putInt(resolver, Settings.System.LOCK_DATE_FONTS,
+                   Integer.valueOf((String) newValue));
+            mDateFonts.setValue(String.valueOf(newValue));
+            mDateFonts.setSummary(mDateFonts.getEntry());
+            return true;
         } else if (preference == mClockFontSize) {
-             int val = Integer.parseInt((String) newValue);
-             int index = mClockFontSize.findIndexOfValue((String) newValue);
-             Settings.System.putInt(getActivity().getContentResolver(),
-                     Settings.System.LOCKCLOCK_FONT_SIZE, val);
-             mClockFontSize.setSummary(mClockFontSize.getEntries()[index]);
-             return true;
+            int val = Integer.parseInt((String) newValue);
+            int index = mClockFontSize.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                   Settings.System.LOCKCLOCK_FONT_SIZE, val);
+            mClockFontSize.setSummary(mClockFontSize.getEntries()[index]);
+            return true;
         } else if (preference == mDateFontSize) {
-             int val = Integer.parseInt((String) newValue);
-             int index = mDateFontSize.findIndexOfValue((String) newValue);
-             Settings.System.putInt(getActivity().getContentResolver(),
-                     Settings.System.LOCKDATE_FONT_SIZE, val);
-             mDateFontSize.setSummary(mDateFontSize.getEntries()[index]);
-             return true;
+            int val = Integer.parseInt((String) newValue);
+            int index = mDateFontSize.findIndexOfValue((String) newValue);
+            Settings.System.putInt(getActivity().getContentResolver(),
+                   Settings.System.LOCKDATE_FONT_SIZE, val);
+            mDateFontSize.setSummary(mDateFontSize.getEntries()[index]);
+            return true;
         }
-	return false;
+        return false;
     }
 
     @Override
