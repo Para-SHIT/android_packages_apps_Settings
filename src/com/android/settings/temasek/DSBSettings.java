@@ -28,18 +28,16 @@ import com.android.settings.SettingsPreferenceFragment;
 
 public class DSBSettings extends SettingsPreferenceFragment {
 
-    private static final String KEY_DYNAMIC_STATUS_BAR = "dynamic_status_bar" ;
-    private static final String KEY_DYNAMIC_HEADER = "dynamic_header" ;
-    private static final String KEY_DYNAMIC_NAVIGATION_BAR = "dynamic_navigation_bar" ;
-    private static final String KEY_DYNAMIC_HEADER_GRADIENT = "dynamic_header_gradient" ;
-    private static final String KEY_DYNAMIC_SYSTEM_BARS_GRADIENT = "dynamic_system_bars_gradient" ;
-    private static final String KEY_DYNAMIC_STATUS_BAR_FILTER = "dynamic_status_bar_filter" ;
-    private static final String KEY_DYNAMIC_ICON_TINT = "dynamic_icon_tint" ;
+    private static final String KEY_DYNAMIC_STATUS_BAR = "dynamic_status_bar";
+    private static final String KEY_DYNAMIC_HEADER = "dynamic_header";
+    private static final String KEY_DYNAMIC_NAVIGATION_BAR = "dynamic_navigation_bar";
+    private static final String KEY_DYNAMIC_SYSTEM_BARS_GRADIENT = "dynamic_system_bars_gradient";
+    private static final String KEY_DYNAMIC_STATUS_BAR_FILTER = "dynamic_status_bar_filter";
+    private static final String KEY_DYNAMIC_ICON_TINT = "dynamic_icon_tint";
 
     private CheckBoxPreference mDynamicStatusBar;
     private CheckBoxPreference mDynamicHeader;
     private CheckBoxPreference mDynamicNavigationBar;
-    private CheckBoxPreference mDynamicHeaderGradient;
     private CheckBoxPreference mDynamicSystemBarsGradient;
     private CheckBoxPreference mDynamicStatusBarFilter;
     private CheckBoxPreference mDynamicIconTint;
@@ -58,10 +56,6 @@ public class DSBSettings extends SettingsPreferenceFragment {
 
         mDynamicNavigationBar = (CheckBoxPreference) findPreference(KEY_DYNAMIC_NAVIGATION_BAR);
         mDynamicNavigationBar.setPersistent(false);
-
-        mDynamicHeaderGradient =
-            (CheckBoxPreference) findPreference(KEY_DYNAMIC_HEADER_GRADIENT);
-        mDynamicHeaderGradient.setPersistent(false);
 
         mDynamicSystemBarsGradient =
             (CheckBoxPreference) findPreference(KEY_DYNAMIC_SYSTEM_BARS_GRADIENT);
@@ -82,34 +76,31 @@ public class DSBSettings extends SettingsPreferenceFragment {
         ContentResolver resolver = getActivity().getContentResolver();
 
         final boolean isStatusBarDynamic = Settings.System.getInt(resolver,
-            Settings.System.DYNAMIC_STATUS_BAR_STATE, 0) == 1 ;
-        final boolean isHeaderDynamic = Settings.System.getInt(resolver,
-            Settings.System.DYNAMIC_HEADER_STATE, 0) == 1 ;
+            Settings.System.DYNAMIC_STATUS_BAR_STATE, 0) == 1;
 
-        final boolean hasNavigationBar = res.getDimensionPixelSize(res.getIdentifier("navigation_bar_height", "dimen", "android")) > 0 ;
+        final boolean isHeaderDynamic = Settings.System.getInt(resolver,
+            Settings.System.DYNAMIC_HEADER_STATE, 0) == 1;
+
+        final boolean hasNavigationBar = res.getDimensionPixelSize(res.getIdentifier("navigation_bar_height", "dimen", "android")) > 0;
         final boolean isNavigationBarDynamic = hasNavigationBar && Settings.System.getInt(resolver,
-            Settings.System.DYNAMIC_NAVIGATION_BAR_STATE, 0) == 1 ;
+            Settings.System.DYNAMIC_NAVIGATION_BAR_STATE, 0) == 1;
 
         final boolean isAnyBarDynamic = isStatusBarDynamic || isNavigationBarDynamic;
 
         mDynamicStatusBar.setChecked(isStatusBarDynamic);
+
         mDynamicHeader.setChecked(isHeaderDynamic);
 
         mDynamicNavigationBar.setEnabled(hasNavigationBar);
         mDynamicNavigationBar.setChecked(isNavigationBarDynamic);
 
-        final boolean isHeaderGradient = isHeaderDynamic && Settings.System.getInt(
-            resolver, Settings.System.DYNAMIC_GRADIENT_STATE, 0) == 1 ;
-        final boolean areSystemBarsGradient = isAnyBarDynamic && Settings.System.getInt(
-            resolver, Settings.System.DYNAMIC_SYSTEM_BARS_GRADIENT_STATE, 0) == 1 ;
-        final boolean isStatusBarFilter = isStatusBarDynamic && Settings.System.getInt(
-            resolver, Settings.System.DYNAMIC_STATUS_BAR_FILTER_STATE, 0) == 1;
+        final boolean areSystemBarsGradient = isAnyBarDynamic && Settings.System.getInt(resolver,
+            Settings.System.DYNAMIC_SYSTEM_BARS_GRADIENT_STATE, 0) == 1;
+        final boolean isStatusBarFilter = isStatusBarDynamic && Settings.System.getInt(resolver,
+            Settings.System.DYNAMIC_STATUS_BAR_FILTER_STATE, 0) == 1;
 
-        final boolean isStatusBarColor = isStatusBarDynamic && Settings.System.getInt(
-            resolver, Settings.System.DYNAMIC_ICON_TINT_STATE, 0) == 1 ;
-
-        mDynamicHeaderGradient.setEnabled(isHeaderDynamic);
-        mDynamicHeaderGradient.setChecked(isHeaderGradient); 
+        final boolean isStatusBarColor = isStatusBarDynamic && Settings.System.getInt(resolver,
+            Settings.System.DYNAMIC_ICON_TINT_STATE, 0) == 1;
 
         mDynamicSystemBarsGradient.setEnabled(isAnyBarDynamic &&
             (areSystemBarsGradient || !isStatusBarFilter));
@@ -125,6 +116,7 @@ public class DSBSettings extends SettingsPreferenceFragment {
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        final Resources res = getResources();
         ContentResolver resolver = getActivity().getContentResolver();
         if (preference == mDynamicStatusBar) {
             Settings.System.putInt(resolver,
@@ -134,20 +126,14 @@ public class DSBSettings extends SettingsPreferenceFragment {
         } else if (preference == mDynamicHeader) {
             Settings.System.putInt(resolver,
                 Settings.System.DYNAMIC_HEADER_STATE,
-                mDynamicHeader.isChecked() ? 1 : 0 );
+                mDynamicHeader.isChecked() ? 1 : 0);
             updateDynamicSystemBarsCheckboxes();
         } else if (preference == mDynamicNavigationBar) {
-            final Resources res = getResources();
             Settings.System.putInt(resolver,
                 Settings.System.DYNAMIC_NAVIGATION_BAR_STATE,
                 mDynamicNavigationBar.isChecked() && res.getDimensionPixelSize(
                     res.getIdentifier("navigation_bar_height", "dimen", "android")) > 0 ?
                         1 : 0);
-            updateDynamicSystemBarsCheckboxes();
-        } else if (preference == mDynamicHeaderGradient) {
-            Settings.System.putInt(resolver,
-                Settings.System.DYNAMIC_GRADIENT_STATE,
-                mDynamicHeaderGradient.isChecked() ? 1 : 0);
             updateDynamicSystemBarsCheckboxes();
         } else if (preference == mDynamicSystemBarsGradient) {
             final boolean enableGradient = mDynamicSystemBarsGradient.isChecked();
@@ -172,7 +158,7 @@ public class DSBSettings extends SettingsPreferenceFragment {
         } else if (preference == mDynamicIconTint) {
             Settings.System.putInt(resolver,
                 Settings.System.DYNAMIC_ICON_TINT_STATE,
-                mDynamicIconTint.isChecked() ? 1 : 0 );
+                mDynamicIconTint.isChecked() ? 1 : 0);
             updateDynamicSystemBarsCheckboxes();
         }
 
