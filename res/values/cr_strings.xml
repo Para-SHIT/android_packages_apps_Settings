@@ -1860,7 +1860,9 @@
     <string name="greeting_show_label_preview_summary">Show a preview of the current used greeting text, which will be shown as greeting</string>
 
     <!-- Dynamic System Bars -->
-    <string name="dynamic_system_bars_category_title">Dynamic system bars</string>
+    <string name="dynamic_system_bars_cat">Dynamic system bars</string>
+    <string name="dynamic_system_bars_more_cat">Advanced of DSB</string>
+    <string name="dynamic_system_bars_title">Dynamic system bars</string>
     <string name="dynamic_system_bars_summary">Customize of background system bars</string>
     <string name="dynamic_status_bar_title">Dynamic status bar</string>
     <string name="dynamic_status_bar_summary">Automatically update the background of the status bar</string>
@@ -1874,5 +1876,7 @@
     <string name="dynamic_status_bar_filter_summary">Overlay a darkening filter on the status bar</string>
     <string name="dynamic_status_bar_color_tint">Statusbar color tint</string>
     <string name="dynamic_status_bar_color_tint_summary">Use statusbar dynamic color as navigation bar icon tint</string>
+    <string name="dynamic_system_bars_trans_ps_title">Transparent play store</string>
+    <string name="dynamic_system_bars_trans_ps_summary">App store use transparent bars when dynamic system bars enable</string>
 
 </resources>

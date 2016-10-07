@@ -34,6 +34,7 @@ public class DSBSettings extends SettingsPreferenceFragment {
     private static final String KEY_DYNAMIC_SYSTEM_BARS_GRADIENT = "dynamic_system_bars_gradient";
     private static final String KEY_DYNAMIC_STATUS_BAR_FILTER = "dynamic_status_bar_filter";
     private static final String KEY_DYNAMIC_ICON_TINT = "dynamic_icon_tint";
+    private static final String KEY_DYNAMIC_TRANS_PS = "dynamic_trans_ps";
 
     private CheckBoxPreference mDynamicStatusBar;
     private CheckBoxPreference mDynamicHeader;
@@ -41,6 +42,7 @@ public class DSBSettings extends SettingsPreferenceFragment {
     private CheckBoxPreference mDynamicSystemBarsGradient;
     private CheckBoxPreference mDynamicStatusBarFilter;
     private CheckBoxPreference mDynamicIconTint;
+    private CheckBoxPreference mDynamicTransPs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,9 @@ public class DSBSettings extends SettingsPreferenceFragment {
 
         mDynamicIconTint = (CheckBoxPreference) findPreference(KEY_DYNAMIC_ICON_TINT);
         mDynamicIconTint.setPersistent(false);
+
+        mDynamicTransPs = (CheckBoxPreference) findPreference(KEY_DYNAMIC_TRANS_PS);
+        mDynamicTransPs.setPersistent(false);
 
         updateDynamicSystemBarsCheckboxes();
     }
@@ -102,6 +107,9 @@ public class DSBSettings extends SettingsPreferenceFragment {
         final boolean isStatusBarColor = isStatusBarDynamic && Settings.System.getInt(resolver,
             Settings.System.DYNAMIC_ICON_TINT_STATE, 0) == 1;
 
+        final boolean isTransPs = Settings.System.getInt(resolver,
+            Settings.System.DYNAMIC_TRANSPARENT_PS, 0) == 1;
+
         mDynamicSystemBarsGradient.setEnabled(isAnyBarDynamic &&
             (areSystemBarsGradient || !isStatusBarFilter));
         mDynamicSystemBarsGradient.setChecked(areSystemBarsGradient);
@@ -112,6 +120,8 @@ public class DSBSettings extends SettingsPreferenceFragment {
 
         mDynamicIconTint.setEnabled(isStatusBarDynamic);
         mDynamicIconTint.setChecked(isStatusBarColor);
+
+        mDynamicTransPs.setChecked(isTransPs);
     }
 
     @Override
@@ -159,6 +169,11 @@ public class DSBSettings extends SettingsPreferenceFragment {
             Settings.System.putInt(resolver,
                 Settings.System.DYNAMIC_ICON_TINT_STATE,
                 mDynamicIconTint.isChecked() ? 1 : 0);
+            updateDynamicSystemBarsCheckboxes();
+        } else if (preference == mDynamicTransPs) {
+            Settings.System.putInt(resolver,
+                Settings.System.DYNAMIC_TRANSPARENT_PS,
+                mDynamicTransPs.isChecked() ? 1 : 0);
             updateDynamicSystemBarsCheckboxes();
         }
 

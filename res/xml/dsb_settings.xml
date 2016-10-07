@@ -14,36 +14,51 @@
      limitations under the License.
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/dynamic_system_bars_category_title">
+    android:title="@string/dynamic_system_bars_title">
 
-    <CheckBoxPreference
-        android:key="dynamic_status_bar"
-        android:title="@string/dynamic_status_bar_title"
-        android:summary="@string/dynamic_status_bar_summary" />
+    <PreferenceCategory
+        android:title="@string/dynamic_system_bars_cat">
 
-    <CheckBoxPreference
-        android:key="dynamic_header"
-        android:title="@string/dynamic_header_title"
-        android:summary="@string/dynamic_header_summary" />
+        <CheckBoxPreference
+            android:key="dynamic_status_bar"
+            android:title="@string/dynamic_status_bar_title"
+            android:summary="@string/dynamic_status_bar_summary" />
 
-    <CheckBoxPreference
-        android:key="dynamic_navigation_bar"
-        android:title="@string/dynamic_navigation_bar_title"
-        android:summary="@string/dynamic_navigation_bar_summary" />
+        <CheckBoxPreference
+            android:key="dynamic_header"
+            android:title="@string/dynamic_header_title"
+            android:summary="@string/dynamic_header_summary" />
 
-    <CheckBoxPreference
-        android:key="dynamic_system_bars_gradient"
-        android:title="@string/dynamic_system_bars_gradient_title"
-        android:summary="@string/dynamic_system_bars_gradient_summary" />
+        <CheckBoxPreference
+            android:key="dynamic_navigation_bar"
+            android:title="@string/dynamic_navigation_bar_title"
+            android:summary="@string/dynamic_navigation_bar_summary" />
 
-    <CheckBoxPreference
-        android:key="dynamic_status_bar_filter"
-        android:title="@string/dynamic_status_bar_filter_title"
-        android:summary="@string/dynamic_status_bar_filter_summary" />
+        <CheckBoxPreference
+            android:key="dynamic_system_bars_gradient"
+            android:title="@string/dynamic_system_bars_gradient_title"
+            android:summary="@string/dynamic_system_bars_gradient_summary" />
 
-    <CheckBoxPreference
-        android:key="dynamic_icon_tint"
-        android:title="@string/dynamic_status_bar_color_tint"
-        android:summary="@string/dynamic_status_bar_color_tint_summary" />
+        <CheckBoxPreference
+            android:key="dynamic_status_bar_filter"
+            android:title="@string/dynamic_status_bar_filter_title"
+            android:summary="@string/dynamic_status_bar_filter_summary" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/dynamic_system_bars_more_cat">
+
+        <CheckBoxPreference
+            android:key="dynamic_icon_tint"
+            android:title="@string/dynamic_status_bar_color_tint"
+            android:summary="@string/dynamic_status_bar_color_tint_summary" />
+
+        <CheckBoxPreference
+            android:key="dynamic_trans_ps"
+            android:title="@string/dynamic_system_bars_trans_ps_title"
+            android:summary="@string/dynamic_system_bars_trans_ps_summary" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

@@ -98,6 +98,12 @@
             android:summary="@string/db_options_summary"
 	        android:fragment="com.android.settings.temasek.DashBoardOptions"/>
 
+        <PreferenceScreen
+            android:key="dynamic_system_bars"
+            android:title="@string/dynamic_system_bars_title"
+            android:summary="@string/dynamic_system_bars_summary"
+            android:fragment="com.android.settings.temasek.DSBSettings" />
+
         <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
             android:key="disable_torch_on_screen_off"
             android:title="@string/disable_torch_screen_off_title"
