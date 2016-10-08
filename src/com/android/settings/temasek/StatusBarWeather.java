@@ -29,7 +29,6 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
-import android.preference.SwitchPreference;
 import android.provider.SearchIndexableResource;
 import android.provider.Settings;
 import android.view.Menu;
@@ -58,8 +57,6 @@ public class StatusBarWeather extends SettingsPreferenceFragment
     private static final String PREF_STATUS_BAR_WEATHER_COLOR = "status_bar_weather_color";
     private static final String PREF_STATUS_BAR_WEATHER_SIZE = "status_bar_weather_size";
     private static final String PREF_STATUS_BAR_WEATHER_FONT_STYLE = "status_bar_weather_font_style";
-    private static final String PREF_STATUS_BAR_WEATHER_HIDE = "status_bar_weather_hide_weather";
-    private static final String PREF_NUMBER_OF_NOTIFICATION_ICONS = "status_bar_weather_number_notification";
 
     private static final int DEFAULT = 0xffffffff;
 
@@ -71,8 +68,6 @@ public class StatusBarWeather extends SettingsPreferenceFragment
     private ColorPickerPreference mStatusBarTemperatureColor;
     private SeekBarPreference mStatusBarTemperatureSize;
     private ListPreference mStatusBarTemperatureFontStyle;
-    private SwitchPreference mHideWeather;
-    private ListPreference mNumberOfNotificationIcons;
 
     private ContentResolver mResolver;
 
@@ -126,20 +121,6 @@ public class StatusBarWeather extends SettingsPreferenceFragment
         mStatusBarTemperatureFontStyle.setValue(Integer.toString(Settings.System.getInt(mResolver,
                 Settings.System.STATUS_BAR_WEATHER_FONT_STYLE, 0)));
         mStatusBarTemperatureFontStyle.setSummary(mStatusBarTemperatureFontStyle.getEntry());
-
-        mHideWeather =
-                (SwitchPreference) findPreference(PREF_STATUS_BAR_WEATHER_HIDE);
-        mHideWeather.setChecked(Settings.System.getInt(mResolver,
-               Settings.System.STATUS_BAR_WEATHER_HIDE_WEATHER, 0) == 1);
-        mHideWeather.setOnPreferenceChangeListener(this);
-
-        mNumberOfNotificationIcons =
-                (ListPreference) findPreference(PREF_NUMBER_OF_NOTIFICATION_ICONS);
-        int numberOfNotificationIcons = Settings.System.getInt(mResolver,
-               Settings.System.STATUS_BAR_WEATHER_NUMBER_OF_NOTIFICATION_ICONS, 0);
-        mNumberOfNotificationIcons.setValue(String.valueOf(numberOfNotificationIcons));
-        mNumberOfNotificationIcons.setSummary(mNumberOfNotificationIcons.getEntry());
-        mNumberOfNotificationIcons.setOnPreferenceChangeListener(this);
 
         updateWeatherOptions();
         setHasOptionsMenu(true);
@@ -205,20 +186,6 @@ public class StatusBarWeather extends SettingsPreferenceFragment
                     Settings.System.STATUS_BAR_WEATHER_FONT_STYLE, val);
             mStatusBarTemperatureFontStyle.setSummary(mStatusBarTemperatureFontStyle.getEntries()[index]);
             return true;
-        } else if (preference == mHideWeather) {
-            boolean value = (Boolean) newValue;
-            Settings.System.putInt(mResolver,
-                    Settings.System.STATUS_BAR_WEATHER_HIDE_WEATHER,
-                    value ? 1 : 0);
-            return true;
-        } else if (preference == mNumberOfNotificationIcons) {
-            int intValue = Integer.valueOf((String) newValue);
-            int index = mNumberOfNotificationIcons.findIndexOfValue((String) newValue);
-            Settings.System.putInt(mResolver,
-                    Settings.System.STATUS_BAR_WEATHER_NUMBER_OF_NOTIFICATION_ICONS,
-                    intValue);
-            preference.setSummary(mNumberOfNotificationIcons.getEntries()[index]);
-            return true;
         }
         return false;
     }
@@ -230,15 +197,11 @@ public class StatusBarWeather extends SettingsPreferenceFragment
             mStatusBarTemperatureColor.setEnabled(false);
             mStatusBarTemperatureSize.setEnabled(false);
             mStatusBarTemperatureFontStyle.setEnabled(false);
-            mHideWeather.setEnabled(false);
-            mNumberOfNotificationIcons.setEnabled(false);
         } else {
             mStatusBarTemperatureStyle.setEnabled(true);
             mStatusBarTemperatureColor.setEnabled(true);
             mStatusBarTemperatureSize.setEnabled(true);
             mStatusBarTemperatureFontStyle.setEnabled(true);
-            mHideWeather.setEnabled(true);
-            mNumberOfNotificationIcons.setEnabled(true);
         }
     }
 
@@ -284,10 +247,6 @@ public class StatusBarWeather extends SettingsPreferenceFragment
                                     Settings.System.STATUS_BAR_WEATHER_SIZE, 14);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_WEATHER_FONT_STYLE, 0);
-                            Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.STATUS_BAR_WEATHER_HIDE_WEATHER, 0);
-                            Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.STATUS_BAR_WEATHER_NUMBER_OF_NOTIFICATION_ICONS, 0);
                             getOwner().refreshSettings();
                         }
                     })
@@ -303,25 +262,27 @@ public class StatusBarWeather extends SettingsPreferenceFragment
     }
 
     public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
-            new BaseSearchIndexProvider() {
-                @Override
-                public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
-                                                                            boolean enabled) {
-                    ArrayList<SearchIndexableResource> result =
-                            new ArrayList<SearchIndexableResource>();
+        new BaseSearchIndexProvider() {
 
-                    SearchIndexableResource sir = new SearchIndexableResource(context);
-                    sir.xmlResId = R.xml.status_bar_weather;
-                    result.add(sir);
+        @Override
+        public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                                                                    boolean enabled) {
+            ArrayList<SearchIndexableResource> result =
+                    new ArrayList<SearchIndexableResource>();
 
-                    return result;
-                }
+            SearchIndexableResource sir = new SearchIndexableResource(context);
+            sir.xmlResId = R.xml.status_bar_weather;
+            result.add(sir);
 
-                @Override
-                public List<String> getNonIndexableKeys(Context context) {
-                    ArrayList<String> result = new ArrayList<String>();
-                    return result;
-                }
-            };
+            return result;
+        }
+
+        @Override
+        public List<String> getNonIndexableKeys(Context context) {
+            ArrayList<String> result = new ArrayList<String>();
+            return result;
+        }
+
+    };
 
 }
