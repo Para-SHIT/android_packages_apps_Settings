@@ -137,6 +137,10 @@ import com.android.settingslib.drawer.SettingsDrawerActivity;
 import com.android.settingslib.drawer.Tile;
 
 import in.parashit.ParaSHIT;
+import in.parashit.fragments.FlingSettings;
+import in.parashit.fragments.NavbarSettings;
+import in.parashit.fragments.SmartbarSettings;
+import in.parashit.fragments.PulseSettings;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -372,7 +376,11 @@ public class SettingsActivity extends SettingsDrawerActivity
             NightDisplaySettings.class.getName(),
             ManageDomainUrls.class.getName(),
             AutomaticStorageManagerSettings.class.getName(),
-            ParaSHIT.class.getName()
+            ParaSHIT.class.getName(),
+            NavbarSettings.class.getName(),
+            FlingSettings.class.getName(),
+            SmartbarSettings.class.getName(),
+            PulseSettings.class.getName()
     };
 
 
