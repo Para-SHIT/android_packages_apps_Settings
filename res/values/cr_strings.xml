@@ -251,29 +251,29 @@
     <string name="screenshot_sound_summary">Plays sound effect when screenshot is taken</string>
 
     <!-- Network traffic -->
-	<string name="network_traffic_title">Network traffic</string>
-	<string name="network_traffic_settings_summary">Customize network traffic indicator in statusbar</string>
-	<string name="show_network_traffic_state">Status bar traffic monitor</string>
-	<string name="show_network_traffic_unit">Display unit</string>
-	<string name="show_network_traffic_frequency">Update interval</string>
-	<string name="show_network_traffic_disable">Disabled</string>
-	<string name="show_network_traffic_up">Outgoing</string>
-	<string name="show_network_traffic_down">Incoming</string>
-	<string name="show_network_traffic_all">Outgoing and incoming</string>
-	<string name="show_network_traffic_bit">Bits per second</string>
-	<string name="show_network_traffic_byte">Bytes per second</string>
-	<string name="show_network_traffic_500">500 ms</string>
-	<string name="show_network_traffic_1000">1000 ms</string>
-	<string name="show_network_traffic_1500">1500 ms</string>
-	<string name="show_network_traffic_2000">2000 ms</string>
-	<string name="network_traffic_hidearrow">Hide arrows</string>
-	<string name="network_traffic_hidearrow_summary">Hide the arrows in the traffic indicators</string>
-	<string name="network_traffic_autohide">Auto hide</string>
-	<string name="network_traffic_autohide_summary">Hide the traffic monitor when there is no activity</string>
-	<string name="network_traffic_autohide_threshold">Inactivity threshold</string>
-	<string name="network_traffic_color_style">Color style</string>
-	<string name="network_traffic_color_reset">Reset color</string>
-	<string name="network_traffic_color_reset_message">Reset network traffic color to default?</string>
+    <string name="network_traffic_title">Network traffic</string>
+    <string name="network_traffic_settings_summary">Customize network traffic indicator in statusbar</string>
+    <string name="show_network_traffic_state">Status bar traffic monitor</string>
+    <string name="show_network_traffic_unit">Display unit</string>
+    <string name="show_network_traffic_frequency">Update interval</string>
+    <string name="show_network_traffic_disable">Disabled</string>
+    <string name="show_network_traffic_up">Outgoing</string>
+    <string name="show_network_traffic_down">Incoming</string>
+    <string name="show_network_traffic_all">Outgoing and incoming</string>
+    <string name="show_network_traffic_bit">Bits per second</string>
+    <string name="show_network_traffic_byte">Bytes per second</string>
+    <string name="show_network_traffic_500">500 ms</string>
+    <string name="show_network_traffic_1000">1000 ms</string>
+    <string name="show_network_traffic_1500">1500 ms</string>
+    <string name="show_network_traffic_2000">2000 ms</string>
+    <string name="network_traffic_hidearrow">Hide arrows</string>
+    <string name="network_traffic_hidearrow_summary">Hide the arrows in the traffic indicators</string>
+    <string name="network_traffic_autohide">Auto hide</string>
+    <string name="network_traffic_autohide_summary">Hide the traffic monitor when there is no activity</string>
+    <string name="network_traffic_autohide_threshold">Inactivity threshold</string>
+    <string name="network_traffic_color_style">Color style</string>
+    <string name="network_traffic_color_reset">Reset color</string>
+    <string name="network_traffic_color_reset_message">Reset network traffic color to default?</string>
 
     <!-- Partition Info -->
     <string name="partition_info_title">View partition information</string>
@@ -1087,7 +1087,7 @@
     <string name="voicemail_breath_title">Breathing Voicemail</string>
     <string name="voicemail_breath_summary">Will give your voicemail notifications a breathing effect in the statusbar</string>
 
-    <!-- TRDS 5.0 -->	
+    <!-- TRDS 5.0 -->
     <string name="theme_settings_title">TRDS</string>
     <string name="theme_auto_mode_title">Switch theme</string>
     <string name="theme_override_custom_colors_title">Override custom colors</string>
@@ -1195,7 +1195,7 @@
     <string name="header_weathertwo_color">Weather text color line 2</string>
     <string name="header_battery_text_color">Battery text color</string>
     <string name="header_alarm_text_color">Next alarm text color</string>
-    <string name="header_color">Colors</string>	
+    <string name="header_color">Colors</string>
     <string name="header_colors_reset_title">Reset Header Color</string>
     <string name="header_colors_reset_message">Reset Header Color Back to Default</string>
 
@@ -1572,7 +1572,7 @@
     <string name="recents_full_screen_clock_summary">Shows clock at the top while in fullscreen</string>
     <string name="recents_full_screen_date_title">Show date</string>
     <string name="recents_full_screen_date_summary">Shows date at the top while in fullscreen</string>
-    <string name="recents_clock_color">FullScreen recents clock text</string>	
+    <string name="recents_clock_color">FullScreen recents clock text</string>
     <string name="recents_date_color">FullScreen recents date text</string>
     <string name="recents_font_style_title">Font style</string>
     <string name="recents_font_style_summary">Controls clock, date and memory text</string>
@@ -1580,7 +1580,7 @@
 
     <!-- Power menu and dialogs transparency -->
     <string name="power_menu_transparency">Power menu opacity</string>
-	
+
     <!-- Power/reboot dialogs dim amount -->
     <string name="power_menu_dialog_dim">Power dialog dim background amount</string>
 
@@ -1705,30 +1705,30 @@
     <string name="hide_panel_clockvalue">Show clock detail</string>
     <string name="hide_panel_battery">Show notification panel battery text</string>
     <string name="hide_panel_icons">Show notification icons</string>
-    <string name="hide_panel_alarm_title">Hide alarm</string>	
+    <string name="hide_panel_alarm_title">Hide alarm</string>
     <string name="hide_user_icon">Show notification panel user switcher</string>
     <string name="panel_clock_sum">Show / hide clock in header</string>
     <string name="panel_date_sum">Show / hide Date In Header</string>
     <string name="panel_ampm_sum">Show / hide am/pm values in header</string>
     <string name="panel_battery_sum">Show / hide battery percentange while charging in header</string>
-    <string name="panel_icons_sum">Show / hide ystem icons like battery in header</string>	
+    <string name="panel_icons_sum">Show / hide ystem icons like battery in header</string>
     <string name="panel_user_sum">Show / hide users switch icon in header</string>
-    <string name="panel_settings_sum">Show / hide settings icon in header</string>	
+    <string name="panel_settings_sum">Show / hide settings icon in header</string>
     <string name="hide_panel_alarm_sum">Show / hide next alarm in header</string>
 
-    <!--Summary on/off-->	
-	<string name="hide_clock_summary_on">Clock shown</string>	
-	<string name="hide_clock_summary_off">Clock hidden</string>
-	<string name="hide_panel_date_summary_on">Date shown</string>	
-	<string name="hide_panel_date_summary_off">Date hidden</string>
-	<string name="hide_ampm_summary_on">Am/Pm shown</string>	
-	<string name="hide_ampm_summary_off">Am/Pm hidden</string>
-	<string name="hide_battery_summary_on">Battery shown</string>	
-	<string name="hide_battery_summary_off">Battery hidden</string>
-	<string name="hide_icons_summary_on">System icons shown</string>	
-	<string name="hide_icons_summary_off">System icons hidden</string>
-	<string name="hide_user_summary_on">User switch shown</string>	
-	<string name="hide_user_summary_off">User switch hidden</string>
+    <!--Summary on/off-->
+    <string name="hide_clock_summary_on">Clock shown</string>
+    <string name="hide_clock_summary_off">Clock hidden</string>
+    <string name="hide_panel_date_summary_on">Date shown</string>
+    <string name="hide_panel_date_summary_off">Date hidden</string>
+    <string name="hide_ampm_summary_on">Am/Pm shown</string>
+    <string name="hide_ampm_summary_off">Am/Pm hidden</string>
+    <string name="hide_battery_summary_on">Battery shown</string>
+    <string name="hide_battery_summary_off">Battery hidden</string>
+    <string name="hide_icons_summary_on">System icons shown</string>
+    <string name="hide_icons_summary_off">System icons hidden</string>
+    <string name="hide_user_summary_on">User switch shown</string>
+    <string name="hide_user_summary_off">User switch hidden</string>
 
     <!-- Statusbar logo -->
     <string name="status_bar_logo_title">Status bar logo</string>
@@ -1751,43 +1751,43 @@
     <string name="show_custom_logo_title">Enable</string>
     <string name="show_custom_logo_summary">Show logos in statusbar from a wide range of icons available in system</string>
     <string name="custom_logo_color">Color</string>
-    <string name="logo0">Tuner</string>	
-    <string name="logo1">BugDroid minimal</string>	
-    <string name="logo2">Drupal</string>	
-    <string name="logo3">Cool smile</string>	
-    <string name="logo4">Ghost</string>	
-    <string name="logo5">Flash</string>	
-    <string name="logo6">Windows</string>	
-    <string name="logo7">Xbox</string>	
+    <string name="logo0">Tuner</string>
+    <string name="logo1">BugDroid minimal</string>
+    <string name="logo2">Drupal</string>
+    <string name="logo3">Cool smile</string>
+    <string name="logo4">Ghost</string>
+    <string name="logo5">Flash</string>
+    <string name="logo6">Windows</string>
+    <string name="logo7">Xbox</string>
     <string name="logo8">Emoji</string>
-    <string name="logo9">Happy smile</string>	
-    <string name="logo10">FingerPrint</string>	
-    <string name="logo11">Pugmark</string>	
+    <string name="logo9">Happy smile</string>
+    <string name="logo10">FingerPrint</string>
+    <string name="logo11">Pugmark</string>
     <string name="logo12">Owl</string>
-    <string name="logo13">Weather off</string>	
-    <string name="logo14">Blender</string>	
-    <string name="logo15">Cake</string>	
-    <string name="logo16">Electric guitar</string>	
-    <string name="logo17">Smiley tag</string>	
-    <string name="logo18">Run</string>	
-    <string name="logo19">Toxic</string>	
-    <string name="logo20">Pro user</string>	
+    <string name="logo13">Weather off</string>
+    <string name="logo14">Blender</string>
+    <string name="logo15">Cake</string>
+    <string name="logo16">Electric guitar</string>
+    <string name="logo17">Smiley tag</string>
+    <string name="logo18">Run</string>
+    <string name="logo19">Toxic</string>
+    <string name="logo20">Pro user</string>
     <string name="logo21">Pokeball</string>
-    <string name="logo22">Box open</string>	
-    <string name="logo23">Box closed</string>	
+    <string name="logo22">Box open</string>
+    <string name="logo23">Box closed</string>
     <string name="logo24">Weather on</string>
     <string name="logo25">Cat</string>
-    <string name="logo26">Bug droid</string>	
-    <string name="logo27">Biker</string>	
-    <string name="logo28">Candy cane</string>	
-    <string name="logo29">Shit smiley</string>	
-    <string name="logo30">Chart bubble</string>	
-    <string name="logo31">Google</string>	
-    <string name="logo32">Fish</string>	
-    <string name="logo33">Gender male</string>	
+    <string name="logo26">Bug droid</string>
+    <string name="logo27">Biker</string>
+    <string name="logo28">Candy cane</string>
+    <string name="logo29">Shit smiley</string>
+    <string name="logo30">Chart bubble</string>
+    <string name="logo31">Google</string>
+    <string name="logo32">Fish</string>
+    <string name="logo33">Gender male</string>
     <string name="logo34">Gender female</string>
-    <string name="logo35">Spider 1</string>	
-    <string name="logo36">Spider 2</string>	
+    <string name="logo35">Spider 1</string>
+    <string name="logo36">Spider 2</string>
     <string name="logo37">Orioles</string>
 
     <!-- Navbar buttons rotating icons -->
@@ -1868,5 +1868,26 @@
     <string name="dynamic_status_bar_color_tint_summary">Use statusbar dynamic color as navigation bar icon tint</string>
     <string name="dynamic_system_bars_trans_ps_title">Transparent play store</string>
     <string name="dynamic_system_bars_trans_ps_summary">App store use transparent bars when dynamic system bars enable</string>
+
+    <string name="settings_blur_cat">Blur personalizations</string>
+    <string name="blurred_status_bar_expanded_enabled_pref">Blur background </string>
+    <string name="blurred_status_bar_expanded_enabled_pref_summary">Blur the background when you pull down the status bar</string>
+    <string name="translucent_notifications_pref">Translucent notifications</string>
+    <string name="translucent_notifications_pref_summary">Set the background of notifications translucent</string>
+    <string name="translucent_quick_settings_pref">Transparent quick settings Panel</string>
+    <string name="translucent_quick_settings_pref_summary">Adjust the background transparency of Qs Panel</string>
+    <string name="transluency_level_universal">Transparency level</string>
+    <string name="blur_expstatus_cat">Expanded statusBar</string>
+    <string name="blur_notifications_cat">Notifications</string>
+    <string name="blur_qs_cat">Quick settings</string>
+    <string name="blur_recents_cat">Recents</string>
+    <string name="blurred_recent_app_enabled_pref">Blurred recents apps background </string>
+    <string name="blurred_recent_app_enabled_pref_summary">Blur the background of recents apps</string>
+    <string name="blurred_scale">Blur Scale</string>
+    <string name="blurred_scale_summary">Quailty of blur image</string>
+    <string name="blurred_radius">Blur radius</string>
+    <string name="blurred_radius_summary">Amount of blur</string>
+    <string name="blur_cat_notice">Notice</string>
+    <string name="blur_cat_notice_summary">Blur personlizations are disabled during Keyguard view! Please turn off panel transperancy to get best Results. Panel transparency will not work with blur options</string>
 
 </resources>

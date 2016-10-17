@@ -92,6 +92,12 @@
     <PreferenceCategory
         android:title="@string/category_interface">
 
+        <!-- Blur -->
+        <PreferenceScreen
+            android:key="blur_cat"
+            android:title="@string/settings_blur_cat"
+            android:fragment="com.android.settings.temasek.BlurPersonalizations" />
+
         <PreferenceScreen
             android:key="dashboard_colors"
             android:title="@string/db_options"
