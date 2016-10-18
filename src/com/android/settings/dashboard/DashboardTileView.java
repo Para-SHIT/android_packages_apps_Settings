@@ -180,22 +180,22 @@ public class DashboardTileView extends FrameLayout implements View.OnClickListen
                 Settings.System.DASHBOARD_CUSTOM_COLORS, 0) == 1;
         mIconColor = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.DB_ICON_COLOR, 0XFF009688);         
-	    mTextcolor = Settings.System.getInt(mContext.getContentResolver(),
+        mTextcolor = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.DB_TEXT_COLOR, 0X8A000000); 
         if (mCustomColors) {
-		if (mTitleTextView !=null) {
-		mTitleTextView.setTextColor(mTextcolor);      
-		}		
-		if (mImageView != null) {
-		mImageView.setColorFilter(mIconColor, Mode.SRC_ATOP);		
-		}
+            if (mTitleTextView != null) {
+                mTitleTextView.setTextColor(mTextcolor);      
+            }
+            if (mImageView != null) {
+                mImageView.setColorFilter(mIconColor, Mode.SRC_ATOP);
+            }
         }
     } 
     
     public void updatedashboard(Context context ,View view) {
         mCustomColors = Settings.System.getInt(mContext.getContentResolver(),
                Settings.System.DASHBOARD_CUSTOM_COLORS, 0) == 1;
-        if(mCustomColors) {       
+        if (mCustomColors) {       
         setBackgroundColor(Settings.System.getInt(context.getContentResolver(),
             Settings.System.SETTINGS_BG_COLOR, 0xffffffff));
         mDivider = (View) view.findViewById(R.id.tile_divider);
