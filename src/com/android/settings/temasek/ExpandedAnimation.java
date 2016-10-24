@@ -122,7 +122,7 @@ public class ExpandedAnimation extends SettingsPreferenceFragment implements Ind
         mTaskManagerAnimation =
                 (ListPreference) findPreference(QS_TASK_ANIMATION);
         int taskManagerAnimation = Settings.System.getIntForUser(mResolver,
-                Settings.System.QS_TASK_ANIMATION, 8,
+                Settings.System.QS_TASK_ANIMATION, 0,
                 UserHandle.USER_CURRENT);
         mTaskManagerAnimation.setValue(String.valueOf(taskManagerAnimation));
         mTaskManagerAnimation.setSummary(mTaskManagerAnimation.getEntry());
@@ -232,7 +232,7 @@ public class ExpandedAnimation extends SettingsPreferenceFragment implements Ind
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.ANIM_TILE_INTERPOLATOR, 0);
                             Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.QS_TASK_ANIMATION, 8);
+                                    Settings.System.QS_TASK_ANIMATION, 0);
                             getOwner().refreshSettings();
                         }
                     })

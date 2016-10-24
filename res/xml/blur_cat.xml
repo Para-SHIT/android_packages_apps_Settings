@@ -67,24 +67,6 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="blur_qs_cat"
-        android:title="@string/blur_qs_cat" >
-
-        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
-            android:key="translucent_quick_settings_pref"
-            android:title="@string/translucent_quick_settings_pref"
-            android:defaultValue="false" />
-
-        <com.android.settings.temasek.SeekBarPreference
-            android:key="quick_settings_transluency"
-            android:title="@string/transluency_level_universal"
-            android:max="100"
-            settings:min="0"
-            android:dependency="translucent_quick_settings_pref"
-            android:defaultValue="60" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:key="blur_notifications_cat"
         android:title="@string/blur_notifications_cat" >   
 

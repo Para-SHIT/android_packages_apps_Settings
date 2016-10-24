@@ -16,7 +16,6 @@
 
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
     android:title="@string/notification_color_settings_title">
 
     <PreferenceCategory
@@ -34,14 +33,6 @@
             android:title="@string/notification_app_icon_bg_mode_title"
             android:entries="@array/notification_bg_mode_entries"
             android:entryValues="@array/notification_color_mode_values" />
-
-        <com.android.settings.temasek.SeekBarPreference
-            android:key="notification_alpha"
-            android:title="@string/notifications_transparency"
-            android:max="255"
-            settings:minimum="0"
-            settings:unitsLeft=""
-            settings:unitsRight="" />
 
 	</PreferenceCategory>
 

@@ -659,14 +659,11 @@
     <string name="qs_four_columns_title">Show four tiles per row</string>
 
     <!-- QuickSettings colors -->
-    <string name="background_title">Background</string>
     <string name="icon_title">Icon</string>
     <string name="qs_colors_title">QS panel colors</string>
     <string name="qs_colors_summary">Customize background, icon and text colors</string>
     <string name="colors_title">Colors</string>
     <string name="text_title">Text</string>
-    <string name="qs_transparent_shade_title">Shade alpha</string>
-    <string name="qs_transparent_shade_summary">Ability to apply color alpha value and make notification shade transparent.</string>
     <string name="qs_color_switch_title">Custom color switch</string>
     <string name="ripple_title">Ripple effect</string>
     <string name="brightness_icon_title">Show brightness icon </string>
@@ -1212,18 +1209,16 @@
     <string name="task_manager_memory_bar_title">Memory bar thickness</string>
     <string name="task_manager_animation_cat">Task manager animation options</string>
     <string name="task_manager_animation_title">Task manager animation style</string>
-    <string name="task_manager_animation_down">Down</string>
-    <string name="task_manager_animation_enter">Enter</string>
-    <string name="task_manager_animation_left">Left</string>
-    <string name="task_manager_animation_right">Right</string>
-    <string name="task_manager_animation_rotate">Rotate</string>
-    <string name="task_manager_animation_turn">Turn</string>
-    <string name="task_manager_animation_up">Up</string>
-    <string name="task_manager_animation_recents_enter">Recents enter</string>
     <string name="task_manager_animation_fade">Fade (default)</string>
     <string name="task_manager_animation_last_app">Last app</string>
+    <string name="task_manager_animation_push_down">Push down</string>
+    <string name="task_manager_animation_push_up">Push up</string>
+    <string name="task_manager_animation_push_right">Push right</string>
+    <string name="task_manager_animation_push_left">Push left</string>
+    <string name="task_manager_animation_recents_enter">Recents enter</string>
+    <string name="task_manager_animation_rotate">Rotate</string>
+    <string name="task_manager_animation_turn">Turn</string>
     <string name="task_manager_animation_search_bar">Search bar</string>
-    <string name="task_manager_animation_toko_toast">Toko toast</string>
 
     <!-- Disable torch when screen goes off -->
     <string name="disable_torch_screen_off_title">Disable torch on screen off</string>
@@ -1359,9 +1354,6 @@
     <string name="notification_icon_color_mode_greyscale_title">If the icon is an greyscale icon</string>
     <string name="notification_bg_color_mode_no_color_title">If the notification doesn\`t include an own color</string>
     <string name="notification_color_mode_always_title">Always</string>
-
-    <!-- Notifications transparency -->
-    <string name="notifications_transparency">Transparency</string>
 
     <!-- Three-fingers-swipe to screenshot -->
     <string name="three_finger_gesture">Three finger gesture</string>
@@ -1584,7 +1576,6 @@
 
     <!-- Power menu Animations  -->
     <string name="power_menu_animation_title">Power menu animation</string>
-    <string name="power_menu_animation_summary">Change the enter/exit animation of the power menu</string>
     <string name="power_menu_animation_dialog_title">Select power menu animation</string>
     <string name="power_menu_animation_aosp">AOSP (default)</string>
     <string name="power_menu_animation_bottom">Bottom</string>
@@ -1809,6 +1800,8 @@
     <string name="dynamic_status_bar_summary">Automatically update the background of the status bar</string>
     <string name="dynamic_header_title">Dynamic header</string>
     <string name="dynamic_header_summary">Automatically update the background of the header</string>
+    <string name="dynamic_qs_tile_title">Dynamic tile</string>
+    <string name="dynamic_qs_tile_summary">Automatically update the background of the qs tile</string>
     <string name="dynamic_navigation_bar_title">Dynamic navigation bar</string>
     <string name="dynamic_navigation_bar_summary">Automatically update the background of the navigation bar</string>
     <string name="dynamic_system_bars_gradient_title">System bar gradient</string>
@@ -1820,17 +1813,15 @@
     <string name="dynamic_system_bars_trans_ps_title">Transparent play store</string>
     <string name="dynamic_system_bars_trans_ps_summary">App store use transparent bars when dynamic system bars enable</string>
 
+    <!-- Blur -->
     <string name="settings_blur_cat">Blur personalizations</string>
     <string name="blurred_status_bar_expanded_enabled_pref">Blur background </string>
     <string name="blurred_status_bar_expanded_enabled_pref_summary">Blur the background when you pull down the status bar</string>
     <string name="translucent_notifications_pref">Translucent notifications</string>
     <string name="translucent_notifications_pref_summary">Set the background of notifications translucent</string>
-    <string name="translucent_quick_settings_pref">Transparent quick settings Panel</string>
-    <string name="translucent_quick_settings_pref_summary">Adjust the background transparency of Qs Panel</string>
     <string name="transluency_level_universal">Transparency level</string>
-    <string name="blur_expstatus_cat">Expanded statusBar</string>
+    <string name="blur_expstatus_cat">Expanded status bar</string>
     <string name="blur_notifications_cat">Notifications</string>
-    <string name="blur_qs_cat">Quick settings</string>
     <string name="blur_recents_cat">Recents</string>
     <string name="blurred_recent_app_enabled_pref">Blurred recents apps background </string>
     <string name="blurred_recent_app_enabled_pref_summary">Blur the background of recents apps</string>
@@ -1840,5 +1831,25 @@
     <string name="blurred_radius_summary">Amount of blur</string>
     <string name="blur_cat_notice">Notice</string>
     <string name="blur_cat_notice_summary">Blur personlizations are disabled during Keyguard view! Please turn off panel transperancy to get best Results. Panel transparency will not work with blur options</string>
+
+    <!-- Recents Animations -->
+    <string name="recents_enter_animation_title">Recents enter animation</string>
+    <string name="recents_enter_animation_dialog_title">Select recents enter animation</string>
+    <string name="recents_enter_animation_default">Default</string>
+    <string name="recents_enter_animation_bounce">Bounce</string>
+    <string name="recents_enter_animation_fade">Fade</string>
+    <string name="recents_enter_animation_grow_from_top">Grow in (top)</string>
+    <string name="recents_enter_animation_grow_from_center">Grow in (center)</string>
+    <string name="recents_enter_animation_grow_from_bottom">Grow in (bottom)</string>
+    <string name="recents_enter_animation_grow_from_left">Grow in (left)</string>
+    <string name="recents_enter_animation_grow_from_right">Grow in (right)</string>
+    <string name="recents_enter_animation_push_down">Push down</string>
+    <string name="recents_enter_animation_push_up">Push up</string>
+    <string name="recents_enter_animation_push_right">Push right</string>
+    <string name="recents_enter_animation_push_left">Push left</string>
+    <string name="recents_enter_animation_last_app">Last app</string>
+    <string name="recents_enter_animation_rotate">Rotate</string>
+    <string name="recents_enter_animation_turning">Turning</string>
+    <string name="recents_enter_animation_zoom_in">Zoom in</string>
 
 </resources>

@@ -40,7 +40,14 @@
             android:dialogTitle="@string/power_menu_animation_dialog_title"
             android:entries="@array/power_menu_animations_entries"
             android:entryValues="@array/power_menu_animations_values"
-            android:summary="@string/power_menu_animation_summary"
+            android:persistent="false" />
+
+        <ListPreference
+            android:key="recents_enter_animations"
+            android:title="@string/recents_enter_animation_title"
+            android:dialogTitle="@string/recents_enter_animation_dialog_title"
+            android:entries="@array/recents_enter_animation_entries"
+            android:entryValues="@array/recents_enter_animation_values"
             android:persistent="false" />
 
         <PreferenceScreen

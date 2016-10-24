@@ -41,6 +41,7 @@ public class ScreenAndAnimations extends SettingsPreferenceFragment implements
     private static final String SCROLLINGCACHE_PERSIST_PROP = "persist.sys.scrollingcache";
     private static final String SCROLLINGCACHE_DEFAULT = "1";
     private static final String POWER_MENU_ANIMATIONS = "power_menu_animations";
+    private static final String RECENTS_ENTER_ANIMATIONS = "recents_enter_animations";
     private static final String TOAST_ICON_COLOR = "toast_icon_color";
     private static final String TOAST_TEXT_COLOR = "toast_text_color";
 
@@ -51,6 +52,7 @@ public class ScreenAndAnimations extends SettingsPreferenceFragment implements
     private ListPreference mTorchOffDelay;
     private ListPreference mScrollingCachePref;
     private ListPreference mPowerMenuAnimations;
+    private ListPreference mRecentsEnterAnimations;
     private ColorPickerPreference mIconColor;
     private ColorPickerPreference mTextColor;
 
@@ -119,6 +121,12 @@ public class ScreenAndAnimations extends SettingsPreferenceFragment implements
                 getContentResolver(), Settings.System.POWER_MENU_ANIMATIONS, 0)));
         mPowerMenuAnimations.setSummary(mPowerMenuAnimations.getEntry());
         mPowerMenuAnimations.setOnPreferenceChangeListener(this);
+
+        mRecentsEnterAnimations = (ListPreference) findPreference(RECENTS_ENTER_ANIMATIONS);
+        mRecentsEnterAnimations.setValue(String.valueOf(Settings.System.getInt(
+                getContentResolver(), Settings.System.RECENTS_ENTER_ANIMATIONS, 0)));
+        mRecentsEnterAnimations.setSummary(mRecentsEnterAnimations.getEntry());
+        mRecentsEnterAnimations.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -165,6 +173,12 @@ public class ScreenAndAnimations extends SettingsPreferenceFragment implements
                     Integer.valueOf((String) objValue));
             mPowerMenuAnimations.setValue(String.valueOf(objValue));
             mPowerMenuAnimations.setSummary(mPowerMenuAnimations.getEntry());
+            return true;
+        } else if (preference == mRecentsEnterAnimations) {
+            Settings.System.putInt(getContentResolver(), Settings.System.RECENTS_ENTER_ANIMATIONS,
+                    Integer.valueOf((String) objValue));
+            mRecentsEnterAnimations.setValue(String.valueOf(objValue));
+            mRecentsEnterAnimations.setSummary(mRecentsEnterAnimations.getEntry());
             return true;
         }
         return false;

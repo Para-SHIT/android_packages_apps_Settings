@@ -35,7 +35,6 @@ import android.view.MenuItem;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import com.android.settings.temasek.SeekBarPreference;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
@@ -62,15 +61,10 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
             "notification_icon_color";
     private static final String PREF_CLEAR_ALL_ICON_COLOR =
             "notification_drawer_clear_all_icon_color";
-    private static final String PREF_NOTIFICATION_ALPHA =
-            "notification_alpha";
 
-    private static final int BLISS_BLUE_GREY = 0xff1b1f23;
     private static final int SYSTEMUI_SECONDARY = 0xff384248;
     private static final int WHITE = 0xffffffff;
     private static final int BLACK = 0xff000000;
-    private static final int HOLO_BLUE_LIGHT = 0xff33b5e5;
-    private static final int TRANSLUCENT_HOLO_BLUE_LIGHT = 0x4d33b5e5;
     private static final int TRANSLUCENT_WHITE = 0x4dffffff;
 
     private static final int MENU_RESET = Menu.FIRST;
@@ -85,7 +79,6 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
     private ColorPickerPreference mTextColor;
     private ColorPickerPreference mIconColor;
     private ColorPickerPreference mClearAllIconColor;
-    private SeekBarPreference mNotificationsAlpha;
 
     private ContentResolver mResolver;
 
@@ -135,7 +128,6 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
         mBgColor.setNewPreviewColor(intColor);
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mBgColor.setSummary(hexColor);
-        //mBgColor.setDefaultColors(BLISS_BLUE_GREY, BLISS_BLUE_GREY);
         mBgColor.setOnPreferenceChangeListener(this);
 
         mBgGutsColor =
@@ -145,7 +137,6 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
         mBgGutsColor.setNewPreviewColor(intColor);
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mBgGutsColor.setSummary(hexColor);
-        //mBgGutsColor.setDefaultColors(SYSTEMUI_SECONDARY, SYSTEMUI_SECONDARY);
         mBgGutsColor.setOnPreferenceChangeListener(this);
 
         PreferenceCategory colorCat =
@@ -158,7 +149,6 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
             mAppIconBgColor.setNewPreviewColor(intColor);
             hexColor = String.format("#%08x", (0xffffffff & intColor));
             mAppIconBgColor.setSummary(hexColor);
-            //mAppIconBgColor.setDefaultColors(TRANSLUCENT_WHITE, TRANSLUCENT_HOLO_BLUE_LIGHT);
             mAppIconBgColor.setOnPreferenceChangeListener(this);
         } else {     
             colorCat.removePreference(mAppIconBgColor);
@@ -171,7 +161,6 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
         mTextColor.setNewPreviewColor(intColor);
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mTextColor.setSummary(hexColor);
-        //mTextColor.setDefaultColors(WHITE, HOLO_BLUE_LIGHT);
         mTextColor.setOnPreferenceChangeListener(this);
 
         mIconColor =
@@ -181,7 +170,6 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
         mIconColor.setNewPreviewColor(intColor);
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mIconColor.setSummary(hexColor);
-        //mIconColor.setDefaultColors(WHITE, HOLO_BLUE_LIGHT);
         mIconColor.setOnPreferenceChangeListener(this);
 
         mClearAllIconColor =
@@ -191,16 +179,7 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
         mClearAllIconColor.setNewPreviewColor(intColor);
         hexColor = String.format("#%08x", (0xffffffff & intColor));
         mClearAllIconColor.setSummary(hexColor);
-        //mClearAllIconColor.setDefaultColors(WHITE, HOLO_BLUE_LIGHT);
         mClearAllIconColor.setOnPreferenceChangeListener(this);
-
-        // Notifications alpha
-        mNotificationsAlpha =
-                (SeekBarPreference) findPreference(PREF_NOTIFICATION_ALPHA);
-        int notificationsAlpha = Settings.System.getInt(mResolver,
-                Settings.System.NOTIFICATION_ALPHA, 255);
-        mNotificationsAlpha.setValue(notificationsAlpha / 1);
-        mNotificationsAlpha.setOnPreferenceChangeListener(this);
 
         setHasOptionsMenu(true);
     }
@@ -297,11 +276,6 @@ public class NotificationColorSettings extends SettingsPreferenceFragment implem
             Settings.System.putInt(mResolver,
                 Settings.System.NOTIFICATION_DRAWER_CLEAR_ALL_ICON_COLOR, intHex);
             preference.setSummary(hex);
-            return true;
-        } else if (preference == mNotificationsAlpha) {
-            int alpha = (Integer) newValue;
-            Settings.System.putInt(mResolver,
-                    Settings.System.NOTIFICATION_ALPHA, alpha * 1);
             return true;
         }
         return false;

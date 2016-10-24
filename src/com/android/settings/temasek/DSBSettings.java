@@ -30,6 +30,7 @@ public class DSBSettings extends SettingsPreferenceFragment {
 
     private static final String KEY_DYNAMIC_STATUS_BAR = "dynamic_status_bar";
     private static final String KEY_DYNAMIC_HEADER = "dynamic_header";
+    private static final String KEY_DYNAMIC_QS_TILE = "dynamic_qstile";
     private static final String KEY_DYNAMIC_NAVIGATION_BAR = "dynamic_navigation_bar";
     private static final String KEY_DYNAMIC_SYSTEM_BARS_GRADIENT = "dynamic_system_bars_gradient";
     private static final String KEY_DYNAMIC_STATUS_BAR_FILTER = "dynamic_status_bar_filter";
@@ -38,6 +39,7 @@ public class DSBSettings extends SettingsPreferenceFragment {
 
     private CheckBoxPreference mDynamicStatusBar;
     private CheckBoxPreference mDynamicHeader;
+    private CheckBoxPreference mDynamicQsTile;
     private CheckBoxPreference mDynamicNavigationBar;
     private CheckBoxPreference mDynamicSystemBarsGradient;
     private CheckBoxPreference mDynamicStatusBarFilter;
@@ -55,6 +57,9 @@ public class DSBSettings extends SettingsPreferenceFragment {
 
         mDynamicHeader = (CheckBoxPreference) findPreference(KEY_DYNAMIC_HEADER);
         mDynamicHeader.setPersistent(false);
+
+        mDynamicQsTile = (CheckBoxPreference) findPreference(KEY_DYNAMIC_QS_TILE);
+        mDynamicQsTile.setPersistent(false);
 
         mDynamicNavigationBar = (CheckBoxPreference) findPreference(KEY_DYNAMIC_NAVIGATION_BAR);
         mDynamicNavigationBar.setPersistent(false);
@@ -86,6 +91,9 @@ public class DSBSettings extends SettingsPreferenceFragment {
         final boolean isHeaderDynamic = Settings.System.getInt(resolver,
             Settings.System.DYNAMIC_HEADER_STATE, 0) == 1;
 
+        final boolean isQsTileDynamic = Settings.System.getInt(resolver,
+            Settings.System.DYNAMIC_QS_TILE_STATE, 0) == 1;
+
         final boolean hasNavigationBar = res.getDimensionPixelSize(res.getIdentifier("navigation_bar_height", "dimen", "android")) > 0;
         final boolean isNavigationBarDynamic = hasNavigationBar && Settings.System.getInt(resolver,
             Settings.System.DYNAMIC_NAVIGATION_BAR_STATE, 0) == 1;
@@ -95,6 +103,8 @@ public class DSBSettings extends SettingsPreferenceFragment {
         mDynamicStatusBar.setChecked(isStatusBarDynamic);
 
         mDynamicHeader.setChecked(isHeaderDynamic);
+
+        mDynamicQsTile.setChecked(isQsTileDynamic);
 
         mDynamicNavigationBar.setEnabled(hasNavigationBar);
         mDynamicNavigationBar.setChecked(isNavigationBarDynamic);
@@ -137,6 +147,11 @@ public class DSBSettings extends SettingsPreferenceFragment {
             Settings.System.putInt(resolver,
                 Settings.System.DYNAMIC_HEADER_STATE,
                 mDynamicHeader.isChecked() ? 1 : 0);
+            updateDynamicSystemBarsCheckboxes();
+        } else if (preference == mDynamicQsTile) {
+            Settings.System.putInt(resolver,
+                Settings.System.DYNAMIC_QS_TILE_STATE,
+                mDynamicQsTile.isChecked() ? 1 : 0);
             updateDynamicSystemBarsCheckboxes();
         } else if (preference == mDynamicNavigationBar) {
             Settings.System.putInt(resolver,
