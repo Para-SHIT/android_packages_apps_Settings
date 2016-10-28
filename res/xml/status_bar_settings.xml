@@ -35,6 +35,12 @@
             android:fragment="com.android.settings.temasek.StatusBarClockSettings" />
 
         <PreferenceScreen
+            android:key="dynamic_system_bars"
+            android:title="@string/dynamic_system_bars_title"
+            android:summary="@string/dynamic_system_bars_summary"
+            android:fragment="com.android.settings.temasek.DSBSettings" />
+
+        <PreferenceScreen
             android:key="network_traffic_settings"
             android:title="@string/network_traffic_title"
             android:summary="@string/network_traffic_settings_summary"

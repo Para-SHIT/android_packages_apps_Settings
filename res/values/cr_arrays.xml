@@ -1536,13 +1536,13 @@
     </string-array>
 
     <!-- Tiles animation style -->
-    <string-array name="qs_tile_animation_style_entries" translatable="false">
-        <item>@string/qs_tile_animation_style_off</item>
-        <item>@string/qs_tile_animation_style_flip</item>
-        <item>@string/qs_tile_animation_style_rotate</item>
+    <string-array name="qs_tile_animation_entries" translatable="false">
+        <item>@string/qs_tile_animation_off</item>
+        <item>@string/qs_tile_animation_flip</item>
+        <item>@string/qs_tile_animation_rotate</item>
     </string-array>
  
-    <string-array name="qs_tile_animation_style_values" translatable="false">
+    <string-array name="qs_tile_animation_values" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>

@@ -2,59 +2,34 @@ package com.android.settings.temasek;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
 import android.content.ContentResolver;
-import android.content.Context;
-import android.content.res.Resources;
-import android.database.ContentObserver;
 import android.os.SystemProperties;
-import android.os.UserHandle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
-import android.view.View;
-import android.widget.Toast;
 
 import com.android.internal.util.cm.QSUtils;
-import com.android.settings.SettingsPreferenceFragment;
+
 import com.android.settings.R;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-
-import net.margaritov.preference.colorpicker.ColorPickerPreference;
+import com.android.settings.SettingsPreferenceFragment;
 
 public class ScreenAndAnimations extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
     private static final String TAG = "ScreenAndAnimations";
 
-    private static final String KEY_TOAST_ANIMATION = "toast_animation";
     private static final String DISABLE_TORCH_ON_SCREEN_OFF = "disable_torch_on_screen_off";
     private static final String DISABLE_TORCH_ON_SCREEN_OFF_DELAY = "disable_torch_on_screen_off_delay";
     private static final String SCROLLINGCACHE_PREF = "pref_scrollingcache";
     private static final String SCROLLINGCACHE_PERSIST_PROP = "persist.sys.scrollingcache";
     private static final String SCROLLINGCACHE_DEFAULT = "1";
-    private static final String POWER_MENU_ANIMATIONS = "power_menu_animations";
-    private static final String RECENTS_ENTER_ANIMATIONS = "recents_enter_animations";
-    private static final String TOAST_ICON_COLOR = "toast_icon_color";
-    private static final String TOAST_TEXT_COLOR = "toast_text_color";
 
-    private Context mContext;
-
-    private ListPreference mToastAnimation;
     private SwitchPreference mTorchOff;
     private ListPreference mTorchOffDelay;
     private ListPreference mScrollingCachePref;
-    private ListPreference mPowerMenuAnimations;
-    private ListPreference mRecentsEnterAnimations;
-    private ColorPickerPreference mIconColor;
-    private ColorPickerPreference mTextColor;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -64,38 +39,6 @@ public class ScreenAndAnimations extends SettingsPreferenceFragment implements
         ContentResolver resolver = getActivity().getContentResolver();
         Activity activity = getActivity();
         PreferenceScreen prefSet = getPreferenceScreen();
-
-        int intColor = 0xffffffff;
-        String hexColor = String.format("#%08x", (0xffffffff & 0xffffffff));
-
-        mContext = getActivity().getApplicationContext();
-
-        // Toast Animations
-        mToastAnimation = (ListPreference) findPreference(KEY_TOAST_ANIMATION);
-        mToastAnimation.setSummary(mToastAnimation.getEntry());
-        int CurrentToastAnimation = Settings.System.getInt(resolver,
-                Settings.System.TOAST_ANIMATION, 1);
-        mToastAnimation.setValueIndex(CurrentToastAnimation); //set to index of default value
-        mToastAnimation.setSummary(mToastAnimation.getEntries()[CurrentToastAnimation]);
-        mToastAnimation.setOnPreferenceChangeListener(this);
-
-        mIconColor =
-                (ColorPickerPreference) findPreference(TOAST_ICON_COLOR);
-        intColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.TOAST_ICON_COLOR, 0xffffffff);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mIconColor.setNewPreviewColor(intColor);
-        mIconColor.setSummary(hexColor);
-        mIconColor.setOnPreferenceChangeListener(this);
-
-        mTextColor =
-                (ColorPickerPreference) findPreference(TOAST_TEXT_COLOR);
-        intColor = Settings.System.getInt(getContentResolver(),
-                Settings.System.TOAST_TEXT_COLOR, 0xffffffff);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mTextColor.setNewPreviewColor(intColor);
-        mTextColor.setSummary(hexColor);
-        mTextColor.setOnPreferenceChangeListener(this);
 
         mTorchOff = (SwitchPreference) prefSet.findPreference(DISABLE_TORCH_ON_SCREEN_OFF);
         mTorchOffDelay = (ListPreference) prefSet.findPreference(DISABLE_TORCH_ON_SCREEN_OFF_DELAY);
@@ -115,18 +58,6 @@ public class ScreenAndAnimations extends SettingsPreferenceFragment implements
         mScrollingCachePref.setValue(SystemProperties.get(SCROLLINGCACHE_PERSIST_PROP,
                 SystemProperties.get(SCROLLINGCACHE_PERSIST_PROP, SCROLLINGCACHE_DEFAULT)));
         mScrollingCachePref.setOnPreferenceChangeListener(this);
-
-        mPowerMenuAnimations = (ListPreference) findPreference(POWER_MENU_ANIMATIONS);
-        mPowerMenuAnimations.setValue(String.valueOf(Settings.System.getInt(
-                getContentResolver(), Settings.System.POWER_MENU_ANIMATIONS, 0)));
-        mPowerMenuAnimations.setSummary(mPowerMenuAnimations.getEntry());
-        mPowerMenuAnimations.setOnPreferenceChangeListener(this);
-
-        mRecentsEnterAnimations = (ListPreference) findPreference(RECENTS_ENTER_ANIMATIONS);
-        mRecentsEnterAnimations.setValue(String.valueOf(Settings.System.getInt(
-                getContentResolver(), Settings.System.RECENTS_ENTER_ANIMATIONS, 0)));
-        mRecentsEnterAnimations.setSummary(mRecentsEnterAnimations.getEntry());
-        mRecentsEnterAnimations.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -135,28 +66,7 @@ public class ScreenAndAnimations extends SettingsPreferenceFragment implements
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
-        final String key = preference.getKey();
-        if (preference == mToastAnimation) {
-            int index = mToastAnimation.findIndexOfValue((String) objValue);
-            Settings.System.putString(getContentResolver(), Settings.System.TOAST_ANIMATION, (String) objValue);
-            mToastAnimation.setSummary(mToastAnimation.getEntries()[index]);
-            Toast.makeText(mContext, "Toast Test", Toast.LENGTH_SHORT).show();
-            return true;
-        } else if (preference == mIconColor) {
-            String hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(objValue)));
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.TOAST_ICON_COLOR, intHex);
-            preference.setSummary(hex);
-        } else if (preference == mTextColor) {
-            String hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(objValue)));
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.TOAST_TEXT_COLOR, intHex);
-            preference.setSummary(hex);
-        } else if (preference == mTorchOffDelay) {
+        if (preference == mTorchOffDelay) {
             int torchOffDelay = Integer.valueOf((String) objValue);
             int index = mTorchOffDelay.findIndexOfValue((String) objValue);
             Settings.System.putInt(getActivity().getContentResolver(),
@@ -168,18 +78,6 @@ public class ScreenAndAnimations extends SettingsPreferenceFragment implements
                 SystemProperties.set(SCROLLINGCACHE_PERSIST_PROP, (String)objValue);
             return true;
             }
-        } else if (preference == mPowerMenuAnimations) {
-            Settings.System.putInt(getContentResolver(), Settings.System.POWER_MENU_ANIMATIONS,
-                    Integer.valueOf((String) objValue));
-            mPowerMenuAnimations.setValue(String.valueOf(objValue));
-            mPowerMenuAnimations.setSummary(mPowerMenuAnimations.getEntry());
-            return true;
-        } else if (preference == mRecentsEnterAnimations) {
-            Settings.System.putInt(getContentResolver(), Settings.System.RECENTS_ENTER_ANIMATIONS,
-                    Integer.valueOf((String) objValue));
-            mRecentsEnterAnimations.setValue(String.valueOf(objValue));
-            mRecentsEnterAnimations.setSummary(mRecentsEnterAnimations.getEntry());
-            return true;
         }
         return false;
     }

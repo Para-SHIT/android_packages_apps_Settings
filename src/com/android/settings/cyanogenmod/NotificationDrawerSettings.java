@@ -106,10 +106,9 @@ public class NotificationDrawerSettings extends SettingsPreferenceFragment imple
 
         mQSFontStyle = (ListPreference) findPreference(QS_FONT_STYLES);
         mQSFontStyle.setOnPreferenceChangeListener(this);
-        mQSFontStyle.setValue(Integer.toString(Settings.System.getInt(getActivity()
-                .getContentResolver(), Settings.System.QS_FONT_STYLES, 0)));
+        mQSFontStyle.setValue(Integer.toString(Settings.System.getInt(resolver,
+                Settings.System.QS_FONT_STYLES, 0)));
         mQSFontStyle.setSummary(mQSFontStyle.getEntry());
-
     }
 
     @Override

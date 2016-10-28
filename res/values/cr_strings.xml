@@ -18,6 +18,7 @@
     <string name="display_settings_title">Display settings</string>
     <string name="general_options_title">General</string>
     <string name="animations_cat">Animations</string>
+    <string name="other_animations_title">Other animations</string>
 
     <!-- General strings -->
     <string name="attention">Attention</string>
@@ -41,6 +42,11 @@
     <string name="show_title">Show</string>
     <string name="gesture_title">Gesture</string>
     <string name="shake_title">Shake</string>
+    <string name="background_title">Background</string>
+    <string name="quick_settings_cat">Quick settings</string>
+    <string name="power_menu_cat">Power menu</string>
+    <string name="recents_panel_cat">Recents panel</string>
+    <string name="task_manager_cat">Task manager</string>
 
     <!-- Changelog -->
     <string name="changelog_temasek_title">Changelog</string>
@@ -354,6 +360,7 @@
     <string name="toast_SlideLeftRight_animation">Slide left to right</string>
     <string name="toast_SlideRightLeft_animation">Slide right to left</string>
     <string name="toast_settings">Toast settings</string>
+    <string name="toast_settings_summary">Customize of toast</string>
     <string name="toast_icon_color">Toast icon color</string>
     <string name="toast_text_color">Toast text color</string>
 
@@ -536,9 +543,6 @@
     <string name="task_open_behind_title">Task open behind animation</string>
     <string name="animation_duration_title">Animation duration</string>
     <string name="animation_duration_default">Default</string>
-
-    <string name="expanded_animation_title">Expanded animations</string>
-    <string name="expanded_animation_summary">customize animation on expanded</string>
 
     <!-- Lock clock -->
     <string name="lock_clock_title">Clock widget</string>
@@ -1207,8 +1211,7 @@
     <string name="task_manager_ram_used_title">RAM used</string>
     <string name="task_manager_ram_free_title">RAM free</string>
     <string name="task_manager_memory_bar_title">Memory bar thickness</string>
-    <string name="task_manager_animation_cat">Task manager animation options</string>
-    <string name="task_manager_animation_title">Task manager animation style</string>
+    <string name="task_manager_animation_title">Task manager animation</string>
     <string name="task_manager_animation_fade">Fade (default)</string>
     <string name="task_manager_animation_last_app">Last app</string>
     <string name="task_manager_animation_push_down">Push down</string>
@@ -1645,13 +1648,12 @@
     <string name="dash_category_text_size">Category text size</string>
 
     <!-- Tiles animation style  -->
-    <string name="quicksettings_tiles_category">Tile animation options</string>
-    <string name="qs_tile_animation_style_title">Tiles animation style</string>
-    <string name="qs_tile_animation_duration_title">Tiles animation duration</string>
-    <string name="qs_tile_animation_interpolator_title">Tiles animation interpolator</string>
-    <string name="qs_tile_animation_style_off">No animation</string>
-    <string name="qs_tile_animation_style_flip">Flip</string>
-    <string name="qs_tile_animation_style_rotate">Rotate</string>
+    <string name="qs_tile_animation_title">QS tiles animation</string>
+    <string name="qs_tile_animation_duration_title">QS tiles animation duration</string>
+    <string name="qs_tile_animation_interpolator_title">QS tiles animation interpolator</string>
+    <string name="qs_tile_animation_off">No animation</string>
+    <string name="qs_tile_animation_flip">Flip</string>
+    <string name="qs_tile_animation_rotate">Rotate</string>
     <string name="qs_tile_animation_duration_low">Low</string>
     <string name="qs_tile_animation_duration_default">Default</string>
     <string name="qs_tile_animation_duration_fast">Fast</string>
@@ -1798,18 +1800,18 @@
     <string name="dynamic_system_bars_summary">Customize of background system bars</string>
     <string name="dynamic_status_bar_title">Dynamic status bar</string>
     <string name="dynamic_status_bar_summary">Automatically update the background of the status bar</string>
-    <string name="dynamic_header_title">Dynamic header</string>
-    <string name="dynamic_header_summary">Automatically update the background of the header</string>
-    <string name="dynamic_qs_tile_title">Dynamic tile</string>
-    <string name="dynamic_qs_tile_summary">Automatically update the background of the qs tile</string>
     <string name="dynamic_navigation_bar_title">Dynamic navigation bar</string>
     <string name="dynamic_navigation_bar_summary">Automatically update the background of the navigation bar</string>
     <string name="dynamic_system_bars_gradient_title">System bar gradient</string>
     <string name="dynamic_system_bars_gradient_summary">Overlay a gradient on the system bars</string>
     <string name="dynamic_status_bar_filter_title">Darker status bar</string>
     <string name="dynamic_status_bar_filter_summary">Overlay a darkening filter on the status bar</string>
-    <string name="dynamic_status_bar_color_tint">Statusbar color tint</string>
-    <string name="dynamic_status_bar_color_tint_summary">Use statusbar dynamic color as navigation bar icon tint</string>
+    <string name="dynamic_header_title">Dynamic header</string>
+    <string name="dynamic_header_summary">Automatically update the background of the notification header</string>
+    <string name="dynamic_qs_tile_title">Dynamic QS tile</string>
+    <string name="dynamic_qs_tile_summary">Automatically update the background of the QS tile</string>
+    <string name="dynamic_navbar_icon_tint">Navbar icon tint</string>
+    <string name="dynamic_navbar_icon_tint_summary">Use statusbar dynamic color as navigation bar icon tint</string>
     <string name="dynamic_system_bars_trans_ps_title">Transparent play store</string>
     <string name="dynamic_system_bars_trans_ps_summary">App store use transparent bars when dynamic system bars enable</string>
 

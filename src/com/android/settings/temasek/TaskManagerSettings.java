@@ -184,14 +184,14 @@ public class TaskManagerSettings extends SettingsPreferenceFragment implements
 
             mFontStyle = (ListPreference) findPreference(TASK_MANAGER_FONT_STYLE);
             mFontStyle.setOnPreferenceChangeListener(this);
-            mFontStyle.setValue(Integer.toString(Settings.System.getInt(getActivity()
-                    .getContentResolver(), Settings.System.TASK_MANAGER_FONT_STYLE, 0)));
+            mFontStyle.setValue(Integer.toString(Settings.System.getInt(mResolver,
+                    Settings.System.TASK_MANAGER_FONT_STYLE, 0)));
             mFontStyle.setSummary(mFontStyle.getEntry());
 
             mBarThickness = (ListPreference) findPreference(TASK_MANAGER_BAR_THICKNESS);
             mBarThickness.setOnPreferenceChangeListener(this);
-            mBarThickness.setValue(Integer.toString(Settings.System.getInt(getActivity()
-                    .getContentResolver(), Settings.System.TASK_MANAGER_BAR_THICKNESS, 1)));
+            mBarThickness.setValue(Integer.toString(Settings.System.getInt(mResolver,
+                    Settings.System.TASK_MANAGER_BAR_THICKNESS, 1)));
             mBarThickness.setSummary(mBarThickness.getEntry());
 
         } else {
@@ -300,17 +300,17 @@ public class TaskManagerSettings extends SettingsPreferenceFragment implements
         } else if (preference == mFontStyle) {
             int val = Integer.parseInt((String) newValue);
             index = mFontStyle.findIndexOfValue((String) newValue);
-            Settings.System.putInt(getActivity().getContentResolver(),
+            Settings.System.putInt(mResolver,
                     Settings.System.TASK_MANAGER_FONT_STYLE, val);
             mFontStyle.setSummary(mFontStyle.getEntries()[index]);
             return true;
         } else if (preference == mBarThickness) {
             int val = Integer.parseInt((String) newValue);
             index = mBarThickness.findIndexOfValue((String) newValue);
-            Settings.System.putInt(getActivity().getContentResolver(),
+            Settings.System.putInt(mResolver,
                     Settings.System.TASK_MANAGER_BAR_THICKNESS, val);
             mBarThickness.setSummary(mBarThickness.getEntries()[index]);
-        return true;
+            return true;
         }
         return false;
     }
