@@ -83,4 +83,9 @@
             android:title="@string/lockscreen_alarm_title"
             android:defaultValue="true" />
 
+        <in.parashit.preference.SystemSettingSwitchPreference
+            android:key="lockscreen_battery_info"
+            android:title="@string/lockscreen_battery_info_title"
+            android:defaultValue="false" />
+
 </PreferenceScreen>

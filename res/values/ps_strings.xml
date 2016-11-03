@@ -55,4 +55,7 @@
     <string name="lockscreen_date_title">Show date</string>
     <string name="lockscreen_alarm_title">Show alarm</string>
 
+    <!-- Lockscreen battery info indicator  -->
+    <string name="lockscreen_battery_info_title">Show battery info</string>
+
 </resources>
