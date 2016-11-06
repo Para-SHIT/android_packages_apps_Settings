@@ -297,6 +297,8 @@ public class StatusBarGreetingSettings extends SettingsPreferenceFragment implem
                                     Settings.System.STATUS_BAR_GREETING_TIMEOUT,
                                     400);
                             Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_GREETING_SHOW_LABEL_PREVIEW, 0);
+                            Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_GREETING_FONT_SIZE, 12);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_GREETING_FONT_STYLE, 0);
@@ -314,6 +316,8 @@ public class StatusBarGreetingSettings extends SettingsPreferenceFragment implem
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_GREETING_TIMEOUT,
                                     1000);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_GREETING_SHOW_LABEL_PREVIEW, 0);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_GREETING_FONT_SIZE, 12);
                             Settings.System.putInt(getOwner().mResolver,

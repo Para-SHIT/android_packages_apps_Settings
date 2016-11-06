@@ -15,7 +15,11 @@
  */
 package com.android.settings.temasek;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.TrafficStats;
@@ -27,6 +31,9 @@ import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
@@ -34,10 +41,10 @@ import com.android.settings.temasek.SeekBarPreference;
 
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 
-public class NetworkTrafficSettings extends SettingsPreferenceFragment
+public class NetworkTraffic extends SettingsPreferenceFragment
             implements OnPreferenceChangeListener  {
 
-    private static final String TAG = "NetworkTrafficSettings";
+    private static final String TAG = "NetworkTraffic";
 
     private static final String NETWORK_TRAFFIC_STATE = "network_traffic_state";
     private static final String NETWORK_TRAFFIC_UNIT = "network_traffic_unit";
@@ -46,6 +53,11 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
     private static final String NETWORK_TRAFFIC_AUTOHIDE = "network_traffic_autohide";
     private static final String NETWORK_TRAFFIC_HIDEARROW = "network_traffic_hidearrow";
     private static final String NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD = "network_traffic_autohide_threshold";
+
+    private static final int WHITE = 0xffffffff;
+
+    private static final int MENU_RESET = Menu.FIRST;
+    private static final int DLG_RESET = 0;
 
     private int mNetTrafficVal;
     private int MASK_UP;
@@ -61,11 +73,21 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
     private SwitchPreference mNetTrafficHidearrow;
     private SeekBarPreference mNetTrafficAutohideThreshold;
 
+    private ContentResolver mResolver;
+
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        addPreferencesFromResource(R.xml.network_traffic_settings);
-        ContentResolver resolver = getActivity().getContentResolver();
+        refreshSettings();
+    }
+
+    public void refreshSettings() {
+        PreferenceScreen prefs = getPreferenceScreen();
+        if (prefs != null) {
+            prefs.removeAll();
+        }
+        addPreferencesFromResource(R.xml.network_traffic);
+        mResolver = getActivity().getContentResolver();
         PreferenceScreen prefSet = getPreferenceScreen();
 
         PackageManager pm = getPackageManager();
@@ -83,28 +105,28 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
         mNetTrafficPeriod = (ListPreference) prefSet.findPreference(NETWORK_TRAFFIC_PERIOD);
 
         mNetTrafficAutohide =
-            (SwitchPreference) prefSet.findPreference(NETWORK_TRAFFIC_AUTOHIDE);
-        mNetTrafficAutohide.setChecked((Settings.System.getInt(resolver,
-                            Settings.System.NETWORK_TRAFFIC_AUTOHIDE, 0) == 1));
+                (SwitchPreference) prefSet.findPreference(NETWORK_TRAFFIC_AUTOHIDE);
+        mNetTrafficAutohide.setChecked((Settings.System.getInt(mResolver,
+                Settings.System.NETWORK_TRAFFIC_AUTOHIDE, 0) == 1));
         mNetTrafficAutohide.setOnPreferenceChangeListener(this);
 
         mNetTrafficHidearrow =
-            (SwitchPreference) prefSet.findPreference(NETWORK_TRAFFIC_HIDEARROW);
-        mNetTrafficHidearrow.setChecked((Settings.System.getInt(resolver,
+                (SwitchPreference) prefSet.findPreference(NETWORK_TRAFFIC_HIDEARROW);
+        mNetTrafficHidearrow.setChecked((Settings.System.getInt(mResolver,
                 Settings.System.NETWORK_TRAFFIC_HIDEARROW, 0) == 1));
         mNetTrafficHidearrow.setOnPreferenceChangeListener(this);
 
         mNetTrafficAutohideThreshold = (SeekBarPreference) prefSet.findPreference(NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD);
-        int netTrafficAutohideThreshold = Settings.System.getInt(resolver,
-                    Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD, 10);
-            mNetTrafficAutohideThreshold.setValue(netTrafficAutohideThreshold / 1);
-            mNetTrafficAutohideThreshold.setOnPreferenceChangeListener(this);
+        int netTrafficAutohideThreshold = Settings.System.getInt(mResolver,
+                Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD, 10);
+        mNetTrafficAutohideThreshold.setValue(netTrafficAutohideThreshold / 1);
+        mNetTrafficAutohideThreshold.setOnPreferenceChangeListener(this);
 
         mNetTrafficColor =
                 (ColorPickerPreference) prefSet.findPreference(NETWORK_TRAFFIC_COLOR);
         mNetTrafficColor.setOnPreferenceChangeListener(this);
-        int intColor = Settings.System.getInt(resolver,
-                Settings.System.NETWORK_TRAFFIC_COLOR, 0xffffffff);
+        int intColor = Settings.System.getInt(mResolver,
+                Settings.System.NETWORK_TRAFFIC_COLOR, WHITE);
         String hexColor = String.format("#%08x", (0xffffffff & intColor));
         mNetTrafficColor.setSummary(hexColor);
         mNetTrafficColor.setNewPreviewColor(intColor);
@@ -112,7 +134,8 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
         // TrafficStats will return UNSUPPORTED if the device does not support it.
         if (TrafficStats.getTotalTxBytes() != TrafficStats.UNSUPPORTED &&
                 TrafficStats.getTotalRxBytes() != TrafficStats.UNSUPPORTED) {
-            mNetTrafficVal = Settings.System.getInt(resolver, Settings.System.NETWORK_TRAFFIC_STATE, 0);
+            mNetTrafficVal = Settings.System.getInt(mResolver,
+                Settings.System.NETWORK_TRAFFIC_STATE, 0);
             int intIndex = mNetTrafficVal & (MASK_UP + MASK_DOWN);
             intIndex = mNetTrafficState.findIndexOfValue(String.valueOf(intIndex));
             if (intIndex <= 0) {
@@ -142,11 +165,25 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
             prefSet.removePreference(findPreference(NETWORK_TRAFFIC_AUTOHIDE));
             prefSet.removePreference(findPreference(NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD));
         }
+        setHasOptionsMenu(true);
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.add(0, MENU_RESET, 0, R.string.reset)
+                .setIcon(R.drawable.ic_settings_reset) // use the KitKat backup icon
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MENU_RESET:
+                showDialogInner(DLG_RESET);
+                return true;
+             default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     private void updateNetworkTrafficState(int mIndex) {
@@ -168,12 +205,11 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        ContentResolver resolver = getActivity().getContentResolver();
         if (preference == mNetTrafficState) {
             int intState = Integer.valueOf((String)newValue);
             mNetTrafficVal = setBit(mNetTrafficVal, MASK_UP, getBit(intState, MASK_UP));
             mNetTrafficVal = setBit(mNetTrafficVal, MASK_DOWN, getBit(intState, MASK_DOWN));
-            Settings.System.putInt(resolver,
+            Settings.System.putInt(mResolver,
                     Settings.System.NETWORK_TRAFFIC_STATE, mNetTrafficVal);
             int index = mNetTrafficState.findIndexOfValue((String) newValue);
             mNetTrafficState.setSummary(mNetTrafficState.getEntries()[index]);
@@ -181,7 +217,7 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
             return true;
         } else if (preference == mNetTrafficUnit) {
             mNetTrafficVal = setBit(mNetTrafficVal, MASK_UNIT, ((String)newValue).equals("1"));
-            Settings.System.putInt(resolver,
+            Settings.System.putInt(mResolver,
                     Settings.System.NETWORK_TRAFFIC_STATE, mNetTrafficVal);
             int index = mNetTrafficUnit.findIndexOfValue((String) newValue);
             mNetTrafficUnit.setSummary(mNetTrafficUnit.getEntries()[index]);
@@ -189,24 +225,24 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
         } else if (preference == mNetTrafficPeriod) {
             int intState = Integer.valueOf((String)newValue);
             mNetTrafficVal = setBit(mNetTrafficVal, MASK_PERIOD, false) + (intState << 16);
-            Settings.System.putInt(resolver,
+            Settings.System.putInt(mResolver,
                     Settings.System.NETWORK_TRAFFIC_STATE, mNetTrafficVal);
             int index = mNetTrafficPeriod.findIndexOfValue((String) newValue);
             mNetTrafficPeriod.setSummary(mNetTrafficPeriod.getEntries()[index]);
             return true;
         } else if (preference == mNetTrafficAutohide) {
             boolean value = (Boolean) newValue;
-            Settings.System.putInt(resolver,
+            Settings.System.putInt(mResolver,
                     Settings.System.NETWORK_TRAFFIC_AUTOHIDE, value ? 1 : 0);
             return true;
         } else if (preference == mNetTrafficHidearrow) {
             boolean value = (Boolean) newValue;
-            Settings.System.putInt(resolver,
+            Settings.System.putInt(mResolver,
                     Settings.System.NETWORK_TRAFFIC_HIDEARROW, value ? 1 : 0);
             return true;
         } else if (preference == mNetTrafficAutohideThreshold) {
             int threshold = (Integer) newValue;
-            Settings.System.putInt(resolver,
+            Settings.System.putInt(mResolver,
                     Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD, threshold * 1);
             return true;
         } else if (preference == mNetTrafficColor) {
@@ -214,7 +250,7 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
                     Integer.valueOf(String.valueOf(newValue)));
             preference.setSummary(hex);
             int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(resolver,
+            Settings.System.putInt(mResolver,
                     Settings.System.NETWORK_TRAFFIC_COLOR, intHex);
             return true;
         }
@@ -239,6 +275,62 @@ public class NetworkTrafficSettings extends SettingsPreferenceFragment
 
     private boolean getBit(int intNumber, int intMask) {
         return (intNumber & intMask) == intMask;
+    }
+
+    private void showDialogInner(int id) {
+        DialogFragment newFragment = MyAlertDialogFragment.newInstance(id);
+        newFragment.setTargetFragment(this, 0);
+        newFragment.show(getFragmentManager(), "dialog " + id);
+    }
+
+    public static class MyAlertDialogFragment extends DialogFragment {
+
+        public static MyAlertDialogFragment newInstance(int id) {
+            MyAlertDialogFragment frag = new MyAlertDialogFragment();
+            Bundle args = new Bundle();
+            args.putInt("id", id);
+            frag.setArguments(args);
+            return frag;
+        }
+
+        NetworkTraffic getOwner() {
+            return (NetworkTraffic) getTargetFragment();
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            int id = getArguments().getInt("id");
+            switch (id) {
+                case DLG_RESET:
+                    return new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.reset)
+                    .setMessage(R.string.reset_message)
+                    .setNegativeButton(R.string.cancel, null)
+                    .setPositiveButton(R.string.dlg_reset_android,
+                        new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.NETWORK_TRAFFIC_STATE, 0);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.NETWORK_TRAFFIC_AUTOHIDE, 0);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.NETWORK_TRAFFIC_HIDEARROW, 0);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD, 10);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.NETWORK_TRAFFIC_COLOR, WHITE);
+                            getOwner().refreshSettings();
+                        }
+                    })
+                    .create();
+            }
+            throw new IllegalArgumentException("unknown id " + id);
+        }
+
+        @Override
+        public void onCancel(DialogInterface dialog) {
+
+        }
     }
 
 }
