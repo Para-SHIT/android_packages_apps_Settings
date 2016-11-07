@@ -19,50 +19,58 @@
     <PreferenceCategory
         android:title="@string/dynamic_system_bars_cat">
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:key="dynamic_status_bar"
             android:title="@string/dynamic_status_bar_title"
-            android:summary="@string/dynamic_status_bar_summary" />
+            android:summary="@string/dynamic_status_bar_summary"
+            android:defaultValue="false" />
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:key="dynamic_navigation_bar"
             android:title="@string/dynamic_navigation_bar_title"
-            android:summary="@string/dynamic_navigation_bar_summary" />
+            android:summary="@string/dynamic_navigation_bar_summary"
+            android:defaultValue="false" />
 
-        <CheckBoxPreference
-            android:key="dynamic_system_bars_gradient"
-            android:title="@string/dynamic_system_bars_gradient_title"
-            android:summary="@string/dynamic_system_bars_gradient_summary" />
-
-        <CheckBoxPreference
+        <SwitchPreference
             android:key="dynamic_status_bar_filter"
             android:title="@string/dynamic_status_bar_filter_title"
-            android:summary="@string/dynamic_status_bar_filter_summary" />
+            android:summary="@string/dynamic_status_bar_filter_summary"
+            android:defaultValue="false" />
 
-        <CheckBoxPreference
-            android:key="dynamic_header"
-            android:title="@string/dynamic_header_title"
-            android:summary="@string/dynamic_header_summary" />
-
-        <CheckBoxPreference
-            android:key="dynamic_qstile"
-            android:title="@string/dynamic_qs_tile_title"
-            android:summary="@string/dynamic_qs_tile_summary" />
+        <SwitchPreference
+            android:key="dynamic_system_bars_gradient"
+            android:title="@string/dynamic_system_bars_gradient_title"
+            android:summary="@string/dynamic_system_bars_gradient_summary"
+            android:defaultValue="false" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/dynamic_system_bars_more_cat">
 
-        <CheckBoxPreference
+        <SwitchPreference
+            android:key="dynamic_header"
+            android:title="@string/dynamic_header_title"
+            android:summary="@string/dynamic_header_summary"
+            android:defaultValue="false" />
+
+        <SwitchPreference
+            android:key="dynamic_qstile"
+            android:title="@string/dynamic_qs_tile_title"
+            android:summary="@string/dynamic_qs_tile_summary"
+            android:defaultValue="false" />
+
+        <SwitchPreference
             android:key="dynamic_icon_tint"
             android:title="@string/dynamic_navbar_icon_tint"
-            android:summary="@string/dynamic_navbar_icon_tint_summary" />
+            android:summary="@string/dynamic_navbar_icon_tint_summary"
+            android:defaultValue="false" />
 
-        <CheckBoxPreference
+        <SwitchPreference
             android:key="dynamic_trans_ps"
             android:title="@string/dynamic_system_bars_trans_ps_title"
-            android:summary="@string/dynamic_system_bars_trans_ps_summary" />
+            android:summary="@string/dynamic_system_bars_trans_ps_summary"
+            android:defaultValue="false" />
 
     </PreferenceCategory>
 

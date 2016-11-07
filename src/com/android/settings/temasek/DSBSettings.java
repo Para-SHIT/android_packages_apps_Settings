@@ -18,9 +18,9 @@ package com.android.settings.temasek;
 import android.content.ContentResolver;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.provider.Settings;
 
 import com.android.settings.R;
@@ -37,51 +37,109 @@ public class DSBSettings extends SettingsPreferenceFragment {
     private static final String KEY_DYNAMIC_ICON_TINT = "dynamic_icon_tint";
     private static final String KEY_DYNAMIC_TRANS_PS = "dynamic_trans_ps";
 
-    private CheckBoxPreference mDynamicStatusBar;
-    private CheckBoxPreference mDynamicNavigationBar;
-    private CheckBoxPreference mDynamicSystemBarsGradient;
-    private CheckBoxPreference mDynamicStatusBarFilter;
-    private CheckBoxPreference mDynamicHeader;
-    private CheckBoxPreference mDynamicQsTile;
-    private CheckBoxPreference mDynamicIconTint;
-    private CheckBoxPreference mDynamicTransPs;
+    private SwitchPreference mDynamicStatusBar;
+    private SwitchPreference mDynamicNavigationBar;
+    private SwitchPreference mDynamicSystemBarsGradient;
+    private SwitchPreference mDynamicStatusBarFilter;
+    private SwitchPreference mDynamicHeader;
+    private SwitchPreference mDynamicQsTile;
+    private SwitchPreference mDynamicIconTint;
+    private SwitchPreference mDynamicTransPs;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    public void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
         addPreferencesFromResource(R.xml.dsb_settings);
 
-        mDynamicStatusBar = (CheckBoxPreference) findPreference(KEY_DYNAMIC_STATUS_BAR);
+        mDynamicStatusBar = (SwitchPreference) findPreference(KEY_DYNAMIC_STATUS_BAR);
         mDynamicStatusBar.setPersistent(false);
 
-        mDynamicNavigationBar = (CheckBoxPreference) findPreference(KEY_DYNAMIC_NAVIGATION_BAR);
+        mDynamicNavigationBar = (SwitchPreference) findPreference(KEY_DYNAMIC_NAVIGATION_BAR);
         mDynamicNavigationBar.setPersistent(false);
 
-        mDynamicSystemBarsGradient =
-            (CheckBoxPreference) findPreference(KEY_DYNAMIC_SYSTEM_BARS_GRADIENT);
-        mDynamicSystemBarsGradient.setPersistent(false);
-
-        mDynamicStatusBarFilter =
-            (CheckBoxPreference) findPreference(KEY_DYNAMIC_STATUS_BAR_FILTER);
+        mDynamicStatusBarFilter = (SwitchPreference) findPreference(KEY_DYNAMIC_STATUS_BAR_FILTER);
         mDynamicStatusBarFilter.setPersistent(false);
 
-        mDynamicHeader = (CheckBoxPreference) findPreference(KEY_DYNAMIC_HEADER);
+        mDynamicSystemBarsGradient = (SwitchPreference) findPreference(KEY_DYNAMIC_SYSTEM_BARS_GRADIENT);
+        mDynamicSystemBarsGradient.setPersistent(false);
+
+        mDynamicHeader = (SwitchPreference) findPreference(KEY_DYNAMIC_HEADER);
         mDynamicHeader.setPersistent(false);
 
-        mDynamicQsTile = (CheckBoxPreference) findPreference(KEY_DYNAMIC_QS_TILE);
+        mDynamicQsTile = (SwitchPreference) findPreference(KEY_DYNAMIC_QS_TILE);
         mDynamicQsTile.setPersistent(false);
 
-        mDynamicIconTint = (CheckBoxPreference) findPreference(KEY_DYNAMIC_ICON_TINT);
+        mDynamicIconTint = (SwitchPreference) findPreference(KEY_DYNAMIC_ICON_TINT);
         mDynamicIconTint.setPersistent(false);
 
-        mDynamicTransPs = (CheckBoxPreference) findPreference(KEY_DYNAMIC_TRANS_PS);
+        mDynamicTransPs = (SwitchPreference) findPreference(KEY_DYNAMIC_TRANS_PS);
         mDynamicTransPs.setPersistent(false);
 
-        updateDynamicSystemBarsCheckboxes();
+        updateDynamicSystemBarsSwitches();
+
     }
-        
-    private void updateDynamicSystemBarsCheckboxes () {
+
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        final Resources res = getResources();
+        ContentResolver resolver = getActivity().getContentResolver();
+        if (preference == mDynamicStatusBar) {
+            Settings.System.putInt(resolver,
+                Settings.System.DYNAMIC_STATUS_BAR_STATE,
+                mDynamicStatusBar.isChecked() ? 1 : 0);
+            updateDynamicSystemBarsSwitches();
+        } else if (preference == mDynamicNavigationBar) {
+            Settings.System.putInt(resolver,
+                Settings.System.DYNAMIC_NAVIGATION_BAR_STATE,
+                mDynamicNavigationBar.isChecked() && res.getDimensionPixelSize(
+                    res.getIdentifier("navigation_bar_height", "dimen", "android")) > 0 ?
+                        1 : 0);
+            updateDynamicSystemBarsSwitches();
+        } else if (preference == mDynamicStatusBarFilter) {
+            final boolean enableFilter = mDynamicStatusBarFilter.isChecked();
+            Settings.System.putInt(resolver,
+                Settings.System.DYNAMIC_STATUS_BAR_FILTER_STATE,
+                    enableFilter ? 1 : 0);
+            if (enableFilter) {
+                Settings.System.putInt(resolver,
+                    Settings.System.DYNAMIC_SYSTEM_BARS_GRADIENT_STATE, 0);
+            }
+            updateDynamicSystemBarsSwitches();
+        } else if (preference == mDynamicSystemBarsGradient) {
+            final boolean enableGradient = mDynamicSystemBarsGradient.isChecked();
+            Settings.System.putInt(resolver,
+                Settings.System.DYNAMIC_SYSTEM_BARS_GRADIENT_STATE,
+                    enableGradient ? 1 : 0);
+            if (enableGradient) {
+                Settings.System.putInt(resolver,
+                    Settings.System.DYNAMIC_STATUS_BAR_FILTER_STATE, 0);
+            }
+            updateDynamicSystemBarsSwitches();
+        } else if (preference == mDynamicHeader) {
+            Settings.System.putInt(resolver,
+                Settings.System.DYNAMIC_HEADER_STATE,
+                mDynamicHeader.isChecked() ? 1 : 0);
+            updateDynamicSystemBarsSwitches();
+        } else if (preference == mDynamicQsTile) {
+            Settings.System.putInt(resolver,
+                Settings.System.DYNAMIC_QS_TILE_STATE,
+                mDynamicQsTile.isChecked() ? 1 : 0);
+            updateDynamicSystemBarsSwitches();
+        } else if (preference == mDynamicIconTint) {
+            Settings.System.putInt(resolver,
+                Settings.System.DYNAMIC_ICON_TINT_STATE,
+                mDynamicIconTint.isChecked() ? 1 : 0);
+            updateDynamicSystemBarsSwitches();
+        } else if (preference == mDynamicTransPs) {
+            Settings.System.putInt(resolver,
+                Settings.System.DYNAMIC_TRANSPARENT_PS,
+                mDynamicTransPs.isChecked() ? 1 : 0);
+            updateDynamicSystemBarsSwitches();
+        }
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
+    }
+
+    private void updateDynamicSystemBarsSwitches () {
         final Resources res = getResources();
         ContentResolver resolver = getActivity().getContentResolver();
 
@@ -132,65 +190,5 @@ public class DSBSettings extends SettingsPreferenceFragment {
         mDynamicIconTint.setChecked(isStatusBarColor);
 
         mDynamicTransPs.setChecked(isTransPs);
-    }
-
-    @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        final Resources res = getResources();
-        ContentResolver resolver = getActivity().getContentResolver();
-        if (preference == mDynamicStatusBar) {
-            Settings.System.putInt(resolver,
-                Settings.System.DYNAMIC_STATUS_BAR_STATE,
-                mDynamicStatusBar.isChecked() ? 1 : 0);
-            updateDynamicSystemBarsCheckboxes();
-        } else if (preference == mDynamicNavigationBar) {
-            Settings.System.putInt(resolver,
-                Settings.System.DYNAMIC_NAVIGATION_BAR_STATE,
-                mDynamicNavigationBar.isChecked() && res.getDimensionPixelSize(
-                    res.getIdentifier("navigation_bar_height", "dimen", "android")) > 0 ?
-                        1 : 0);
-            updateDynamicSystemBarsCheckboxes();
-        } else if (preference == mDynamicSystemBarsGradient) {
-            final boolean enableGradient = mDynamicSystemBarsGradient.isChecked();
-            Settings.System.putInt(resolver,
-                Settings.System.DYNAMIC_SYSTEM_BARS_GRADIENT_STATE,
-                enableGradient ? 1 : 0);
-            if (enableGradient) {
-                Settings.System.putInt(resolver,
-                    Settings.System.DYNAMIC_STATUS_BAR_FILTER_STATE, 0);
-            }
-            updateDynamicSystemBarsCheckboxes();
-        } else if (preference == mDynamicStatusBarFilter) {
-            final boolean enableFilter = mDynamicStatusBarFilter.isChecked();
-            Settings.System.putInt(resolver,
-                Settings.System.DYNAMIC_STATUS_BAR_FILTER_STATE,
-                enableFilter ? 1 : 0);
-            if (enableFilter) {
-                Settings.System.putInt(resolver,
-                    Settings.System.DYNAMIC_SYSTEM_BARS_GRADIENT_STATE, 0);
-            }
-            updateDynamicSystemBarsCheckboxes();
-        } else if (preference == mDynamicHeader) {
-            Settings.System.putInt(resolver,
-                Settings.System.DYNAMIC_HEADER_STATE,
-                mDynamicHeader.isChecked() ? 1 : 0);
-            updateDynamicSystemBarsCheckboxes();
-        } else if (preference == mDynamicQsTile) {
-            Settings.System.putInt(resolver,
-                Settings.System.DYNAMIC_QS_TILE_STATE,
-                mDynamicQsTile.isChecked() ? 1 : 0);
-            updateDynamicSystemBarsCheckboxes();
-        } else if (preference == mDynamicIconTint) {
-            Settings.System.putInt(resolver,
-                Settings.System.DYNAMIC_ICON_TINT_STATE,
-                mDynamicIconTint.isChecked() ? 1 : 0);
-            updateDynamicSystemBarsCheckboxes();
-        } else if (preference == mDynamicTransPs) {
-            Settings.System.putInt(resolver,
-                Settings.System.DYNAMIC_TRANSPARENT_PS,
-                mDynamicTransPs.isChecked() ? 1 : 0);
-            updateDynamicSystemBarsCheckboxes();
-        }
-        return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 }

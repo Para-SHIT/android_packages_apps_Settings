@@ -1791,7 +1791,7 @@
 
     <!-- Dynamic System Bars -->
     <string name="dynamic_system_bars_cat">Dynamic system bars</string>
-    <string name="dynamic_system_bars_more_cat">Advanced of DSB</string>
+    <string name="dynamic_system_bars_more_cat">More dynamic option</string>
     <string name="dynamic_system_bars_title">Dynamic system bars</string>
     <string name="dynamic_system_bars_summary">Customize of background system bars</string>
     <string name="dynamic_status_bar_title">Dynamic status bar</string>
@@ -1804,8 +1804,8 @@
     <string name="dynamic_status_bar_filter_summary">Overlay a darkening filter on the status bar</string>
     <string name="dynamic_header_title">Dynamic header</string>
     <string name="dynamic_header_summary">Automatically update the background of the notification header</string>
-    <string name="dynamic_qs_tile_title">Dynamic QS tile</string>
-    <string name="dynamic_qs_tile_summary">Automatically update the background of the QS tile</string>
+    <string name="dynamic_qs_tile_title">Dynamic qs panel</string>
+    <string name="dynamic_qs_tile_summary">Automatically update the background of the qs panel</string>
     <string name="dynamic_navbar_icon_tint">Navbar icon tint</string>
     <string name="dynamic_navbar_icon_tint_summary">Use statusbar dynamic color as navigation bar icon tint</string>
     <string name="dynamic_system_bars_trans_ps_title">Transparent play store</string>
