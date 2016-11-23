@@ -23,25 +23,16 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.database.ContentObserver;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.UserHandle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
-import android.preference.SwitchPreference;
 import android.provider.SearchIndexableResource;
 import android.provider.Settings;
-import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.TextUtils;
-import android.provider.Settings.SettingNotFoundException;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -51,7 +42,6 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
-import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.temasek.SeekBarPreference;
 
 import java.util.ArrayList;
@@ -65,25 +55,25 @@ public class CarrierLabel extends SettingsPreferenceFragment
     private static final String TAG = "CarrierLabel";
 
     private static final String STATUS_BAR_CUSTOM_CARRIER = "status_bar_custom_carrier";
+    private static final String STATUS_BAR_CARRIER_SPOT = "status_bar_carrier_spot";
     private static final String CUSTOM_CARRIER_LABEL = "custom_carrier_label";
-    private static final String STATUS_BAR_CARRIER_FONT_SIZE  = "status_bar_carrier_font_size";
     private static final String STATUS_BAR_CARRIER_COLOR = "status_bar_carrier_color";
     private static final String STATUS_BAR_CARRIER_FONT_STYLE = "status_bar_carrier_font_style";
+    private static final String STATUS_BAR_CARRIER_FONT_SIZE  = "status_bar_carrier_font_size";
 
-    private static final int DEFAULT_STATUS_CARRIER_COLOR = 0xffffffff;
-    private static final int TEMASEK_BLUE = 0xff33b5e5;
+    private static final int DEFAULT = 0xffffffff;
 
     private static final int MENU_RESET = Menu.FIRST;
     private static final int DLG_RESET = 0;
 
+    private ContentResolver mResolver;
     private ListPreference mStatusBarCarrier;
+    private ListPreference mStatusBarCarrierSpot;
     private PreferenceScreen mCustomCarrierLabel;
     private String mCustomCarrierLabelText;
-    private SeekBarPreference mStatusBarCarrierSize;
     private ColorPickerPreference mCarrierColorPicker;
     private ListPreference mStatusBarCarrierFontStyle;
-
-    private ContentResolver mResolver;
+    private SeekBarPreference mStatusBarCarrierSize;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,33 +86,31 @@ public class CarrierLabel extends SettingsPreferenceFragment
         if (prefs != null) {
             prefs.removeAll();
         }
-
         addPreferencesFromResource(R.xml.temasek_carrierlabel);
-
-        PreferenceScreen prefSet = getPreferenceScreen();
         mResolver = getActivity().getContentResolver();
-
-        int intColor;
-        String hexColor;
 
         mStatusBarCarrier = (ListPreference) findPreference(STATUS_BAR_CUSTOM_CARRIER);
         int statusBarCarrier = Settings.System.getInt(mResolver,
-                    Settings.System.STATUS_BAR_CUSTOM_CARRIER, 1);
+                Settings.System.STATUS_BAR_CUSTOM_CARRIER, 1);
         mStatusBarCarrier.setValue(String.valueOf(statusBarCarrier));
         mStatusBarCarrier.setSummary(mStatusBarCarrier.getEntry());
         mStatusBarCarrier.setOnPreferenceChangeListener(this);
-        mCustomCarrierLabel = (PreferenceScreen) prefSet.findPreference(CUSTOM_CARRIER_LABEL);
 
-        mStatusBarCarrierSize = (SeekBarPreference) findPreference(STATUS_BAR_CARRIER_FONT_SIZE);
-        mStatusBarCarrierSize.setValue(Settings.System.getInt(mResolver,
-                Settings.System.STATUS_BAR_CARRIER_FONT_SIZE, 14));
-        mStatusBarCarrierSize.setOnPreferenceChangeListener(this);
+        mStatusBarCarrierSpot = (ListPreference) findPreference(STATUS_BAR_CARRIER_SPOT);
+        int statusBarCarrierSpot = Settings.System.getIntForUser(mResolver,
+                Settings.System.STATUS_BAR_CARRIER_SPOT, 0,
+                UserHandle.USER_CURRENT);
+        mStatusBarCarrierSpot.setValue(String.valueOf(statusBarCarrierSpot));
+        mStatusBarCarrierSpot.setSummary(mStatusBarCarrierSpot.getEntry());
+        mStatusBarCarrierSpot.setOnPreferenceChangeListener(this);
+
+        mCustomCarrierLabel = (PreferenceScreen) findPreference(CUSTOM_CARRIER_LABEL);
 
         mCarrierColorPicker = (ColorPickerPreference) findPreference(STATUS_BAR_CARRIER_COLOR);
         mCarrierColorPicker.setOnPreferenceChangeListener(this);
-        intColor = Settings.System.getInt(mResolver,
-                    Settings.System.STATUS_BAR_CARRIER_COLOR, DEFAULT_STATUS_CARRIER_COLOR);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
+        int intColor = Settings.System.getInt(mResolver,
+                Settings.System.STATUS_BAR_CARRIER_COLOR, DEFAULT);
+        String hexColor = String.format("#%08x", (0xffffffff & intColor));
         mCarrierColorPicker.setSummary(hexColor);
         mCarrierColorPicker.setNewPreviewColor(intColor);
 
@@ -131,6 +119,11 @@ public class CarrierLabel extends SettingsPreferenceFragment
         mStatusBarCarrierFontStyle.setValue(Integer.toString(Settings.System.getInt(mResolver,
                 Settings.System.STATUS_BAR_CARRIER_FONT_STYLE, 0)));
         mStatusBarCarrierFontStyle.setSummary(mStatusBarCarrierFontStyle.getEntry());
+
+        mStatusBarCarrierSize = (SeekBarPreference) findPreference(STATUS_BAR_CARRIER_FONT_SIZE);
+        mStatusBarCarrierSize.setValue(Settings.System.getInt(mResolver,
+                Settings.System.STATUS_BAR_CARRIER_FONT_SIZE, 14));
+        mStatusBarCarrierSize.setOnPreferenceChangeListener(this);
 
         updateCustomLabelTextSummary();
         setHasOptionsMenu(true);
@@ -166,35 +159,42 @@ public class CarrierLabel extends SettingsPreferenceFragment
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mCarrierColorPicker) {
-            String hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.STATUS_BAR_CARRIER_COLOR, intHex);
-            return true;
-        } else if (preference == mStatusBarCarrier) {
+        if (preference == mStatusBarCarrier) {
             int statusBarCarrier = Integer.valueOf((String) newValue);
             int index = mStatusBarCarrier.findIndexOfValue((String) newValue);
             Settings.System.putInt(mResolver,
                     Settings.System.STATUS_BAR_CUSTOM_CARRIER, statusBarCarrier);
             mStatusBarCarrier.setSummary(mStatusBarCarrier.getEntries()[index]);
             return true;
-         } else if (preference == mStatusBarCarrierSize) {
-            int width = ((Integer)newValue).intValue();
-            Settings.System.putInt(mResolver,
-                    Settings.System.STATUS_BAR_CARRIER_FONT_SIZE, width);
+        } else if (preference == mStatusBarCarrierSpot) {
+            int statusBarCarrierSpot = Integer.valueOf((String) newValue);
+            int index = mStatusBarCarrierSpot.findIndexOfValue((String) newValue);
+            Settings.System.putIntForUser(mResolver,
+                    Settings.System.STATUS_BAR_CARRIER_SPOT, statusBarCarrierSpot, UserHandle.USER_CURRENT);
+            mStatusBarCarrierSpot.setSummary(mStatusBarCarrierSpot.getEntries()[index]);
             return true;
-         } else if (preference == mStatusBarCarrierFontStyle) {
+        } else if (preference == mCarrierColorPicker) {
+            String hex = ColorPickerPreference.convertToARGB(
+                    Integer.valueOf(String.valueOf(newValue)));
+            preference.setSummary(hex);
+            int intHex = ColorPickerPreference.convertToColorInt(hex);
+            Settings.System.putInt(mResolver,
+                    Settings.System.STATUS_BAR_CARRIER_COLOR, intHex);
+            return true;
+        } else if (preference == mStatusBarCarrierFontStyle) {
             int val = Integer.parseInt((String) newValue);
             int index = mStatusBarCarrierFontStyle.findIndexOfValue((String) newValue);
             Settings.System.putInt(mResolver,
                     Settings.System.STATUS_BAR_CARRIER_FONT_STYLE, val);
             mStatusBarCarrierFontStyle.setSummary(mStatusBarCarrierFontStyle.getEntries()[index]);
             return true;
-         }
-         return false;
+        } else if (preference == mStatusBarCarrierSize) {
+            int width = ((Integer)newValue).intValue();
+            Settings.System.putInt(mResolver,
+                    Settings.System.STATUS_BAR_CARRIER_FONT_SIZE, width);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -268,11 +268,13 @@ public class CarrierLabel extends SettingsPreferenceFragment
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_CUSTOM_CARRIER, 1);
                             Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.STATUS_BAR_CARRIER_FONT_SIZE, 14);
+                                    Settings.System.STATUS_BAR_CARRIER_SPOT, 0);
                             Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.STATUS_BAR_CARRIER_COLOR, DEFAULT_STATUS_CARRIER_COLOR);
+                                    Settings.System.STATUS_BAR_CARRIER_COLOR, DEFAULT);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_CARRIER_FONT_STYLE, 0);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_CARRIER_FONT_SIZE, 14);
                             getOwner().refreshSettings();
                         }
                     })
@@ -282,11 +284,13 @@ public class CarrierLabel extends SettingsPreferenceFragment
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_CUSTOM_CARRIER, 3);
                             Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.STATUS_BAR_CARRIER_FONT_SIZE, 15);
+                                    Settings.System.STATUS_BAR_CARRIER_SPOT, 0);
                             Settings.System.putInt(getOwner().mResolver,
-                                    Settings.System.STATUS_BAR_CARRIER_COLOR, TEMASEK_BLUE);
+                                    Settings.System.STATUS_BAR_CARRIER_COLOR, 0xff33b5e5);
                             Settings.System.putInt(getOwner().mResolver,
                                     Settings.System.STATUS_BAR_CARRIER_FONT_STYLE, 19);
+                            Settings.System.putInt(getOwner().mResolver,
+                                    Settings.System.STATUS_BAR_CARRIER_FONT_SIZE, 15);
                             getOwner().refreshSettings();
                         }
                     })
@@ -303,23 +307,23 @@ public class CarrierLabel extends SettingsPreferenceFragment
 
     public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
             new BaseSearchIndexProvider() {
-                @Override
-                public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
-                                                                            boolean enabled) {
-                    ArrayList<SearchIndexableResource> result =
-                            new ArrayList<SearchIndexableResource>();
+        @Override
+        public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                boolean enabled) {
+            ArrayList<SearchIndexableResource> result =
+                    new ArrayList<SearchIndexableResource>();
 
-                    SearchIndexableResource sir = new SearchIndexableResource(context);
-                    sir.xmlResId = R.xml.temasek_carrierlabel;
-                    result.add(sir);
+            SearchIndexableResource sir = new SearchIndexableResource(context);
+            sir.xmlResId = R.xml.temasek_carrierlabel;
+            result.add(sir);
 
-                    return result;
-                }
+            return result;
+        }
 
-                @Override
-                public List<String> getNonIndexableKeys(Context context) {
-                    ArrayList<String> result = new ArrayList<String>();
-                    return result;
-                }
-            };
+        @Override
+        public List<String> getNonIndexableKeys(Context context) {
+            ArrayList<String> result = new ArrayList<String>();
+            return result;
+        }
+    };
 }

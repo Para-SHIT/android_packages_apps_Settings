@@ -715,7 +715,10 @@
     <string name="show_carrier_statusbar">Statusbar only</string>
     <string name="show_carrier_enabled">Lockscreen &amp; statusbar</string>
     <string name="status_bar_carrier_size">Carrier label text size</string>
-    <string name="status_bar_carrier_font_style_title">Carrier Label Font</string>
+    <string name="status_bar_carrier_font_style_title">Carrier label font</string>
+    <string name="status_bar_carrier_spot">Carrier label spot</string>
+    <string name="carrier_label_left_spot">Left</string>
+    <string name="carrier_label_right_spot">Right</string>
 
     <!-- Show bluetooth icon when disconnected -->
     <string name="status_bar_bluetooth_icon">Bluetooth icon</string>
