@@ -57,6 +57,12 @@
         android:dependency="heads_up_notifications_enabled"
         android:persistent="false" />
 
+    <!-- Notification guts kill app button -->
+    <in.parashit.preference.SystemSettingSwitchPreference
+        android:key="notification_guts_kill_app_button"
+        android:title="@string/notification_guts_kill_app_button_title"
+        android:summary="@string/notification_guts_kill_app_button_summary" />
+
     <!-- Lights -->
     <PreferenceCategory
         android:key="lights"

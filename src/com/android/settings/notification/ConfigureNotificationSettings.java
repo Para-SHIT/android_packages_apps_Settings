@@ -42,6 +42,8 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 import com.android.settingslib.RestrictedLockUtils;
 
+import in.parashit.utils.Helpers;
+
 import java.util.ArrayList;
 
 import static android.app.admin.DevicePolicyManager.KEYGUARD_DISABLE_SECURE_NOTIFICATIONS;
@@ -58,6 +60,8 @@ public class ConfigureNotificationSettings extends SettingsPreferenceFragment
             "lock_screen_notifications_profile";
     private static final String PREF_HEADS_UP_TIME_OUT = "heads_up_time_out";
     private static final String PREF_HEADS_UP_SNOOZE_TIME = "heads_up_snooze_time";
+    private static final String NOTIFICATION_GUTS_KILL_APP_BUTTON =
+            "notification_guts_kill_app_button";
 
     private final SettingsObserver mSettingsObserver = new SettingsObserver();
 
@@ -73,6 +77,7 @@ public class ConfigureNotificationSettings extends SettingsPreferenceFragment
     private int mProfileChallengeUserId;
     private ListPreference mHeadsUpTimeOut;
     private ListPreference mHeadsUpSnoozeTime;
+    private Preference mNotificationKill;
 
     @Override
     protected int getMetricsCategory() {
@@ -129,6 +134,8 @@ public class ConfigureNotificationSettings extends SettingsPreferenceFragment
         mHeadsUpSnoozeTime.setValue(String.valueOf(headsUpSnooze));
         updateHeadsUpSnoozeTimeSummary(headsUpSnooze);
 
+        mNotificationKill = findPreference(NOTIFICATION_GUTS_KILL_APP_BUTTON);
+        mNotificationKill.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -430,6 +437,11 @@ public class ConfigureNotificationSettings extends SettingsPreferenceFragment
                     Settings.System.HEADS_UP_NOTIFICATION_SNOOZE,
                     headsUpSnooze);
             updateHeadsUpSnoozeTimeSummary(headsUpSnooze);
+            return true;
+        } else if (preference == mNotificationKill) {
+            // Setting will only apply to new created notifications.
+            // By restarting SystemUI, we can re-create all notifications
+            Helpers.showSystemUIrestartDialog(getActivity());
             return true;
         }
         return false;
