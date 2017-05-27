@@ -75,6 +75,6 @@
         <in.parashit.preference.SystemSettingSwitchPreference
             android:key="lockscreen_battery_info"
             android:title="@string/lockscreen_battery_info_title"
-            android:defaultValue="false" />
+            android:defaultValue="true" />
 
 </PreferenceScreen>
