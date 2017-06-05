@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2016-2017 The ParaSHIT Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <!-- Dashboard ParaSHIT -->
+  <string name="header_category_parashit">Personalisasi</string>
+  <!-- DUI -->
+  <string name="navigation_category">Navigasi</string>
+  <string name="smartbar_settings_title">Setelan Smartbar</string>
+  <string name="fling_settings">Setelan Fling</string>
+  <string name="pulse_settings">Pulse</string>
+  <string name="choose_action_title">Pilih tindakan</string>
+  <string name="icon_pack_picker_dialog_title">Paket ikon</string>
+  <!-- Heads up timeout -->
+  <string name="heads_up_time_out_title">Waktu habis</string>
+  <string name="heads_up_time_out_summary">Pemberitahuan Heads Up akan muncul selama <xliff:g id="number">%d</xliff:g> detik</string>
+  <string name="heads_up_time_out_2sec">2 detik</string>
+  <string name="heads_up_time_out_4sec">4 detik</string>
+  <string name="heads_up_time_out_5sec">5 detik</string>
+  <string name="heads_up_time_out_6sec">6 detik</string>
+  <string name="heads_up_time_out_8sec">8 detik</string>
+  <string name="heads_up_time_out_10sec">10 detik</string>
+  <!-- Heads up snooze -->
+  <string name="heads_up_snooze_title">Pengatur waktu tertidur</string>
+  <string name="heads_up_snooze_summary_one_minute">Mengusap pada pemberitahuan Heads Up akan menunda Heads Up dari aplikasi tersebut selama 1 menit</string>
+  <string name="heads_up_snooze_summary">Mengusap pada pemberitahuan Heads Up akan menunda Heads Up dari aplikasi tersebut selama <xliff:g id="number">%d</xliff:g> menit</string>
+  <string name="heads_up_snooze_disabled_summary">Pengatur waktu tertidur diamtikan</string>
+  <string name="heads_up_snooze_1min">1 menit</string>
+  <string name="heads_up_snooze_5min">5 menit</string>
+  <string name="heads_up_snooze_10min">10 menit</string>
+  <string name="heads_up_snooze_15min">15 menit</string>
+  <string name="heads_up_snooze_20min">20 menit</string>
+  <!-- Screenshot sound -->
+  <string name="screenshot_sound_title">Suara tangkapan layar</string>
+  <!-- Lockscreen clock, date & alarm -->
+  <string name="lockscreen_clock_title">Tampilkan jam</string>
+  <string name="lockscreen_date_title">Tampilkan tanggal</string>
+  <string name="lockscreen_alarm_title">Tampilkan alarm</string>
+  <!-- Lockscreen battery info indicator  -->
+  <string name="lockscreen_battery_info_title">Tampilkan info baterai</string>
+  <!-- Long press back to kill configurable timeout -->
+  <string name="kill_app_longpress_timeout_title">Waktu habis tekan lama Back</string>
+  <string name="timeout_2000">2 detik (standar)</string>
+  <string name="timeout_1500">1,5 detik</string>
+  <string name="timeout_1000">1 detik</string>
+  <string name="timeout_500">0,5 detik</string>
+</resources>
