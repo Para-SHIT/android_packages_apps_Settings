@@ -69,4 +69,7 @@
     <string name="notification_guts_kill_app_button_title">Kill app button</string>
     <string name="notification_guts_kill_app_button_summary">Show a kill app button in the notification\'s longpress menu</string>
 
+    <!-- Three finger screenshot -->
+    <string name="three_finger_screenshot_title">Three-finger screenshot</string>
+    <string name="three_finger_screenshot_summary">Swipe down with three fingers on the screen to take a screenshot</string>
 </resources>

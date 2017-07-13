@@ -75,4 +75,9 @@
         android:summary="@string/status_bar_double_tap_to_sleep_summary"
         android:defaultValue="true" />
 
+    <com.android.settings.gestures.GesturePreference
+       android:key="gesture_three_finger_screenshot"
+       android:title="@string/three_finger_screenshot_title"
+       android:summary="@string/three_finger_screenshot_summary" />
+
 </PreferenceScreen>
