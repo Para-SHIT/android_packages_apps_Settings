@@ -57,4 +57,10 @@
   <string name="timeout_1500">1,5 detik</string>
   <string name="timeout_1000">1 detik</string>
   <string name="timeout_500">0,5 detik</string>
+  <!-- Notification guts kill app button -->
+  <string name="notification_guts_kill_app_button_title">Tombol tutup app</string>
+  <string name="notification_guts_kill_app_button_summary">Tampilkan tombol tutup app pada menu tekan lama notifikasi</string>
+  <!-- Three finger screenshot -->
+  <string name="three_finger_screenshot_title">Tangkapan layar tiga jari</string>
+  <string name="three_finger_screenshot_summary">Usap ke bawah dengan tiga jari pada layar untuk mengambil tangkapan layar</string>
 </resources>
